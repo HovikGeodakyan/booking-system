@@ -1,0 +1,20 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+
+
+.navbar-default {
+  background-color: #414141;
+  border-color: #e7e7e7;
+}
+
+.login_input{
+	width:50%;
+}
+.logout-button{
+	color:#BEBEBE;
+	float:right;
+	font-size: 20px;
+	top:14px;
+}
