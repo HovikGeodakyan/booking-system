@@ -35,7 +35,7 @@ define('FOPEN_WRITE_CREATE',					'ab');
 define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
-define('URL','http://localhost/mytable/');
+define('URL','http://localhost/booking-system/');
 define('IMG',URL.'media/img/');
 define('CSS',URL.'media/css/');
 define('JS',URL.'media/js/');

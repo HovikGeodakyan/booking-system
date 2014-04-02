@@ -36,13 +36,12 @@
 				</div>
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<p class="nav navbar-nav concert">CONCERT TODAY: Necromancer introducing Mozart at 8pm</p>
+			<p class="nav navbar-nav concert">CONCERT DAY: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
 				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group input-group form-group-custom">
+					<div class="form-group input-group">
 						<input type="text" class="form-control" placeholder="Search">
 					</div>
 				</form>
-			<p class="nav navbar-nav time">13:50</p>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#">Statistics</a></li>
 					<li><a href="#">Settings</a></li>

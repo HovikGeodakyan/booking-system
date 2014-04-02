@@ -2,19 +2,45 @@
 	margin:0px;
 	padding:0px;
 }
-
-
-.navbar-default {
-  background-color: #414141;
-  border-color: #e7e7e7;
+.navbar-brand-custom{
+	width:180px;
+}
+.form-group-custom{
+	width:280px;
+}
+.navbar-brand-custom form button span{
+	font-size:20px;
+}
+.concert{
+	padding: 21px;
+}
+.time{
+	font-size:20px;
+	padding: 17px;
 }
 
-.login_input{
-	width:50%;
+
+#timeSheet, td, th{
+	border: 1px solid #ccc;
+	border-collapse:collapse;
 }
-.logout-button{
-	color:#BEBEBE;
-	float:right;
-	font-size: 20px;
-	top:14px;
+
+td, th{
+	text-align: center;
+	width:30px;
+	height:30px;
+}
+
+.t_hour {
+	height: 20px;
+}
+
+#timeSheet {
+	margin: 0 auto;
+}
+.checkboxes div{
+	width:100px;
+}
+.checkboxes{
+	margin-left: 20px;
 }
