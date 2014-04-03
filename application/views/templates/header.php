@@ -1,53 +1,174 @@
 <html>
 	<head>
 		<title><?php echo $title; ?> | MyTable</title>
-		<link rel="stylesheet" href="<?php echo(CSS.'bootstrap.css'); ?>"/>
-		<link rel="stylesheet" href="<?php echo(CSS.'app.css'); ?>"/>
-		<link rel="stylesheet" href="<?php echo(JS.'datepicker/datepicker.css'); ?>"/>
-		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/>
-		<script src="<?php echo(JS.'jquery.js'); ?>"></script>
-		<script src="<?php echo(JS.'bootstrap.min.js'); ?>"></script>
-		<script src="<?php echo(JS.'datepicker/bootstrap-datepicker.js'); ?>"></script>
-		<script>
-			$(function(){
-				$('#datepicker').datepicker()
-			})
-		</script>
+		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/>		
+		<link rel="stylesheet" href="<?php echo(JS.'theme/css/bootstrap.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(JS.'theme/css/animate.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(JS.'theme/css/font-awesome.min.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(JS.'theme/css/icon.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(JS.'theme/css/font.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(JS.'theme/css/app.css'); ?>" type="text/css" />  
+		<link rel="stylesheet" href="<?php echo(JS.'theme/js/calendar/bootstrap_calendar.css'); ?>" type="text/css" />
 	</head>
 	<body>
-		<nav class="navbar navbar-default bg-white header header-md navbar navbar-fixed-top-xs box-shadow" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<div class="navbar-brand navbar-brand-custom">
-					<form class="navbar-form" role="search">
-						<div class="form-group input-group">
-							<input id="datepicker" type="text" class="form-control" placeholder="02.04.2014" data-date-format="mm.dd.yyyy">
-							<span class="input-group-btn">
-								
-							</span>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<p class="nav navbar-nav concert">CONCERT TODAY: Necromancer introducing Mozart at 8pm</p>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group input-group form-group-custom">
-						<input type="text" class="form-control" placeholder="Search">
-					</div>
-				</form>
-			<p class="nav navbar-nav time">13:50</p>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Statistics</a></li>
-					<li><a href="#">Settings</a></li>
-					<li><a href="#">Logout</a></li>
-				</ul>
-			</div><!-- /.navbar-collapse -->
-		</div><!-- /.container-fluid -->
-	</nav>
+	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+      <div class="navbar-header aside-md dk">
+        <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
+          <i class="fa fa-bars"></i>
+        </a>
+        <a href="index.html" class="navbar-brand">
+          <img src="<?php echo(JS.'theme/images/logo.png'); ?>" class="m-r-sm" alt="scale">
+          <span class="hidden-nav-xs">Scale</span>
+        </a>
+        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+          <i class="fa fa-cog"></i>
+        </a>
+      </div>
+      <ul class="nav navbar-nav hidden-xs">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="i i-grid"></i>
+          </a>
+          <section class="dropdown-menu aside-lg bg-white on animated fadeInLeft">
+            <div class="row m-l-none m-r-none m-t m-b text-center">
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <a href="#">
+                    <span class="m-b-xs block">
+                      <i class="i i-mail i-2x text-primary-lt"></i>
+                    </span>
+                    <small class="text-muted">Mailbox</small>
+                  </a>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <a href="#">
+                    <span class="m-b-xs block">
+                      <i class="i i-calendar i-2x text-danger-lt"></i>
+                    </span>
+                    <small class="text-muted">Calendar</small>
+                  </a>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <a href="#">
+                    <span class="m-b-xs block">
+                      <i class="i i-map i-2x text-success-lt"></i>
+                    </span>
+                    <small class="text-muted">Map</small>
+                  </a>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <a href="#">
+                    <span class="m-b-xs block">
+                      <i class="i i-paperplane i-2x text-info-lt"></i>
+                    </span>
+                    <small class="text-muted">Trainning</small>
+                  </a>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <a href="#">
+                    <span class="m-b-xs block">
+                      <i class="i i-images i-2x text-muted"></i>
+                    </span>
+                    <small class="text-muted">Photos</small>
+                  </a>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <a href="#">
+                    <span class="m-b-xs block">
+                      <i class="i i-clock i-2x text-warning-lter"></i>
+                    </span>
+                    <small class="text-muted">Timeline</small>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button>
+            </span>
+            <input type="text" class="form-control input-sm no-border" placeholder="Search apps, projects...">            
+          </div>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
+        <li class="hidden-xs">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="i i-chat3"></i>
+            <span class="badge badge-sm up bg-danger count">2</span>
+          </a>
+          <section class="dropdown-menu aside-xl animated flipInY">
+            <section class="panel bg-white">
+              <div class="panel-heading b-light bg-light">
+                <strong>You have <span class="count">2</span> notifications</strong>
+              </div>
+              <div class="list-group list-group-alt">
+                <a href="#" class="media list-group-item">
+                  <span class="pull-left thumb-sm">
+                    <img src="<?php echo(JS.'theme/images/a0.png'); ?>" alt="..." class="img-circle">
+                  </span>
+                  <span class="media-body block m-b-none">
+                    Use awesome animate.css<br>
+                    <small class="text-muted">10 minutes ago</small>
+                  </span>
+                </a>
+                <a href="#" class="media list-group-item">
+                  <span class="media-body block m-b-none">
+                    1.0 initial released<br>
+                    <small class="text-muted">1 hour ago</small>
+                  </span>
+                </a>
+              </div>
+              <div class="panel-footer text-sm">
+                <a href="#" class="pull-right"><i class="fa fa-cog"></i></a>
+                <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
+              </div>
+            </section>
+          </section>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="thumb-sm avatar pull-left">
+              <img src="<?php echo(JS.'theme/images/a0.png'); ?>" alt="...">
+            </span>
+            John.Smith <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu animated fadeInRight">            
+            <li>
+              <span class="arrow top"></span>
+              <a href="#">Settings</a>
+            </li>
+            <li>
+              <a href="profile.html">Profile</a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="badge bg-danger pull-right">3</span>
+                Notifications
+              </a>
+            </li>
+            <li>
+              <a href="docs.html">Help</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>      
+    </header>
