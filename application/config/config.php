@@ -69,7 +69,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= 'en';
 
 /*
 |--------------------------------------------------------------------------
@@ -360,7 +360,7 @@ $config['proxy_ips'] = '';
 
 
 //java script
-$config['javascript_location'] = 'http://localhost/codeigniter/media/js/';
+$config['javascript_location'] = 'http://localhost/booking_system/media/js/';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

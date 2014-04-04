@@ -1,0 +1,15 @@
+.red{
+	background: red;
+	color: blue;
+}
+.red div{
+	background: red;
+	color: blue;
+}
+.scheduler_default_corner {
+	width: 79px!important;
+	border-right:1px solid #ccc;
+}
+.scheduler_default_corner div {
+	display: none;
+}

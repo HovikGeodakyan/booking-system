@@ -22,9 +22,9 @@
 				</div>
 				<div class="modal-body">
 					<form id="loginForm" action="login/signin" method="post">
-						<label>User</label><br><input class="form-control login_input" name="username"/>
+						<label><?php echo _already_user_1; ?></label><br><input class="form-control login_input" name="username"/>
 						<br><br>
-						<label>Password</label><br><input type="password" class="form-control login_input" name="password"/>
+						<label><?php echo _password; ?></label><br><input type="password" class="form-control login_input" name="password"/>
 					</form>
 				</div>
 				<div class="modal-footer login-modal-footer">
