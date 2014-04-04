@@ -9,22 +9,33 @@
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/font.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/app.css'); ?>" type="text/css" />  
 		<link rel="stylesheet" href="<?php echo(JS.'theme/js/calendar/bootstrap_calendar.css'); ?>" type="text/css" />
+		<!-- Our Custom Css -->
+		<link rel="stylesheet" href="<?php echo(JS.'custom.css'); ?>" type="text/css" />
 	</head>
 	<body>
 	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
-      <div class="navbar-header aside-md dk">
+      <div class="navbar-header aside-md dk nav-header-custom">
         <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
           <i class="fa fa-bars"></i>
         </a>
         <a href="index.html" class="navbar-brand">
-          <img src="<?php echo(JS.'theme/images/logo.png'); ?>" class="m-r-sm" alt="scale">
-          <span class="hidden-nav-xs">Scale</span>
+          <!-- <img src="<?php echo(JS.'theme/images/logo.png'); ?>" class="m-r-sm" alt="scale"> -->
+          <i class="fa fa-calendar"></i>
+          <span class="hidden-nav-xs">Calendar</span>
         </a>
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
           <i class="fa fa-cog"></i>
         </a>
       </div>
-      <ul class="nav navbar-nav hidden-xs">
+
+      <div class="navbar-header aside-md dk nav-header-custom">
+      	<a href="index.html" class="navbar-brand">
+ 			<i class="i i-clock2"></i>
+         	 <span class="hidden-nav-xs">Today</span>
+      	</a>
+      </div>
+
+ <!--      <ul class="nav navbar-nav hidden-xs">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="i i-grid"></i>
@@ -94,7 +105,7 @@
             </div>
           </section>
         </li>
-      </ul>
+      </ul> -->
       <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
         <div class="form-group">
           <div class="input-group">
