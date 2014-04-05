@@ -19,6 +19,7 @@ foreach($result as $row) {
   $e->resource = $row['resource'];
   $e->bubbleHtml = "Event details: <br/>".$e->text;
   $events[] = $e;
+  var_dump($events);
 }
 
 header('Content-Type: application/json');

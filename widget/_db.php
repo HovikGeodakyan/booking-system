@@ -8,7 +8,7 @@ $user="root";
 $pass='';
 $db = new PDO('mysql:host=localhost;dbname=widget', $user, $pass);
 
-$result =  $db->prepare("SHOW TABLES LIKE 'events'");
+$result = $db->prepare("SHOW TABLES LIKE 'events'");
 $result->execute();
 $result = $result->fetchAll();
 if($result == NULL) {

@@ -79,7 +79,7 @@
                 dp.cellGroupBy = "Hour";
                 dp.days = dp.startDate.daysInMonth();
                 dp.cellDuration = 15; // one day
-                dp.startDate = new DayPilot.Date("2014-04-05 02:00");
+                dp.startDate = new DayPilot.Date();
                 dp.days = 1;
                 dp.moveBy = 'Full';
                 dp.showToolTip = true;
@@ -104,10 +104,12 @@
 
                 // no events at startup, we will load them later using loadEvents()
                 dp.events.list = [];
-
+                // dp.onEventClicked=function(args){
+                //   alert("Event value: "+ args.e.value());
+                // }
                 dp.treeEnabled = false;
                 dp.rowHeaderWidthAutoFit = true; // TODO fix for tree
-                dp.rowHeaderWidth = 100;
+                dp.rowHeaderWidth = 25;
 
                 // 
                 dp.resources = [
@@ -130,24 +132,24 @@
 
                 // http://api.daypilot.org/daypilot-scheduler-onbeforeeventrender/
                 dp.onBeforeEventRender = function(args) {
-                    console.log(args)
-                    args.e.cssClass = "test";
+                    // console.log(args)
+                    // args.e.cssClass = "test";
                     args.e.innerHTML = args.e.text + ":";
                 };
 
                 var i=0; // see http://api.daypilot.org/daypilot-scheduler-onbeforecellrender/ 
                 dp.onBeforeCellRender = function(args) {
-                   console.log(args)
-                   if (args.cell.start.getDatePart().getTime() === new DayPilot.Date().getDatePart().getTime()) {
-                      args.cell.backColor = "silver";
+                   if(i == 0) {
+                    console.log(args.cell.start.ticks, new DayPilot.Date());i++;
+                   }
+                   if (args.cell.start.ticks <= new DayPilot.Date().ticks) {
+                      args.cell.backColor = "#DDDADA";
                   }
                  
                    if(args.cell.resource === 'D') {
                           args.cell.backColor = "#fff";
                           args.cell.cssClass = 'no_border';
-                          i++;
-
-                      
+                          i++;  
                     }
                 };
 
@@ -170,87 +172,98 @@
 
                 // http://api.daypilot.org/daypilot-scheduler-oneventmoved/ 
                 dp.onEventMoved = function (args) {
-                    DayPilot.request(
-                        "backend_move.php", 
-                        function(req) { // success
-                            var response = eval("(" + req.responseText + ")");
-                            if (response && response.result) {
-                                dp.message("Moved: " + response.message);
-                            }
-                        },
-                        args,
-                        function(req) {  // error
-                            dp.message("Saving failed");
-                        }
-                    );        
+
+                    $.post("scheduler/move", 
+                    {
+                        id: args.e.id(),
+                        newStart: args.newStart.toString(),
+                        newEnd: args.newEnd.toString(),
+                        newResource: args.newResource
+                    }, 
+                    function(data) {
+                      console.log(args.e)
+                        dp.message("Moved");
+                    });
                 };
 
                 // http://api.daypilot.org/daypilot-scheduler-oneventresized/ 
                 dp.onEventResized = function (args) {
-                    DayPilot.request(
-                        "backend_resize.php", 
-                        function(req) { // success
-                            var response = eval("(" + req.responseText + ")");
-                            if (response && response.result) {
-                                dp.message("Resized: " + response.message);
-                            }
-                        },
-                        args,
-                        function(req) {  // error
-                            dp.message("Saving failed");
+                    $.post("scheduler/resize", 
+                    {
+                        id: args.e.id(),
+                        newStart: args.newStart.toString(),
+                        newEnd: args.newEnd.toString(),
+                        resource: args.e.resource()
+                    }, 
+                    function(data) {
+                        if(data.result=="NOK"){
+                          dp.message(data.message);
+                          args.e.end().d=args.e.part.end.d;
+                          console.log(args.e.part.end);
+                          console.log(args.e.end().d);
+                          dp.events.update(args.e);
+                        }else{
+                          dp.message("Resized");
                         }
-                    );    
+                    });
                 };
 
                 // event creating
                 // http://api.daypilot.org/daypilot-scheduler-ontimerangeselected/
                 dp.onTimeRangeSelected = function (args) {
+                    console.log(args)
+                    // Disable event creation in Time < Current Time
+                    if(args.start.ticks < new DayPilot.Date().ticks) {
+                      dp.message('Wrong Time');
+                      dp.clearSelection();
+                      return false;
+                    }
                     var name = prompt("New event name:", "Event");
                     dp.clearSelection();
                     if (!name) return;
-                    var e = new DayPilot.Event({
-                        start: args.start,
-                        end: args.end,
-                        id: DayPilot.guid(),
-                        resource: args.resource,
-                        text: name
-                    });
-                    dp.events.add(e);
 
-                    args.text = name;
-
-                    DayPilot.request(
-                        "backend_create.php", 
-                        function(req) { // success
-                            var response = eval("(" + req.responseText + ")");
-                            if (response && response.result) {
-                                dp.message("Created: " + response.message);
-                            }
-                        },
-                        args,
-                        function(req) {  // error
-                            dp.message("Saving failed");
-                        }
-                    ); 
+                    $.post("scheduler/create", 
+                        {
+                            start: args.start.toString(),
+                            end: args.end.toString(),
+                            resource: args.resource,
+                            name: name
+                        }, 
+                        function(data) {
+                          console.log(data);
+                            var e = new DayPilot.Event({
+                                start: args.start,
+                                end: args.end,
+                                id: data.id,
+                                resource: args.resource,
+                                text: name
+                            });
+                            dp.events.add(e);
+                            dp.message(data.message);
+                        });
                 };
 
                 // http://api.daypilot.org/daypilot-scheduler-oneventclick/
-                dp.onEventClick = function(args) {
-                    alert("clicked: " + args.e.id());
-                };
+
 
                 dp.init();
 
                 loadEvents();
 
                 function loadEvents() {
-                    DayPilot.request("backend_events.php", function(result) {
-                        var data = eval("(" + result.responseText + ")");
-                        for(var i = 0; i < data.length; i++) {
-                            var e = new DayPilot.Event(data[i]);                
-                            dp.events.add(e);
+                    var start = dp.startDate;
+                    var end = dp.startDate.addDays(dp.days);
+                    
+                    $.post("scheduler/events", 
+                        {
+                            start: start.toString(),
+                            end: end.toString()
+                        },
+                        function(data) {
+                            dp.events.list = data;
+                            dp.update();
                         }
-                    });
+                    );
                 }
 
             </script>

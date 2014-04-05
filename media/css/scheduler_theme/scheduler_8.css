@@ -71,7 +71,7 @@
 
 .scheduler_8_main 
 {
-	border: 1px solid #999;
+	/*border: 1px solid #999;*/
 	background: #ffffff;
 }
 
@@ -89,14 +89,18 @@
 	color: #fff;
 	background: #045776;
 }
-
+.scheduler_8_corner div {
+	background-color: transparent  !important;
+	color:transparent !important;
+}
 .scheduler_8_timeheadergroup,
 .scheduler_8_timeheadercol,
 .scheduler_8_rowheader,
 .scheduler_8_corner
 {
-	color: #ffffff;
-	background: #646464;
+	color: #ccc;
+	font-weight: bold;
+	background: transparent;
 
 	-ms-transition: background-color .3s linear;
 	-moz-transition: background-color .3s linear;

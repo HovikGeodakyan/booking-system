@@ -85,9 +85,7 @@
 
                 // http://api.daypilot.org/daypilot-scheduler-oneventmoved/ 
                 dp.onEventMoved = function (args) {
-                    args.e.BackgroundColor="green";
-                    console.log(args.e.BackgroundColor);
-                    $.post("backend_move.php", 
+                    $.post("scheduler/move", 
                     {
                         id: args.e.id(),
                         newStart: args.newStart.toString(),

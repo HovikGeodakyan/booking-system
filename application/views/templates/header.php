@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title><?php echo $title; ?> | MyTable</title>
-		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/>		
+<!-- 		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/>		 -->
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/bootstrap.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/animate.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/font-awesome.min.css'); ?>" type="text/css" />
