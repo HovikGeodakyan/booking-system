@@ -9,8 +9,17 @@
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/font.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/app.css'); ?>" type="text/css" />  
 		<link rel="stylesheet" href="<?php echo(JS.'theme/js/calendar/bootstrap_calendar.css'); ?>" type="text/css" />
-		<!-- Our Custom Css -->
+		
+    <!-- Sheduler -->
+    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'layout.css'); ?>" />    
+    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler_theme/scheduler_8.css'); ?>" />    
+    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler_theme/bubble_default.css'); ?>" />    
+    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler_theme/navigator_white.css'); ?>" />    
+    <!-- Our Custom Css -->
 		<link rel="stylesheet" href="<?php echo(JS.'custom.css'); ?>" type="text/css" />
+
+    <script src="<?php echo(JS.'daypilot-all.min.js'); ?>"></script>
+    <script src="<?php echo(JS.'theme/js/jquery.min.js'); ?>"></script>
 	</head>
 	<body>
 	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
