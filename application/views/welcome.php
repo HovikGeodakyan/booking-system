@@ -4,6 +4,7 @@
         <aside class="bg-black aside-md hidden-print" id="nav">          
           <section class="vbox">
             <section class="w-f scrollable">
+
               <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
                              <!-- nav -->                 
                 <nav class="nav-primary hidden-xs">
@@ -37,9 +38,6 @@
                         <span class="font-bold">Setup</span>
                       </a>
                     </li>
-
-
-                  
                   </ul>
                 </nav>
                 <!-- / nav -->
@@ -60,14 +58,37 @@
         <!-- /.aside -->
         <section id="content">
           <section class="vbox">          
-            <section class="scrollable wrapper">
+            <section class="scrollable padder">
+                       <section class="row m-b-md">
+                    <div class="col-sm-6">
+
+                      <h3 class="m-b-xs text-black"> <i style="background: #1ccacc; padding: 7px; border-radius: 23px; color: white; width: 39px;" class="fa fa-music"></i>  Concert Today 22:00</h3>
+                      <small>Welcome back, John Smith, <i class="fa fa-map-marker fa-lg text-primary"></i> New York City</small>
+                    </div>
+                    <div class="col-sm-6 text-right text-left-xs m-t-md">
+                      <div class="btn-group">
+                        <a class="btn btn-rounded btn-default b-2x dropdown-toggle" data-toggle="dropdown">Widgets <span class="caret"></span></a>
+                        <ul class="dropdown-menu text-left pull-right">
+                          <li><a href="#">Notification</a></li>
+                          <li><a href="#">Messages</a></li>
+                          <li><a href="#">Analysis</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">More settings</a></li>
+                        </ul>
+                      </div>
+                      <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i class="i i-bars3 hover-rotate"></i></a>
+                      <a href="#nav, #sidebar" class="btn btn-icon b-2x btn-info btn-rounded" data-toggle="class:nav-xs, show"><i class="fa fa-bars"></i></a>
+                    </div>
+                  </section>
+
+
               <div id="dp"></div>
           <script type="text/javascript">
             $( document ).ready(function() {
              $('td[resource="D"] div').css('background', '#fff')
             });
                 var dp = new DayPilot.Scheduler("dp");
-
+                console.log(dp)
                 // behavior and appearance
                 dp.cssClassPrefix = "scheduler_8";
                 dp.cellWidth = 30;
@@ -79,13 +100,15 @@
                 dp.cellGroupBy = "Hour";
                 dp.days = dp.startDate.daysInMonth();
                 dp.cellDuration = 15; // one day
-                dp.startDate = new DayPilot.Date();
+                dp.startDate = new DayPilot.Date('2014-02-05');
                 dp.days = 1;
                 dp.moveBy = 'Full';
                 dp.showToolTip = true;
-                dp.ShowNonBusiness = false;
-                // dp.BusinessBeginsHour = '9';
-                // dp.BusinessEndsHour ="22"; 
+                
+                // Hide Non Buesness columns
+                dp.businessBeginsHour = 10;
+                dp.businessEndsHour = 23; 
+                dp.showNonBusiness = false;
                 // // bubble, with async loading
                 dp.bubble = new DayPilot.Bubble({
                     cssClassPrefix: "bubble_default",
@@ -130,18 +153,15 @@
                              { name: "U5", id: "tt", loaded: false },
                             ];
 
-                // http://api.daypilot.org/daypilot-scheduler-onbeforeeventrender/
+                
                 dp.onBeforeEventRender = function(args) {
                     // console.log(args)
                     // args.e.cssClass = "test";
                     args.e.innerHTML = args.e.text + ":";
                 };
 
-                var i=0; // see http://api.daypilot.org/daypilot-scheduler-onbeforecellrender/ 
+                // Mark left times 
                 dp.onBeforeCellRender = function(args) {
-                   if(i == 0) {
-                    console.log(args.cell.start.ticks, new DayPilot.Date());i++;
-                   }
                    if (args.cell.start.ticks <= new DayPilot.Date().ticks) {
                       args.cell.backColor = "#DDDADA";
                   }
@@ -149,13 +169,25 @@
                    if(args.cell.resource === 'D') {
                           args.cell.backColor = "#fff";
                           args.cell.cssClass = 'no_border';
-                          i++;  
+                        
                     }
                 };
 
+                
+                /*
+                  Hide Restaurant break times, if this not commented, then showNonBusiness doesn`t work
+                */
+                // dp.onIncludeTimeCell = function(args) {
+                //  
+                //   if (args.cell.start.ticks <= 1391615100000) { 
+                //     args.cell.visible = false;
+                //    }
+                // };
+                
+
                 // http://api.daypilot.org/daypilot-scheduler-onbeforetimeheaderrender/
                 dp.onBeforeTimeHeaderRender = function(args) {
-                    
+                    // console.log(args.header)
                     if (args.header.level === 0) {
                        
                     }
@@ -208,16 +240,15 @@
                     });
                 };
 
-                // event creating
+               
                 // http://api.daypilot.org/daypilot-scheduler-ontimerangeselected/
                 dp.onTimeRangeSelected = function (args) {
-                    console.log(args)
-                    // Disable event creation in Time < Current Time
-                    if(args.start.ticks < new DayPilot.Date().ticks) {
-                      dp.message('Wrong Time');
-                      dp.clearSelection();
-                      return false;
-                    }
+                   // Disable event creation in Time < Current Time
+                    // if(args.start.ticks < new DayPilot.Date().ticks) {
+                    //   dp.message('Wrong Time');
+                    //   dp.clearSelection();
+                    //   return false;
+                    // }
                     var name = prompt("New event name:", "Event");
                     dp.clearSelection();
                     if (!name) return;

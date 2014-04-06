@@ -21,7 +21,7 @@
     <script src="<?php echo(JS.'daypilot-all.min.js'); ?>"></script>
     <script src="<?php echo(JS.'theme/js/jquery.min.js'); ?>"></script>
 	</head>
-	<body>
+	<body style="background: transparent;">
 	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
       <div class="navbar-header aside-md dk nav-header-custom">
         <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
