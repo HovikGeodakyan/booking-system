@@ -72,14 +72,35 @@
 				'end' => $_POST['newEnd'],
 				'resource' => $_POST['newResource']
 			);
-			$this->db->set('start', $data['start']);
-			$this->db->set('end', $data['end']);
-			$this->db->set('resource', $data['resource']);
-			$this->db->where('id', $id);
-			$this->db->update('events');
+			$query=$this->db->query('SELECT * 
+									FROM events 
+									WHERE resource="'.$data['resource'].'" 
+									AND id!="'.$id.'"
+									AND (
+										(start>="'.$data['start'].'" AND end<="'.$data['end'].'") 
+										OR (start<="'.$data['start'].'" AND end>="'.$data['end'].'")
+										OR (start<"'.$data['start'].'" AND end>"'.$data['start'].'")
+										OR (start<"'.$data['end'].'" AND end>"'.$data['start'].'")
+									)');
+									//inserted contains any event
+									//any event contains the inserted
+									//inserted contains part of any event
+			$query = $query->result();
 			$response=array();
-			$response['result'] = 'OK';
-			$response['message'] = 'Update successful';
+			$current_time=date('Y-m-d')."T".date("H:i:s");
+			if ($query!=NULL || $data['resource']=="D" || $data['start']<$current_time){
+				$response['result'] = 'NOK';
+				$response['message'] = 'Overlap';
+			}else{
+				$this->db->set('start', $data['start']);
+				$this->db->set('end', $data['end']);
+				$this->db->set('resource', $data['resource']);
+				$this->db->where('id', $id);
+				$this->db->update('events');
+				$response=array();
+				$response['result'] = 'OK';
+				$response['message'] = 'Update successful';
+			}
 			return $response;
 		}	
 
@@ -106,6 +127,15 @@
 				$response['message'] = 'Update successful';
 			}
 			return $response;
+		}
+
+		public function cancel_event(){
+			$id=$_POST['id'];
+			$this->db->set('status', "cancelled");
+			$this->db->where('id', $id);
+			$this->db->update('events');
+			$response['result'] = 'OK';
+			$response['message'] = 'Canceled';
 		}
 	}
 ?>

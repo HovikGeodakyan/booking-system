@@ -2,26 +2,28 @@
 
 class scheduler extends CI_Controller {
 
+	public function __construct(){
+		parent::__construct();
+	 	$this->load->model('scheduler_model');
+	}
+
 	public function index(){
-		$this->load->model('scheduler_model');
 		$this->scheduler_model->table_exists('events');
 	}
 
 	public function create() {
-		$this->load->model('scheduler_model');
 		$response = $this->scheduler_model->create_event();
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}
 
 	public function events() {
-		$this->load->model('scheduler_model');
 		$events=$this->scheduler_model->load_events();
 		header('Content-Type: application/json');
 		echo json_encode($events);
 	}
 
-	public function move() {
+	public function move(){
 		$this->load->model('scheduler_model');
 		$response=$this->scheduler_model->move_event();
 		header('Content-Type: application/json');
@@ -29,8 +31,12 @@ class scheduler extends CI_Controller {
 	}
 
 	public function resize() {
-		$this->load->model('scheduler_model');
 		$response=$this->scheduler_model->resize_event();
+		header('Content-Type: application/json');
+		echo json_encode($response);
+	}
+	public function cancel(){
+		$response=$this->scheduler_model->cancel_event();
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}

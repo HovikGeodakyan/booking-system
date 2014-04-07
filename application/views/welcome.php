@@ -87,6 +87,13 @@
             $( document ).ready(function() {
              $('td[resource="D"] div').css('background', '#fff')
             });
+                var outlet_settings={
+                  open_time : "09",
+                  close_time : "22",
+                  break_start_time : "14",
+                  break_end_time : "17"
+                }
+                
                 var dp = new DayPilot.Scheduler("dp");
                 console.log(dp)
                 // behavior and appearance
@@ -100,15 +107,14 @@
                 dp.cellGroupBy = "Hour";
                 dp.days = dp.startDate.daysInMonth();
                 dp.cellDuration = 15; // one day
-                dp.startDate = new DayPilot.Date('2014-02-05');
+                dp.startDate = new DayPilot.Date();
                 dp.days = 1;
                 dp.moveBy = 'Full';
                 dp.showToolTip = true;
-                
                 // Hide Non Buesness columns
-                dp.businessBeginsHour = 10;
-                dp.businessEndsHour = 23; 
-                dp.showNonBusiness = false;
+                // dp.businessBeginsHour = 10;
+                // dp.businessEndsHour = 23; 
+                // dp.showNonBusiness = false;
                 // // bubble, with async loading
                 dp.bubble = new DayPilot.Bubble({
                     cssClassPrefix: "bubble_default",
@@ -133,6 +139,52 @@
                 dp.treeEnabled = false;
                 dp.rowHeaderWidthAutoFit = true; // TODO fix for tree
                 dp.rowHeaderWidth = 25;
+
+                dp.eventClickHandling="ContextMenu";
+                dp.eventRightClickHandling="Enabled";
+                dp.eventDoubleClickHandling="Bubble";
+                dp.contextMenu = new DayPilot.Menu(
+                    {items:[
+                        {text:"Cancel", onclick: function() { 
+                            var e = this.source;           
+                            $.post("scheduler/cancel",
+                            {
+                                id: e.value()
+                            }, 
+                            function(data){
+                              dp.message(data.message);
+                              dp.events.remove(e);
+                            });
+                        }},
+                        {text:"Arrived", onclick: function(args) { 
+                            var e = this.source;
+                            dp.onBeforeEventRender = function(args) {
+                                args.e.cssClass = "red";
+                            };
+                            dp.events.update(e);
+                        }}, 
+                        {text:"Extend", onclick: function(args) { 
+                            var e = this.source;
+                            dp.events.update(e);
+                        }},                         
+                        {text:"Edit", onclick: function(args) { 
+                            var e = this.source;
+                            dp.events.update(e);
+                        }}, 
+                        {text:"Information", items: [
+                            {text:"Show event ID", onclick: function() {alert("Event value: " + this.source.value());} },
+                            {text:"Show event text", onclick: function() {alert("Event text: " + this.source.text());} }
+                        ]}
+                    ],
+                    cssClassPrefix: "menu_default"
+                });
+
+               dp.onBeforeTimeHeaderRender = function(args) {
+                console.log("onBeforeTimeHeaderRender:");
+                  if (args.header.start.getDayOfWeek() === 6) {
+                     args.header.html = "Sat";
+                  }
+                };
 
                 // 
                 dp.resources = [
@@ -162,9 +214,10 @@
 
                 // Mark left times 
                 dp.onBeforeCellRender = function(args) {
+                    // console.log(new DayPilot.Date().ticks);
                    if (args.cell.start.ticks <= new DayPilot.Date().ticks) {
                       args.cell.backColor = "#DDDADA";
-                  }
+                   }
                  
                    if(args.cell.resource === 'D') {
                           args.cell.backColor = "#fff";
@@ -177,12 +230,12 @@
                 /*
                   Hide Restaurant break times, if this not commented, then showNonBusiness doesn`t work
                 */
-                // dp.onIncludeTimeCell = function(args) {
-                //  
-                //   if (args.cell.start.ticks <= 1391615100000) { 
-                //     args.cell.visible = false;
-                //    }
-                // };
+                dp.onIncludeTimeCell = function(args) {
+                 var cell_time = args.cell.start.toString().substr(11,2);
+                  if (cell_time <= outlet_settings.open_time || cell_time>=outlet_settings.close_time || (cell_time>=outlet_settings.break_start_time && cell_time<=outlet_settings.break_end_time)) { 
+                    args.cell.visible = false;
+                  }
+                };
                 
 
                 // http://api.daypilot.org/daypilot-scheduler-onbeforetimeheaderrender/
@@ -203,8 +256,21 @@
                 };
 
                 // http://api.daypilot.org/daypilot-scheduler-oneventmoved/ 
-                dp.onEventMoved = function (args) {
 
+                //saving drag'n'drop origin position
+                var revert;
+                dp.onEventMove = function (args){
+                  revert=args.e.data.resource;
+                }
+
+                dp.onEventMoved = function (args) {
+                    console.log(args.newStart.toString());
+                    // if(args.newResource=="D" || args.newStart.ticks < new DayPilot.Date().ticks){
+                    //       args.e.data.resource=revert;//revert to original row
+                    //       //reverting event start and end
+                    //       args.e.data.start=args.e.part.start;
+                    //       args.e.data.end=args.e.part.end;
+                    //   }
                     $.post("scheduler/move", 
                     {
                         id: args.e.id(),
@@ -213,8 +279,17 @@
                         newResource: args.newResource
                     }, 
                     function(data) {
-                      console.log(args.e)
-                        dp.message("Moved");
+                        if(data.result=="NOK"){
+                          args.e.data.resource=revert;//revert to original row
+                          //reverting event start and end
+                          args.e.data.start=args.e.part.start;
+                          args.e.data.end=args.e.part.end;
+
+                          dp.events.update(args.e);
+                        }else{
+                          dp.message("Moved");
+                          dp.events.update(args.e);
+                        }
                     });
                 };
 
@@ -230,9 +305,8 @@
                     function(data) {
                         if(data.result=="NOK"){
                           dp.message(data.message);
-                          args.e.end().d=args.e.part.end.d;
-                          console.log(args.e.part.end);
-                          console.log(args.e.end().d);
+                          //revert event
+                          args.e.data.end=args.e.part.end;
                           dp.events.update(args.e);
                         }else{
                           dp.message("Resized");
@@ -243,12 +317,12 @@
                
                 // http://api.daypilot.org/daypilot-scheduler-ontimerangeselected/
                 dp.onTimeRangeSelected = function (args) {
-                   // Disable event creation in Time < Current Time
-                    // if(args.start.ticks < new DayPilot.Date().ticks) {
-                    //   dp.message('Wrong Time');
-                    //   dp.clearSelection();
-                    //   return false;
-                    // }
+                  // Disable event creation in Time < Current Time
+                    if(args.start.ticks < new DayPilot.Date().ticks) {
+                      dp.message('Wrong Time');
+                      dp.clearSelection();
+                      return false;
+                    }
                     var name = prompt("New event name:", "Event");
                     dp.clearSelection();
                     if (!name) return;
