@@ -37,3 +37,10 @@
 .settings_tabs .active a{
 	background-color:#f1f2f2 !important;
 }
+.white_content {
+	background: #fff;
+	padding: 15px;
+}
+.clear {
+	clear:both;
+}

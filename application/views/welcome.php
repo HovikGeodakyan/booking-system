@@ -1,3 +1,4 @@
+   
     <section class="row m-b-md">
         <div class="col-sm-6">
 
@@ -19,9 +20,55 @@
           <a href="#nav, #sidebar" class="btn btn-icon b-2x btn-info btn-rounded" data-toggle="class:nav-xs, show"><i class="fa fa-bars"></i></a>
         </div>
       </section>
+ 
+ <div class="white_content">
+<section class="" >
+ <form class="form-inline" role="form">
+   <div class="form-group">    
+    <select class="form-control"><option>17:30</option></select>
+  </div>
+   <div class="form-group">
+  
+    <select class="form-control" ><option>Mr</option></select>
+  </div>
+   <div class="form-group">
+  
+    <input type="email" class="form-control" placeholder="Enter name">
+  </div>
+  <div class="form-group">
+    
+    <input type="email" class="form-control" placeholder="Enter phone">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Email">
+  </div>
+  <div class="form-group">    
+    <select class="form-control"><option>3</option></select>
+  </div>
+  <div class="form-group">    
+    <select class="form-control"><option>T10</option></select>
+  </div>
+  <div class="form-group">    
+    <select class="form-control"><option>En</option></select>
+  </div>
+  <div class="form-group">
+      <div class="checkbox i-checks">
+        <label>
+          <input class="form-control" type="checkbox" checked=""><i></i>VIP
+          <!-- <input class="form-control" type="checkbox" checked=""><i></i>Email Confirmation
+          <input class="form-control" type="checkbox" checked=""><i></i>Invoice -->
+        </label>
+     
+    </div>
+  </div>
+  <button type="button" class="btn btn-default">Cancel</button>
+  <button type="button" class="btn btn-primary">Save</button>
+  
+</form>
 
+</section>
 
-              <div id="dp"></div>
+          <div id="dp"></div>
           <script type="text/javascript">
             $( document ).ready(function() {
              $('td[resource="D"] div').css('background', '#fff')
@@ -41,10 +88,15 @@
                 var dp = new DayPilot.Scheduler("dp");
                 console.log(dp)
                 // behavior and appearance
+                dp.autoRefreshEnabled = true;
+                autoRefreshCount: 1
+                autoRefreshInterval: 10
+                // autoRefreshMaxCount: 20
+                // autoRefreshTimeout: 3
                 dp.cssClassPrefix = "scheduler_8";
                 dp.cellWidth = 30;
                 dp.eventHeight = 25;
-                dp.headerHeight = 32;
+                dp.headerHeight = 33;
                 dp.rowHeaderWidthAutoFit = false;
                 // view
                 // dp.startDate = new DayPilot.Date("2014-04-05").firstDayOfMonth();  // or just dp.startDate = "2013-03-25";
@@ -122,24 +174,54 @@
                     cssClassPrefix: "menu_default"
                 });
 
-               dp.onBeforeTimeHeaderRender = function(args) {
+                var i=0; //Time header, light dark counter
+                dp.onBeforeTimeHeaderRender = function(args) {
                   if (args.header.level === 0) {
-                     var padding = 2; 
+                     var padding = 0; 
                      var launch_box_width        = (outlet_settings.pre_concert_time - outlet_settings.launch_time)*4*dp.cellWidth - (outlet_settings.break_end_time - outlet_settings.break_start_time)*4* dp.cellWidth - padding + 'px;';
                      var pre_concert_box_width   = (outlet_settings.concert_time -  outlet_settings.pre_concert_time)*4*dp.cellWidth - padding + 'px;';
                      var concert_box_width       = (outlet_settings.after_concert_time -  outlet_settings.concert_time)*4*dp.cellWidth - padding + 'px;';
                      var after_concert_box_width = (outlet_settings.close_time - outlet_settings.after_concert_time)*4*dp.cellWidth - padding + 'px;';
                      
-                     args.header.html =  '<div style="width:'+ launch_box_width +'float:left;"><label style="float:left;">Lounch</label><select class="form-control m-b" style="padding: 0; height: 25px; width: 64px; float:right;"><option>4</option></select></div>';
-                     args.header.html += '<div style="width:'+ pre_concert_box_width +' float:left;><label style="float:left;">Pre Concert</label><select class="form-control m-b" style="padding: 0; height: 25px; width: 64px; float:right;"><option>4</option></select></div>';
-                     args.header.html += '<div style="width:'+ concert_box_width +' float:left;><label style="float:left;">Concert</label><select class="form-control m-b" style="padding: 0; height: 25px;width: 64px; float:right;"><option>4</option></select></div>';
-                     args.header.html += '<div style="width:'+ after_concert_box_width +' float:left;><label style="float:left;">After Concert</label><select class="form-control m-b" style="padding: 0; height: 25px; width: 64px; float:right;"><option>4</option></select></div>';
+                     args.header.html =  '<div class="time_type_box" style="width:'+ launch_box_width +'"><label class="time_type_label">Lounch</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
+                     args.header.html += '<div class="time_type_box" style="width:'+ pre_concert_box_width +'"><label class="time_type_label">Pre Concert</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
+                     args.header.html += '<div class="time_type_box" style="width:'+ concert_box_width +'"><label class="time_type_label">Concert</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
+                     args.header.html += '<div class="time_type_box" style="width:'+ after_concert_box_width +'"><label class="time_type_label">After Concert</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
                   }
+
+                 
+                  if (args.header.level === 1) {
+                    var val = args.header.html;
+                    var className = '';
+                   
+                    if(i%2 === 0) {
+                       className = 'timeheadergroup_inner_light'; 
+                    } else {
+                       className = 'timeheadergroup_inner_dark';
+                    }
+                    
+                    i++;
+                    args.header.html = '<div class="'+ className+'">' + val + '</div>';
+                   
+                  }
+                  var progress = Math.floor(Math.random() * 19) + 0
+                  var progressClass ='';
+                  if (args.header.level === 2) {
+                    if (progress > 10) {
+                      progressClass = 'progress_green';
+                    }else if(progress < 6){
+                        progressClass = 'progress_blue';
+                    }else {
+                      progressClass = 'progress_red';
+                    }
+
+                    args.header.html = '<div class="sheduler_minut_value">'+args.header.html +'</div><div class="sheduler_progress_bar '+ progressClass +'"></div>';
+                  }
+
                 };
 
                 // 
                 dp.resources = [
-                             //{ name: "", id: "progress_bar"},
                              { name: "T1", id: "A"},
                              { name: "T2", id: "B" },
                              { name: "T3", id: "L" },
@@ -160,57 +242,40 @@
                 
                 dp.onBeforeEventRender = function(args) {
                     // console.log(args)
-                    // args.e.cssClass = "test";
                     args.e.innerHTML = args.e.text + ":";
                 };
 
-                // Mark left times 
+               
                 dp.onBeforeCellRender = function(args) {
-             
-                  if (args.cell.start.ticks <= new DayPilot.Date().ticks) {
-                      args.cell.backColor = "#DDDADA";
-                  }
-                 
                   if(args.cell.resource === 'D') {
                       args.cell.backColor = "#fff";
                       args.cell.cssClass = 'no_border';
                   }
 
-                 if(args.cell.resource === 'progress_bar') {
-                     args.cell.height = 15;
-                     // args.cell.cssClass = 'custom_cell_height';
-                     args.cell.backColor = 'red';
-                     
-                 } 
+                  if (args.cell.start.ticks <= new DayPilot.Date().ticks) {
+                      args.cell.backColor = "#DDDADA";
+                  }
+                
                 };
 
-                
                 /*
                   Hide Restaurant break times, if this not commented, then showNonBusiness doesn`t work
                 */
                 dp.onIncludeTimeCell = function(args) {
-                 var cell_time = args.cell.start.toString().substr(11,2);
-                  if (cell_time < outlet_settings.open_time || cell_time>=outlet_settings.close_time || (cell_time>=outlet_settings.break_start_time && cell_time<outlet_settings.break_end_time)) { 
-                    args.cell.visible = false;
-                  }
+                    var cell_time = args.cell.start.toString().substr(11,2);
+                    if (cell_time < outlet_settings.open_time || cell_time>=outlet_settings.close_time || (cell_time>=outlet_settings.break_start_time && cell_time<outlet_settings.break_end_time)) { 
+                        args.cell.visible = false;
+                    }
                 };
-                
-
-               
+                               
                 // http://api.daypilot.org/daypilot-scheduler-onbeforeresheaderrender/ 
                 dp.onBeforeResHeaderRender = function(args) {
                     // console.log(args)
-                    if (args.resource.id === 'progress_bar') {
-                       // args.resource.cssClass = 'custom_cell_height';
-                       // args.resource.html = "Not Assigned Reservations"
-                    }
                     if (args.resource.id === 'D') {
-                       args.resource.cssClass = 'assign_text';
+                       args.resource.cssClass = 'no_border_res_header';
                        // args.resource.html = "Not Assigned Reservations"
                     }
                 };
-
-                // http://api.daypilot.org/daypilot-scheduler-oneventmoved/ 
 
                 //saving drag'n'drop origin position
                 var revert;
@@ -234,14 +299,14 @@
                         newResource: args.newResource
                     }, 
                     function(data) {
-                        if(data.result=="NOK"){
+                        if(data.result == "NOK"){
                           args.e.data.resource=revert;//revert to original row
                           //reverting event start and end
                           args.e.data.start=args.e.part.start;
                           args.e.data.end=args.e.part.end;
 
                           dp.events.update(args.e);
-                        }else{
+                        } else {
                           dp.message("Moved");
                           dp.events.update(args.e);
                         }
@@ -329,3 +394,4 @@
             </script>
 
         </div>
+      </div>

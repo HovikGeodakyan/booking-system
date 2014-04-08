@@ -1,6 +1,6 @@
    <section>
       <section class="hbox stretch">
-        <aside class="bg-black aside-md hidden-print" id="nav">          
+        <aside class="bg-black aside-md hidden-print nav-xs" id="nav">          
           <section class="vbox">
             <section class="w-f scrollable">
 
@@ -44,10 +44,10 @@
             </section>
             
             <footer class="footer hidden-xs no-padder text-center-nav-xs">
-              <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
+            <!--   <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
                 <i class="i i-logout"></i>
-              </a>
-              <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
+              </a> -->
+              <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs active">
                 <i class="i i-circleleft text"></i>
                 <i class="i i-circleright text-active"></i>
               </a>

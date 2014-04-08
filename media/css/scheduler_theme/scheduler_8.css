@@ -3,7 +3,7 @@
 .scheduler_8_timeheadercol,
 .scheduler_8_timeheadergroup
 {
-	font-family: Segoe UI Light,Segoe UI,Arial,Helvetica,Verdana,Sans Serif;
+	/*font-family: Segoe UI Light,Segoe UI,Arial,Helvetica,Verdana,Sans Serif;*/
 }
 
 .scheduler_8_event_inner  
@@ -13,24 +13,29 @@
 	right: 1px;
 	top: 0px;
 	bottom: 1px;
-	padding: 4px;
-	
+	padding: 4px;	
 	font-size: 14px;
 	color: #ffffff;
 	background: #09b2ef;
 	border: 1px solid #079beb;
 }
-.assign_text {
-	color:black !important;
-}
+
 .no_border {
-	left:-5 !important;
-	width: 3811px;
-	z-index: 100;
-	border: none !important;
-	
-	/*background: red !important;*/
+	background: #fff !important;
+	z-index: 99999;
+	border-bottom: 1px solid #eee  !important;
 }
+
+.no_border_res_header  {
+	background: #fff !important;
+	z-index: 99999;
+	border:none !important;
+}
+
+.no_border_res_header > .scheduler_8_rowheader_inner {
+	border:none !important;
+}
+
 .test {
 	position:absolute;
 	height:50px !important;
@@ -99,8 +104,8 @@
 .scheduler_8_rowheader,
 .scheduler_8_corner
 {
-	color: #ccc;
-	font-weight: bold;
+	color: #B1B2B3;
+	/*font-weight: bold;*/
 	background: transparent;
 
 	-ms-transition: background-color .3s linear;
@@ -114,7 +119,7 @@
 .scheduler_8_rowheader:hover,
 .scheduler_8_corner:hover
 {
-	background: #464646;
+	/*background: #464646;*/
 }
 
 .scheduler_8_timeheadergroup_inner
@@ -125,10 +130,11 @@
 	top: 0px;
 	bottom: 0px;
 	text-align: center;
-	border-right: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
+	color:#545556;
+	/*border-right: 1px solid #ddd;*/
+	/*border-bottom: 1px solid #ddd;*/
 	text-align: center;
-	padding: 3px;
+	/*padding: 3px;*/
 }
 
 .scheduler_8_timeheadercol_inner
@@ -139,9 +145,8 @@
 	top: 0px;
 	bottom: 0px;
 	text-align: center;
-	border-right: 1px solid #ddd;
-	
-	padding: 3px;
+	/*border-right: 1px solid #ddd;*/
+	/*padding: 3px;*/
 }
 
 .scheduler_8_cellcolumn 
@@ -166,7 +171,7 @@
 
 .scheduler_8_divider_horizontal
 {
-	background-color: #ccc;
+	/*background-color: #ccc;*/
 }
 
 .scheduler_8_matrix_vertical_line 
@@ -181,7 +186,7 @@
 
 .scheduler_8_resourcedivider 
 {
-	background-color: #ccc;
+	/*background-color: #ccc;*/
 }
 
 .scheduler_8_shadow_inner 
@@ -204,4 +209,70 @@
 }
 .scheduler_8_tree_image_collapse {
 	background-image: url('scheduler_8/tree_collapse.png');
+}
+
+.timeheadergroup_inner_dark{
+	height: 100%;
+	width: 100%;
+	background: #e0e6f0;
+	color: #545556;
+	padding: 6px;
+	margin-top: 2px;
+	font-weight: bold;
+}
+
+.timeheadergroup_inner_light{
+	height: 100%;
+	width: 100%;
+	background: #f9fafc;
+	color: #545556;
+	padding: 6px;
+	margin-top: 2px;
+	font-weight: bold;
+}
+
+.time_type_box {
+	float:left;
+	border: 1px solid #ddd;
+
+}
+
+.time_type_label {
+	float:left;
+	margin: 7px;
+	color:#555555;
+	font-weight: bold;
+}
+
+.time_type_select {
+	margin: 3px;
+	padding: 0; 
+	height: 25px; 
+	width: 64px; 
+	float:right;
+}
+
+.sheduler_minut_value {
+	margin-top: 5px;
+}
+
+.sheduler_progress_bar {
+	height:10px; 
+	width:100%; 
+	margin-top:2px; 
+	
+}
+.progress_green {
+	background: #66bda9;
+}
+.progress_blue {
+	background: #69abd0;
+}
+.progress_red {
+	background: #e27682;
+}
+
+.scheduler_8_rowheader_inner {
+	border-right: 1px solid #eee;
+	height: 100%;
 }
