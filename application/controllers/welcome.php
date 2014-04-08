@@ -21,6 +21,7 @@ class Welcome extends CI_Controller {
 	{
 		$data['title'] = ucfirst($page); // Capitalize the first letter
 		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
 		$this->load->view('welcome', $data);
 		$this->load->view('templates/footer', $data);
 	}

@@ -1,7 +1,6 @@
 <html>
 	<head>
 		<title><?php echo $title; ?> | MyTable</title>
-<!-- 		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/>		 -->
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/bootstrap.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/animate.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/font-awesome.min.css'); ?>" type="text/css" />
@@ -9,7 +8,7 @@
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/font.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(JS.'theme/css/app.css'); ?>" type="text/css" />  
 		<link rel="stylesheet" href="<?php echo(JS.'theme/js/calendar/bootstrap_calendar.css'); ?>" type="text/css" />
-		
+		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/>    
     <!-- Sheduler -->
     <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'layout.css'); ?>" />    
     <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler_theme/scheduler_8.css'); ?>" />    

@@ -48,7 +48,7 @@
                         {text:"Go to google.com", href: "http://www.google.com/?q={0}"},
                         {text:"Delete", onclick: function() { 
                             var e = this.source;           
-                            $.post("backend_delete.php", 
+                            $.post("scheduler/cancel", 
                             {
                                 id: e.value()
                             });

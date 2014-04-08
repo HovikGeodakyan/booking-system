@@ -1,46 +1,39 @@
-*{
-	margin:0px;
-	padding:0px;
+.custom_cell_height {
+	height: 15px !important;
 }
-.navbar-brand-custom{
-	width:180px;
+.settings{
+	border:1px solid #ddd;
+	border-top-color:transparent;
+	width:100%;
+	background-color:#f1f2f2;
 }
-.form-group-custom{
-	width:280px;
+.settings .settings_header h3{
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+	padding-left:10px;
 }
-.navbar-brand-custom form button span{
-	font-size:20px;
+.settings .settings_header .outlet_crud{
+	float:right;
+	padding-right:20px;
 }
-.concert{
-	padding: 21px;
+.settings .settings_content{
+	background-color:#fff;
 }
-.time{
-	font-size:20px;
-	padding: 17px;
-}
-
-
-#timeSheet, td, th{
-	border: 1px solid #ccc;
-	border-collapse:collapse;
-}
-
-td, th{
-	text-align: center;
-	width:30px;
-	height:30px;
+.settings .settings_content table{
+	width:100%;
+	font-size:14px;
+	color:#777;
+	padding-left:5px;
 }
 
-.t_hour {
-	height: 20px;
+.settings .settings_content table thead{
+	background-color:#ebebeb;
 }
 
-#timeSheet {
-	margin: 0 auto;
-}
-.checkboxes div{
+.settings_tabs li{
 	width:100px;
+	text-align: center;
 }
-.checkboxes{
-	margin-left: 20px;
+.settings_tabs .active a{
+	background-color:#f1f2f2 !important;
 }

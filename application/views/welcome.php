@@ -1,85 +1,24 @@
-   <section>
-      <section class="hbox stretch">
-        <!-- .aside -->
-        <aside class="bg-black aside-md hidden-print" id="nav">          
-          <section class="vbox">
-            <section class="w-f scrollable">
+    <section class="row m-b-md">
+        <div class="col-sm-6">
 
-              <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
-                             <!-- nav -->                 
-                <nav class="nav-primary hidden-xs">
-                  <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Menu</div>
-                  <ul class="nav nav-main" data-ride="collapse">
-                    <li  class="">
-                      <a href="index.html" class="auto">
-                        <i class="i i-statistics icon">
-                        </i>
-                        <span class="font-bold">Daily View</span>
-                      </a>
-                    </li>
-                    <li  class="">
-                      <a href="index.html" class="auto">
-                        <i class="i i-grid2 icon">
-                        </i>
-                        <span class="font-bold">Reservations Overview</span>
-                      </a>
-                    </li>
-                    <li  class="">
-                      <a href="index.html" class="auto">
-                        <i class="i i-docs icon">
-                        </i>
-                        <span class="font-bold">Statistics</span>
-                      </a>
-                    </li>
-                      <li  class="">
-                      <a href="index.html" class="auto">
-                        <i class="i i-lab icon">
-                        </i>
-                        <span class="font-bold">Setup</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-                <!-- / nav -->
-              </div>
-            </section>
-            
-            <footer class="footer hidden-xs no-padder text-center-nav-xs">
-              <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
-                <i class="i i-logout"></i>
-              </a>
-              <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
-                <i class="i i-circleleft text"></i>
-                <i class="i i-circleright text-active"></i>
-              </a>
-            </footer>
-          </section>
-        </aside>
-        <!-- /.aside -->
-        <section id="content">
-          <section class="vbox">          
-            <section class="scrollable padder">
-                       <section class="row m-b-md">
-                    <div class="col-sm-6">
-
-                      <h3 class="m-b-xs text-black"> <i style="background: #1ccacc; padding: 7px; border-radius: 23px; color: white; width: 39px;" class="fa fa-music"></i>  Concert Today 22:00</h3>
-                      <small>Welcome back, John Smith, <i class="fa fa-map-marker fa-lg text-primary"></i> New York City</small>
-                    </div>
-                    <div class="col-sm-6 text-right text-left-xs m-t-md">
-                      <div class="btn-group">
-                        <a class="btn btn-rounded btn-default b-2x dropdown-toggle" data-toggle="dropdown">Widgets <span class="caret"></span></a>
-                        <ul class="dropdown-menu text-left pull-right">
-                          <li><a href="#">Notification</a></li>
-                          <li><a href="#">Messages</a></li>
-                          <li><a href="#">Analysis</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">More settings</a></li>
-                        </ul>
-                      </div>
-                      <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i class="i i-bars3 hover-rotate"></i></a>
-                      <a href="#nav, #sidebar" class="btn btn-icon b-2x btn-info btn-rounded" data-toggle="class:nav-xs, show"><i class="fa fa-bars"></i></a>
-                    </div>
-                  </section>
+          <h3 class="m-b-xs text-black"> <i style="background: #1ccacc; padding: 7px; border-radius: 23px; color: white; width: 39px;" class="fa fa-music"></i>  Concert Today 22:00</h3>
+          <small>Welcome back, John Smith, <i class="fa fa-map-marker fa-lg text-primary"></i> New York City</small>
+        </div>
+        <div class="col-sm-6 text-right text-left-xs m-t-md">
+          <div class="btn-group">
+            <a class="btn btn-rounded btn-default b-2x dropdown-toggle" data-toggle="dropdown">Widgets <span class="caret"></span></a>
+            <ul class="dropdown-menu text-left pull-right">
+              <li><a href="#">Notification</a></li>
+              <li><a href="#">Messages</a></li>
+              <li><a href="#">Analysis</a></li>
+              <li class="divider"></li>
+              <li><a href="#">More settings</a></li>
+            </ul>
+          </div>
+          <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i class="i i-bars3 hover-rotate"></i></a>
+          <a href="#nav, #sidebar" class="btn btn-icon b-2x btn-info btn-rounded" data-toggle="class:nav-xs, show"><i class="fa fa-bars"></i></a>
+        </div>
+      </section>
 
 
               <div id="dp"></div>
@@ -111,7 +50,7 @@
                 // dp.startDate = new DayPilot.Date("2014-04-05").firstDayOfMonth();  // or just dp.startDate = "2013-03-25";
                 dp.cellGroupBy = "Hour";
                 dp.days = dp.startDate.daysInMonth();
-                dp.cellDuration = 15; // one day
+                dp.cellDuration = 15;
                 dp.startDate = new DayPilot.Date();
                 dp.days = 1;
                 dp.moveBy = 'Full';
@@ -120,14 +59,15 @@
                 // dp.businessBeginsHour = 10;
                 // dp.businessEndsHour = 23; 
                 // dp.showNonBusiness = false;
-                // // bubble, with async loading
-                dp.timeHeaders = [ {groupBy: 'Week'}, {groupBy: 'Hour'}];
+                /// bubble, with async loading
+                dp.timeHeaders = [ {groupBy: 'Week'}, {groupBy: 'Hour'}, ];
+                console.log(dp.baseTimeHeader);
                 dp.bubble = new DayPilot.Bubble({
                     cssClassPrefix: "bubble_default",
                     onLoad: function(args) {
+                      console.log(args.e.ShowBaseTimeHeader);
                         var ev = args.source;
                         args.async = true;  // notify manually using .loaded()
-
                         // simulating slow server-side load
                         setTimeout(function() {
                             args.html = "<div style='font-weight:bold'>" + ev.text() + "</div><div>Start: " + ev.start().toString("MM/dd/yyyy HH:mm") + "</div><div>End: " + ev.end().toString("MM/dd/yyyy HH:mm") + "</div><div>Id: " + ev.id() + "</div>";
@@ -199,7 +139,8 @@
 
                 // 
                 dp.resources = [
-                             { name: "T1", id: "A", expanded: true},
+                             //{ name: "", id: "progress_bar"},
+                             { name: "T1", id: "A"},
                              { name: "T2", id: "B" },
                              { name: "T3", id: "L" },
                              { name: "T4", id: "K" },
@@ -225,16 +166,22 @@
 
                 // Mark left times 
                 dp.onBeforeCellRender = function(args) {
-                    // console.log(new DayPilot.Date().ticks);
-                   if (args.cell.start.ticks <= new DayPilot.Date().ticks) {
+             
+                  if (args.cell.start.ticks <= new DayPilot.Date().ticks) {
                       args.cell.backColor = "#DDDADA";
-                   }
+                  }
                  
-                   if(args.cell.resource === 'D') {
-                          args.cell.backColor = "#fff";
-                          args.cell.cssClass = 'no_border';
-                        
-                    }
+                  if(args.cell.resource === 'D') {
+                      args.cell.backColor = "#fff";
+                      args.cell.cssClass = 'no_border';
+                  }
+
+                 if(args.cell.resource === 'progress_bar') {
+                     args.cell.height = 15;
+                     // args.cell.cssClass = 'custom_cell_height';
+                     args.cell.backColor = 'red';
+                     
+                 } 
                 };
 
                 
@@ -253,6 +200,10 @@
                 // http://api.daypilot.org/daypilot-scheduler-onbeforeresheaderrender/ 
                 dp.onBeforeResHeaderRender = function(args) {
                     // console.log(args)
+                    if (args.resource.id === 'progress_bar') {
+                       // args.resource.cssClass = 'custom_cell_height';
+                       // args.resource.html = "Not Assigned Reservations"
+                    }
                     if (args.resource.id === 'D') {
                        args.resource.cssClass = 'assign_text';
                        // args.resource.html = "Not Assigned Reservations"
@@ -378,10 +329,3 @@
             </script>
 
         </div>
-        <div class="clear">
-            </section>
-          </section>
-          <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
-        </section>
-      </section>
-    </section>
