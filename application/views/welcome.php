@@ -88,10 +88,15 @@
              $('td[resource="D"] div').css('background', '#fff')
             });
                 var outlet_settings={
-                  open_time : "09",
-                  close_time : "22",
-                  break_start_time : "14",
-                  break_end_time : "17"
+                  open_time : "10",
+                  close_time : "23",
+                  break_start_time : "13",
+                  break_end_time : "14",
+                 
+                  launch_time:"10",
+                  pre_concert_time: "15",
+                  concert_time: "18",
+                  after_concert_time:"20"
                 }
                 
                 var dp = new DayPilot.Scheduler("dp");
@@ -100,7 +105,7 @@
                 dp.cssClassPrefix = "scheduler_8";
                 dp.cellWidth = 30;
                 dp.eventHeight = 25;
-                dp.headerHeight = 25;
+                dp.headerHeight = 32;
                 dp.rowHeaderWidthAutoFit = false;
                 // view
                 // dp.startDate = new DayPilot.Date("2014-04-05").firstDayOfMonth();  // or just dp.startDate = "2013-03-25";
@@ -116,6 +121,7 @@
                 // dp.businessEndsHour = 23; 
                 // dp.showNonBusiness = false;
                 // // bubble, with async loading
+                dp.timeHeaders = [ {groupBy: 'Week'}, {groupBy: 'Hour'}];
                 dp.bubble = new DayPilot.Bubble({
                     cssClassPrefix: "bubble_default",
                     onLoad: function(args) {
@@ -171,18 +177,23 @@
                             var e = this.source;
                             dp.events.update(e);
                         }}, 
-                        {text:"Information", items: [
-                            {text:"Show event ID", onclick: function() {alert("Event value: " + this.source.value());} },
-                            {text:"Show event text", onclick: function() {alert("Event text: " + this.source.text());} }
-                        ]}
+                        {text:"Information"}
                     ],
                     cssClassPrefix: "menu_default"
                 });
 
                dp.onBeforeTimeHeaderRender = function(args) {
-                console.log("onBeforeTimeHeaderRender:");
-                  if (args.header.start.getDayOfWeek() === 6) {
-                     args.header.html = "Sat";
+                  if (args.header.level === 0) {
+                     var padding = 2; 
+                     var launch_box_width        = (outlet_settings.pre_concert_time - outlet_settings.launch_time)*4*dp.cellWidth - (outlet_settings.break_end_time - outlet_settings.break_start_time)*4* dp.cellWidth - padding + 'px;';
+                     var pre_concert_box_width   = (outlet_settings.concert_time -  outlet_settings.pre_concert_time)*4*dp.cellWidth - padding + 'px;';
+                     var concert_box_width       = (outlet_settings.after_concert_time -  outlet_settings.concert_time)*4*dp.cellWidth - padding + 'px;';
+                     var after_concert_box_width = (outlet_settings.close_time - outlet_settings.after_concert_time)*4*dp.cellWidth - padding + 'px;';
+                     
+                     args.header.html =  '<div style="width:'+ launch_box_width +'float:left;"><label style="float:left;">Lounch</label><select class="form-control m-b" style="padding: 0; height: 25px; width: 64px; float:right;"><option>4</option></select></div>';
+                     args.header.html += '<div style="width:'+ pre_concert_box_width +' float:left;><label style="float:left;">Pre Concert</label><select class="form-control m-b" style="padding: 0; height: 25px; width: 64px; float:right;"><option>4</option></select></div>';
+                     args.header.html += '<div style="width:'+ concert_box_width +' float:left;><label style="float:left;">Concert</label><select class="form-control m-b" style="padding: 0; height: 25px;width: 64px; float:right;"><option>4</option></select></div>';
+                     args.header.html += '<div style="width:'+ after_concert_box_width +' float:left;><label style="float:left;">After Concert</label><select class="form-control m-b" style="padding: 0; height: 25px; width: 64px; float:right;"><option>4</option></select></div>';
                   }
                 };
 
@@ -232,20 +243,13 @@
                 */
                 dp.onIncludeTimeCell = function(args) {
                  var cell_time = args.cell.start.toString().substr(11,2);
-                  if (cell_time <= outlet_settings.open_time || cell_time>=outlet_settings.close_time || (cell_time>=outlet_settings.break_start_time && cell_time<=outlet_settings.break_end_time)) { 
+                  if (cell_time < outlet_settings.open_time || cell_time>=outlet_settings.close_time || (cell_time>=outlet_settings.break_start_time && cell_time<outlet_settings.break_end_time)) { 
                     args.cell.visible = false;
                   }
                 };
                 
 
-                // http://api.daypilot.org/daypilot-scheduler-onbeforetimeheaderrender/
-                dp.onBeforeTimeHeaderRender = function(args) {
-                    // console.log(args.header)
-                    if (args.header.level === 0) {
-                       
-                    }
-                };
- 
+               
                 // http://api.daypilot.org/daypilot-scheduler-onbeforeresheaderrender/ 
                 dp.onBeforeResHeaderRender = function(args) {
                     // console.log(args)
@@ -265,12 +269,12 @@
 
                 dp.onEventMoved = function (args) {
                     console.log(args.newStart.toString());
-                    // if(args.newResource=="D" || args.newStart.ticks < new DayPilot.Date().ticks){
-                    //       args.e.data.resource=revert;//revert to original row
-                    //       //reverting event start and end
-                    //       args.e.data.start=args.e.part.start;
-                    //       args.e.data.end=args.e.part.end;
-                    //   }
+                    if(args.newResource=="D" || args.newStart.ticks < new DayPilot.Date().ticks){
+                          args.e.data.resource=revert;//revert to original row
+                          //reverting event start and end
+                          args.e.data.start=args.e.part.start;
+                          args.e.data.end=args.e.part.end;
+                      }
                     $.post("scheduler/move", 
                     {
                         id: args.e.id(),
