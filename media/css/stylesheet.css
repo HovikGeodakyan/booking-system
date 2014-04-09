@@ -44,3 +44,17 @@
 .clear {
 	clear:both;
 }
+
+
+.outlet_edit label, span{
+	font-size:16px;
+	color:#5E5E5E;
+}
+
+.outlet_edit select{
+	width:300px !important;
+}
+
+.custom-modal{
+
+}

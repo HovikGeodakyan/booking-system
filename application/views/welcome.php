@@ -113,7 +113,6 @@
                 // dp.showNonBusiness = false;
                 /// bubble, with async loading
                 dp.timeHeaders = [ {groupBy: 'Week'}, {groupBy: 'Hour'}, ];
-                console.log(dp.baseTimeHeader);
                 dp.bubble = new DayPilot.Bubble({
                     cssClassPrefix: "bubble_default",
                     onLoad: function(args) {

@@ -26,6 +26,7 @@
 
         <script src="<?php echo(JS.'theme/js/sortable/jquery.sortable.js'); ?>"></script>
         <script src="<?php echo(JS.'theme/js/app.plugin.js'); ?>"></script>
+        <script src="<?php echo(JS.'lib/jquery.confirm.min.js'); ?>"></script>
        
   	</body>
 </html>

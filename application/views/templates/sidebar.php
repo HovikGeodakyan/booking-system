@@ -10,7 +10,7 @@
                   <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Menu</div>
                   <ul class="nav nav-main" data-ride="collapse">
                     <li  class="">
-                      <a href="index.html" class="auto">
+                      <a href="<?php echo URL; ?>" class="auto">
                         <i class="i i-statistics icon">
                         </i>
                         <span class="font-bold">Daily View</span>
@@ -31,7 +31,7 @@
                       </a>
                     </li>
                       <li  class="">
-                      <a href="setup" class="auto">
+                      <a href="outlet" class="auto">
                         <i class="i i-lab icon">
                         </i>
                         <span class="font-bold">Setup</span>
