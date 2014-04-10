@@ -22,6 +22,7 @@
         <script src="<?php echo(JS.'theme/js/charts/flot/demo.js'); ?>"></script>
 
         <script src="<?php echo(JS.'theme/js/calendar/bootstrap_calendar.js'); ?>"></script>
+        <script src="<?php echo(JS.'theme/js/tablesorter.min.js'); ?>"></script>
         <script src="<?php echo(JS.'theme/js/calendar/demo.js'); ?>"></script>
 
         <script src="<?php echo(JS.'theme/js/sortable/jquery.sortable.js'); ?>"></script>

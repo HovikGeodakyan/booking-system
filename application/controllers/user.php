@@ -45,7 +45,7 @@ class User extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	public function newuser($page="new user"){
+	public function newusr($page="new user"){
 		$data['title'] = ucfirst($page);
 
 		$this->load->view('templates/header', $data);
@@ -56,7 +56,8 @@ class User extends CI_Controller {
 
 	//create a user
 	public function create(){
-		//$this->user_model->create_user();
+		$this->user_model->create_user();
+		redirect(URL.'user');
 	}
 
 	//get list of all users or a single user
@@ -72,10 +73,15 @@ class User extends CI_Controller {
 	}
 
 	//update a user
-	public function update(){}
+	public function update($id){
+		$this->user_model->update_user($id);
+		redirect(URL.'user');
+	}
 
 	//delete a user
-	public function delete(){}
+	public function delete($id){
+		$this->user_model->delete_user($id);
+	}
 }
 
 /* End of file setup.php */

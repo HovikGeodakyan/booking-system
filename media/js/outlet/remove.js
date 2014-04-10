@@ -8,7 +8,7 @@ $(document).ready(function(){
 				type: "POST",
 				url: url,
 				success: function(data) {
-					button.parent().parent().hide('slow', function(){ $target.remove(); });
+					button.parent().parent().hide('slow', function(){ $this.remove(); });
 				}
 			});
 	    },
@@ -20,4 +20,7 @@ $(document).ready(function(){
 	    post: true
 	});
 	
+	$(function() {
+		$("#outlet_table").tablesorter();
+	});
 })

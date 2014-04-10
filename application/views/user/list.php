@@ -1,49 +1,83 @@
 <section class="row m-b-md">
 </section>
-
-<ul class="nav nav-tabs settings_tabs">
-	<li><a href="<?php echo(URL.'outlet'); ?>">Outlet</a></li>
-	<li class="active"><a href="<?php echo(URL.'user'); ?>">Users</a></li>
-</ul>
-<div id="users_settings" class="settings">
-	<div class="settings_header">
-			<div class="outlet_crud">
-				<a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover">Add</a>
-				<a href="#nav, #sidebar" class="btn btn-icon b-2x btn-info btn-rounded">Back</a>
+<!-- 	Users -->
+	<ul class="nav nav-tabs settings_tabs">
+		<li><a href="<?php echo(URL.'outlet'); ?>">Outlet</a></li>
+		<li class="active"><a href="<?php echo(URL.'user'); ?>">Users</a></li>
+	</ul>
+	<div id="_settings" class="settings">
+		<div class="settings_header">
+			<div class="crud">
+				<a href="<?php echo(URL.'user/newusr'); ?>" type="button" class="btn btn-primary btn-sm">Add</a>
+				<a href="<?php echo URL; ?>" type="button" class="btn btn-default btn-sm">Back</a>
 			</div>
 			<h3 class="m-b-xs text-black">Users</h3>
 		</div>
-		<div class="settings_content">
-			<table>
+		<div class="settings_content table-responsive">
+			<table class="table table-striped b-t b-light" id="user_table">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Login</th>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Type</th>
+						<th class="th-sortable" data-toggle="class">#</th>						
+						<th class="th-sortable" data-toggle="class">Login</th>						
+						<th class="th-sortable" data-toggle="class">Name</th>						
+						<th class="th-sortable" data-toggle="class">Email</th>						
+						<th class="th-sortable" data-toggle="class">Type</th>
+						<th class="th-sortable" data-toggle="class">Last logged in</th>													
+						<th class="th-sortable" data-toggle="class">Date modified</th>													
 						<th>Active</th>
-						<th>Time</th>
-						<th>Delete</th>
-					</tr>			
-				</thead>
-				<tbody>
-				<?php 
-					foreach($users as $usr){
-						echo "<tr>";
-						echo "<td>".$usr["user_id"]."</td>";
-						echo "<td><a href='".URL."user/edit/".$usr["user_id"]."'>".$usr["user_name"]."</a></td>";
-						echo "<td>".$usr["user_real_name"]."</td>";
-						echo "<td>".$usr["user_email"]."</td>";
-						echo "<td>".$usr["user_role"]."</td>";
-						echo "<td>".$usr["user_if_active"]."</td>";
-						echo "<td>".$usr["user_time"]."</td>";
-						echo "<td><div id='user_delete_button'></div></td>";
-						echo "</tr>";
-					}
-				?>
+						<th width="30">Delete</th>
+					</tr>
+                    </thead>
+                    <tbody>
+                    <?php 
+						$i=1;
+						foreach($users as $usr){
+							switch($usr['user_role']){
+								case 1: $role="SuperAdmin";    break;
+								case 2: $role="Admin";   break;
+								case 3: $role="Manager"; break;
+								case 4: $role="Waiter";  break;
+								case 5: $role="User";    break;
+								case 6: $role="Guest";  break;
+							}
+
+							echo "<tr>";
+							echo "<td>".$i."</td>"; $i++;
+							echo "<td><a href='".URL."user/edit/".$usr["user_id"]."'>".$usr["user_name"]."</a></td>";
+							echo "<td>".$usr["user_real_name"]."</td>";
+							echo "<td>".$usr["user_email"]."</td>";
+							echo "<td>".$role."</td>";
+							echo "<td>".$usr["user_last_login"]."</td>";
+							echo "<td>".$usr["user_modified"]."</td>";
+							
+							$check="";
+							if($usr["user_if_active"]==1){
+								$check="checked";
+							}
+
+							echo '<td class="i-checks" style="text-align:center"><input type="checkbox" '.$check.' disabled><i></i></td>';
+							echo '<td><a href="'.URL."user/delete/".$usr["user_id"].'" class="confirm"><div class="delete_button" style="background-image:url('.IMG.'/delete.png)"></div></a></td>';
+							echo "</tr>";
+						}
+					?>
 				</tbody>
 			</table>
 		</div>
 	</div>
+	
+<script src="<?php echo(JS.'outlet/remove.js'); ?>"></script>
 
+<!-- Modal -->
+<div class="modal fade custom-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Are yo sure?</h4>
+			</div>
+			<div class="modal-body">
+				<button type="button" id="confirm_remove" class="btn btn-primary">Yes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -74,6 +74,7 @@
 				'online-booking'   => $_POST['outlet_if_bookable'],
 				'email'            => $_POST['outlet_email']
 			);
+			$this->db->insert('outlets', $data);
 		}
 
 

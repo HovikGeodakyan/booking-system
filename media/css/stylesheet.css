@@ -8,11 +8,10 @@
 	background-color:#f1f2f2;
 }
 .settings .settings_header h3{
-	border-bottom: 1px solid #ddd;
 	padding-bottom: 10px;
 	padding-left:10px;
 }
-.settings .settings_header .outlet_crud{
+.settings .settings_header .crud{
 	float:right;
 	padding-right:20px;
 }
@@ -29,7 +28,13 @@
 .settings .settings_content table thead{
 	background-color:#ebebeb;
 }
-
+.settings .settings_content table tbody{
+	background-color:#f1f2f2;
+}
+.settings .settings_content table tbody a{
+	color:#777;
+	font-weight:bold;
+}
 .settings_tabs li{
 	width:100px;
 	text-align: center;
@@ -45,16 +50,20 @@
 	clear:both;
 }
 
-
-.outlet_edit label, span{
-	font-size:16px;
-	color:#5E5E5E;
-}
-
-.outlet_edit select{
+._edit select{
 	width:300px !important;
 }
 
-.custom-modal{
-
+._edit textarea{
+	max-width: 100%;
+	min-height:105px !important;
 }
+
+.delete_button{
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	background-size: 22px 22px !important;
+	width:23px;
+	height:23px;
+}
+
