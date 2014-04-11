@@ -56,7 +56,7 @@
 
 ._edit textarea{
 	max-width: 100%;
-	min-height:105px !important;
+	height:105px !important;
 }
 
 .delete_button{

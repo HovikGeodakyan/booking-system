@@ -36,32 +36,44 @@
 			$u['user_last_login'] = $row['last-login'];
 			$u['user_if_active'] = $row['active'];
 			$u['user_role'] = $row['role'];
+			$u['user_language'] = $row['language'];
 
 			return $u;
 		}
 
 		public function create_user(){
-			$data = array(
-				'username' => $_POST['user_name'],
-				'realname' => ucfirst($_POST['user_real_name']),
-				'email'    => $_POST['user_email'],
-				'active'   => $_POST['user_if_active'],
-				'role'     => $_POST['user_role'],
-				'modified' => date('Y-m-d H:i:s'),
-			);
-			$this->db->insert('users', $data);
+			if($_POST['user_password']==$_POST['user_re_password']){
+
+				$data = array(
+					'username' => $_POST['user_name'],
+					'realname' => ucfirst($_POST['user_real_name']),
+					'email'    => $_POST['user_email'],
+					'active'   => $_POST['user_if_active'],
+					'role'     => $_POST['user_role'],
+					'created'  => date('Y-m-d H:i:s'),
+					'modified' => date('Y-m-d H:i:s'),
+					'password' => md5($_POST['user_password']),
+					'language' => $_POST['user_language']
+				);
+				$this->db->insert('users', $data);
+			}
 		}
 
 		public function update_user($id){
 
-			$this->db->set('username',         $_POST['user_name']);
-			$this->db->set('realname',         ucfirst($_POST['user_real_name']));
-			$this->db->set('email',            $_POST['user_email']);
-			$this->db->set('active',           $_POST['user_if_active']);
-			$this->db->set('role',             $_POST['user_role']);
-			$this->db->set('modified',         date('Y-m-d H:i:s'));
-			$this->db->where('id', $id);
-			$this->db->update('users');
+			if($_POST['user_password']==$_POST['user_re_password']){
+
+				$this->db->set('username',         $_POST['user_name']);
+				$this->db->set('realname',         ucfirst($_POST['user_real_name']));
+				$this->db->set('email',            $_POST['user_email']);
+				$this->db->set('active',           $_POST['user_if_active']);
+				$this->db->set('role',             $_POST['user_role']);
+				$this->db->set('modified',         date('Y-m-d H:i:s'));
+				$this->db->set('password',         md5($_POST['user_password']));
+				$this->db->set('language',         $_POST['user_language']);
+				$this->db->where('id', $id);
+				$this->db->update('users');
+			}
 		}
 
 		public function delete_user($id){

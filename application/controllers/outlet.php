@@ -56,6 +56,7 @@ class Outlet extends CI_Controller {
 
 	//create a user
 	public function create(){
+		var_dump('<pre>', $_POST, '</pre>'); exit;
 		$this->outlet_model->create_outlet();
 		redirect(URL.'outlet');
 	}

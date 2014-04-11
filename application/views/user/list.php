@@ -65,7 +65,7 @@
 		</div>
 	</div>
 	
-<script src="<?php echo(JS.'outlet/remove.js'); ?>"></script>
+<script src="<?php echo(JS.'custom/user-outlet-remove.js'); ?>"></script>
 
 <!-- Modal -->
 <div class="modal fade custom-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

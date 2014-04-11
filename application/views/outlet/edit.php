@@ -2,12 +2,12 @@
 </section>
 
 
-<div class="outlet_edit">
+<div class="_edit">
 
 	<form role="form" action="<?php echo(URL.'outlet/update/'.$outlet['outlet_id']); ?>" method="post">
 		
 		<div style="float:right">
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="submit" class="btn btn-primary" id="outlet_form_submit">Submit</button>
 			<a href="<?php echo(URL.'outlet'); ?>" type="button" class="btn btn-default">Back</a>
 		</div>
 		<h3>Edit outlet settings</h3>
@@ -99,5 +99,174 @@
 			</div>
 		</div>
 		</div>
+
+				<h3>Specify outlet working time</h3>
+
+		<div class="col-lg-3">
+			<h4>Monday</h4>
+			<div class="form-group">
+				<label>Outlet working time</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_open_time" type="time" class="form-control" placeholder="Open time" data-required="true" data-error-message="Required">
+					<label for="inputValue">-</label>
+					<input name="outlet_close_time" type="time" class="form-control" placeholder="Close time" data-required="true" data-error-message="Required">
+				</div>
+			</div>		
+
+			<div class="form-group">
+				<label>Outlet break</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_break_start_time" type="time" class="form-control" placeholder="Break starts time">
+					<label for="inputValue">-</label>
+					<input name="outlet_break_end_time" type="time" class="form-control" placeholder="Break ends time">
+				</div>	
+			</div>		
+		</div>	
+
+		<div class="col-lg-3">
+			<h4>Tuesday</h4>
+			<div class="form-group">
+				<label>Outlet working time</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_open_time" type="time" class="form-control" placeholder="Open time" data-required="true" data-error-message="Required">
+					<label for="inputValue">-</label>
+					<input name="outlet_close_time" type="time" class="form-control" placeholder="Close time" data-required="true" data-error-message="Required">
+				</div>
+			</div>		
+
+			<div class="form-group">
+				<label>Outlet break</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_break_start_time" type="time" class="form-control" placeholder="Break starts time">
+					<label for="inputValue">-</label>
+					<input name="outlet_break_end_time" type="time" class="form-control" placeholder="Break ends time">
+				</div>	
+			</div>		
+		</div>		
+
+		<div class="col-lg-3">
+			<h4>Wednesday</h4>
+			<div class="form-group">
+				<label>Outlet working time</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_open_time" type="time" class="form-control" placeholder="Open time" data-required="true" data-error-message="Required">
+					<label for="inputValue">-</label>
+					<input name="outlet_close_time" type="time" class="form-control" placeholder="Close time" data-required="true" data-error-message="Required">
+				</div>
+			</div>		
+
+			<div class="form-group">
+				<label>Outlet break</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_break_start_time" type="time" class="form-control" placeholder="Break starts time">
+					<label for="inputValue">-</label>
+					<input name="outlet_break_end_time" type="time" class="form-control" placeholder="Break ends time">
+				</div>	
+			</div>		
+		</div>		
+
+		<div class="col-lg-3">
+			<h4>Thursday</h4>
+			<div class="form-group">
+				<label>Outlet working time</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_open_time" type="time" class="form-control" placeholder="Open time" data-required="true" data-error-message="Required">
+					<label for="inputValue">-</label>
+					<input name="outlet_close_time" type="time" class="form-control" placeholder="Close time" data-required="true" data-error-message="Required">
+				</div>
+			</div>		
+
+			<div class="form-group">
+				<label>Outlet break</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_break_start_time" type="time" class="form-control" placeholder="Break starts time">
+					<label for="inputValue">-</label>
+					<input name="outlet_break_end_time" type="time" class="form-control" placeholder="Break ends time">
+				</div>	
+			</div>		
+		</div>
+
+
+		<div class="col-lg-3">
+			<h4>Friday</h4>
+			<div class="form-group">
+				<label>Outlet working time</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_open_time" type="time" class="form-control" placeholder="Open time" data-required="true" data-error-message="Required">
+					<label for="inputValue">-</label>
+					<input name="outlet_close_time" type="time" class="form-control" placeholder="Close time" data-required="true" data-error-message="Required">
+				</div>
+			</div>		
+
+			<div class="form-group">
+				<label>Outlet break</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_break_start_time" type="time" class="form-control" placeholder="Break starts time">
+					<label for="inputValue">-</label>
+					<input name="outlet_break_end_time" type="time" class="form-control" placeholder="Break ends time">
+				</div>	
+			</div>		
+		</div>	
+
+		<div class="col-lg-3">
+			<h4>Saturday</h4>
+			<div class="form-group">
+				<label>Outlet working time</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_open_time" type="time" class="form-control" placeholder="Open time" data-required="true" data-error-message="Required">
+					<label for="inputValue">-</label>
+					<input name="outlet_close_time" type="time" class="form-control" placeholder="Close time" data-required="true" data-error-message="Required">
+				</div>
+			</div>		
+
+			<div class="form-group">
+				<label>Outlet break</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_break_start_time" type="time" class="form-control" placeholder="Break starts time">
+					<label for="inputValue">-</label>
+					<input name="outlet_break_end_time" type="time" class="form-control" placeholder="Break ends time">
+				</div>	
+			</div>		
+		</div>		
+
+		<div class="col-lg-3">
+			<h4>Sunday</h4>
+			<div class="form-group">
+				<label>Outlet working time</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_open_time" type="time" class="form-control" placeholder="Open time" data-required="true" data-error-message="Required">
+					<label for="inputValue">-</label>
+					<input name="outlet_close_time" type="time" class="form-control" placeholder="Close time" data-required="true" data-error-message="Required">
+				</div>
+			</div>		
+
+			<div class="form-group">
+				<label>Outlet break</label>
+				<div class="controls form-inline">
+					<label for="inputKey"></label>
+					<input name="outlet_break_start_time" type="time" class="form-control" placeholder="Break starts time">
+					<label for="inputValue">-</label>
+					<input name="outlet_break_end_time" type="time" class="form-control" placeholder="Break ends time">
+				</div>	
+			</div>		
+		</div>
+
+
 	</form>
 </div>
+
+<script src="<?php echo(JS.'theme/js/parsley/parsley.min.js'); ?>"></script>
+<script src="<?php echo(JS.'theme/js/parsley/parsley.extend.js'); ?>"></script>
