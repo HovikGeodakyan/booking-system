@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 10 2014 г., 17:53
+-- Время создания: Апр 12 2014 г., 17:48
 -- Версия сервера: 5.6.16
 -- Версия PHP: 5.5.9
 
@@ -33,36 +33,30 @@ CREATE TABLE IF NOT EXISTS `events` (
   `end` datetime DEFAULT NULL,
   `resource` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=59 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
 
 --
 -- Дамп данных таблицы `events`
 --
 
 INSERT INTO `events` (`id`, `name`, `start`, `end`, `resource`) VALUES
-(36, 'Event', '2014-04-05 01:30:00', '2014-04-05 02:30:00', 'O'),
-(37, 'Event', '2014-04-05 03:15:00', '2014-04-05 06:45:00', 'O'),
-(38, 'Event', '2014-04-05 03:30:00', '2014-04-05 06:45:00', 'L'),
-(39, 'Event', '2014-04-05 17:00:00', '2014-04-05 20:00:00', 'R'),
-(40, 'Event', '2014-04-05 16:00:00', '2014-04-05 19:00:00', 'L'),
-(41, 'ms Smith', '2014-04-05 19:00:00', '2014-04-05 21:45:00', 'L'),
-(42, 'Event', '2014-04-05 19:00:00', '2014-04-05 21:45:00', 'O'),
-(43, 'Event', '2014-02-05 12:30:00', '2014-02-05 14:30:00', 'L'),
-(44, 'Event', '2014-02-05 12:30:00', '2014-02-05 14:30:00', 'M'),
-(45, 'Event', '2014-02-05 14:45:00', '2014-02-05 17:30:00', 'M'),
-(46, 'Event', '2014-02-05 14:45:00', '2014-02-05 17:30:00', 'L'),
-(47, 'Event', '2014-02-05 11:30:00', '2014-02-05 13:15:00', 'O'),
-(48, 'Event', '2014-04-06 06:30:00', '2014-04-06 09:00:00', 'P'),
-(49, 'Event', '2014-04-07 11:30:00', '2014-04-07 12:30:00', 'N'),
-(50, 'Event', '2014-04-07 20:15:00', '2014-04-07 22:30:00', 'O'),
-(51, 'Event', '2014-04-08 02:00:00', '2014-04-08 10:30:00', 'P'),
-(52, 'Event', '2014-04-07 11:00:00', '2014-04-07 12:30:00', 'P'),
-(53, 'Event', '2014-04-08 17:45:00', '2014-04-08 19:15:00', 'K'),
-(54, 'Event', '2014-04-08 20:00:00', '2014-04-08 21:30:00', 'O'),
-(55, 'Event', '2014-04-08 20:00:00', '2014-04-08 21:45:00', 'M'),
-(56, 'Event', '2014-04-08 21:00:00', '2014-04-08 21:15:00', 'B'),
-(57, 'Event', '2014-04-09 17:45:00', '2014-04-09 21:30:00', 'P'),
-(58, 'Event', '2014-04-10 18:15:00', '2014-04-10 18:45:00', 'M');
+(61, 'Event', '2014-04-11 22:00:00', '2014-04-11 22:15:00', 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `holidays`
+--
+
+CREATE TABLE IF NOT EXISTS `holidays` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `start-date` date NOT NULL,
+  `end-date` date NOT NULL,
+  `message` text NOT NULL,
+  `outlet-id` int(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -73,32 +67,101 @@ INSERT INTO `events` (`id`, `name`, `start`, `end`, `resource`) VALUES
 CREATE TABLE IF NOT EXISTS `outlets` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `capacity` int(5) NOT NULL,
-  `tables` int(5) NOT NULL,
+  `seats-number` int(20) NOT NULL,
+  `tables-number` int(20) NOT NULL,
+  `default-not-bookable-table-lunch` int(5) NOT NULL,
+  `default-not-bookable-table-dinner` int(5) NOT NULL,
+  `default-not-bookable-table-pre-concert` int(5) NOT NULL,
+  `default-not-bookable-table-concert` int(5) NOT NULL,
+  `default-not-bookable-table-post-concert` int(5) NOT NULL,
   `open-time` time NOT NULL,
   `close-time` time NOT NULL,
   `break-start-time` time NOT NULL,
   `break-end-time` time NOT NULL,
-  `day-off` varchar(10) NOT NULL,
-  `season-start` varchar(20) NOT NULL,
-  `season-end` varchar(20) NOT NULL,
-  `avg-duration` time NOT NULL,
-  `online-booking` int(2) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `day-off` int(5) NOT NULL,
+  `no-show-limit` int(20) NOT NULL,
+  `staying-time-lunch` time NOT NULL,
+  `staying-time-dinner` time NOT NULL,
+  `staying-time-pre-concert` time NOT NULL,
+  `staying-time-concert` time NOT NULL,
+  `staying-time-post-concert` time NOT NULL,
+  `open-time-1` time NOT NULL,
+  `close-time-1` time NOT NULL,
+  `break-start-time-1` time NOT NULL,
+  `break-end-time-1` time NOT NULL,
+  `open-time-2` time NOT NULL,
+  `close-time-2` time NOT NULL,
+  `break-start-time-2` time NOT NULL,
+  `break-end-time-2` time NOT NULL,
+  `open-time-3` time NOT NULL,
+  `close-time-3` time NOT NULL,
+  `break-start-time-3` time NOT NULL,
+  `break-end-time-3` time NOT NULL,
+  `open-time-4` time NOT NULL,
+  `close-time-4` time NOT NULL,
+  `break-start-time-4` time NOT NULL,
+  `break-end-time-4` time NOT NULL,
+  `open-time-5` time NOT NULL,
+  `close-time-5` time NOT NULL,
+  `break-start-time-5` time NOT NULL,
+  `break-end-time-5` time NOT NULL,
+  `open-time-6` time NOT NULL,
+  `close-time-6` time NOT NULL,
+  `break-start-time-6` time NOT NULL,
+  `break-end-time-6` time NOT NULL,
+  `open-time-7` time NOT NULL,
+  `close-time-7` time NOT NULL,
+  `break-start-time-7` time NOT NULL,
+  `break-end-time-7` time NOT NULL,
+  `online-bookable` tinyint(2) NOT NULL,
   `deleted` tinyint(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 --
 -- Дамп данных таблицы `outlets`
 --
 
-INSERT INTO `outlets` (`id`, `name`, `description`, `capacity`, `tables`, `open-time`, `close-time`, `break-start-time`, `break-end-time`, `day-off`, `season-start`, `season-end`, `avg-duration`, `online-booking`, `email`, `deleted`) VALUES
-(1, 'a', 'bsadgasdgdsagdsagfdagafdgfdagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 600, 13, '11:00:00', '23:00:00', '10:00:00', '14:00:00', '5', '01.06', '30.08', '00:30:00', 1, 'aaaa@aaas.aaaa', 0),
-(2, 'Extrordinary', 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 50, 19, '09:00:00', '23:00:00', '14:00:00', '17:00:00', '1', '01.06', '30.08', '03:40:00', 0, 'aaaa@aaas.aaaa', 1),
-(3, 'b', 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 50, 19, '09:00:00', '23:00:00', '14:00:00', '17:00:00', '5', '01.06', '30.08', '03:40:00', 1, 'aaaa@aaas.aaaa', 1),
-(4, 'Extrordinary', 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 50, 19, '09:00:00', '23:00:00', '14:00:00', '17:00:00', '2', '01.06', '30.08', '03:40:00', 1, 'aaaa@aaas.aaaa', 0);
+INSERT INTO `outlets` (`id`, `name`, `email`, `description`, `seats-number`, `tables-number`, `default-not-bookable-table-lunch`, `default-not-bookable-table-dinner`, `default-not-bookable-table-pre-concert`, `default-not-bookable-table-concert`, `default-not-bookable-table-post-concert`, `open-time`, `close-time`, `break-start-time`, `break-end-time`, `day-off`, `no-show-limit`, `staying-time-lunch`, `staying-time-dinner`, `staying-time-pre-concert`, `staying-time-concert`, `staying-time-post-concert`, `open-time-1`, `close-time-1`, `break-start-time-1`, `break-end-time-1`, `open-time-2`, `close-time-2`, `break-start-time-2`, `break-end-time-2`, `open-time-3`, `close-time-3`, `break-start-time-3`, `break-end-time-3`, `open-time-4`, `close-time-4`, `break-start-time-4`, `break-end-time-4`, `open-time-5`, `close-time-5`, `break-start-time-5`, `break-end-time-5`, `open-time-6`, `close-time-6`, `break-start-time-6`, `break-end-time-6`, `open-time-7`, `close-time-7`, `break-start-time-7`, `break-end-time-7`, `online-bookable`, `deleted`) VALUES
+(35, '0', '0', '0', 0, 0, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0),
+(36, '0', '0', '0', 0, 0, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0),
+(37, '0', '0', '0', 0, 0, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0),
+(38, 'gdsgtdsa', '', '', 0, 0, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0),
+(39, 'gdsgtdsa', '', '', 0, 0, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0),
+(40, '', '', '', 0, 2, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0),
+(41, '', '', '', 0, 2, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0),
+(42, '0', '0', '0', 0, 0, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0),
+(43, '', '', '', 0, 2, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0),
+(44, '0', '0', '0', 0, 0, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 0, 0),
+(45, '', '', '', 0, 2, 0, 0, 0, 0, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0, '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `tables`
+--
+
+CREATE TABLE IF NOT EXISTS `tables` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `seats-standart-number` int(20) NOT NULL,
+  `seats-max-number` int(20) NOT NULL,
+  `combinable` tinyint(2) NOT NULL,
+  `location` int(5) NOT NULL,
+  `outlet-id` int(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+
+--
+-- Дамп данных таблицы `tables`
+--
+
+INSERT INTO `tables` (`id`, `seats-standart-number`, `seats-max-number`, `combinable`, `location`, `outlet-id`) VALUES
+(17, 2, 3, 1, 2, 0),
+(18, 2, 3, 0, 1, 0),
+(19, 2, 3, 1, 3, 45),
+(20, 1, 4, 0, 1, 45);
 
 -- --------------------------------------------------------
 
@@ -118,18 +181,24 @@ CREATE TABLE IF NOT EXISTS `users` (
   `modified` datetime NOT NULL,
   `autofill` int(2) NOT NULL,
   `deleted` tinyint(2) NOT NULL,
+  `created` datetime NOT NULL,
+  `confirmation_code` varchar(255) NOT NULL,
+  `last_ip` varchar(40) NOT NULL,
+  `language` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `realname`, `password`, `email`, `role`, `active`, `last-login`, `modified`, `autofill`, `deleted`) VALUES
-(1, 'hovik', 'Hovik', 'qwe', 'qwe@qwe.qew', 1, 1, '2014-04-01 00:00:00', '2014-04-01 00:00:00', 1, 1),
-(2, 'valod88', 'Valod', 'qwe', 'qwe@qwe.qew', 6, 1, '2014-04-01 00:00:00', '2014-04-10 17:17:22', 1, 1),
-(3, 'sffaasf', 'Ara', 'qwe', 'qwe@qwe.qew', 2, 1, '2014-04-01 00:00:00', '2014-04-10 17:48:21', 1, 0),
-(4, 'qwe', 'Qwe', '', 'qwe@qwe.qew', 4, 1, '0000-00-00 00:00:00', '2014-04-10 17:51:47', 0, 0);
+INSERT INTO `users` (`id`, `username`, `realname`, `password`, `email`, `role`, `active`, `last-login`, `modified`, `autofill`, `deleted`, `created`, `confirmation_code`, `last_ip`, `language`) VALUES
+(1, 'hovik', 'Hovik', 'qwe', 'qwe@qwe.qew', 1, 1, '2014-04-01 00:00:00', '2014-04-01 00:00:00', 1, 0, '0000-00-00 00:00:00', '', '', 'German'),
+(2, 'valod88', 'Valod', 'qwe', 'qwe@qwe.qew', 6, 1, '2014-04-01 00:00:00', '2014-04-10 17:17:22', 1, 0, '0000-00-00 00:00:00', '', '', 'English'),
+(3, 'Ara', 'Ara', 'qwe', 'qwe@qwe.qew', 2, 1, '2014-04-01 00:00:00', '2014-04-11 14:18:41', 1, 0, '0000-00-00 00:00:00', '', '', 'English'),
+(6, 'bbb', 'Bbb', 'd41d8cd98f00b204e9800998ecf8427e', 'bbb@bbb.bbb', 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, '2014-04-11 14:35:47', '', '', 'German'),
+(7, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', 1, 1, '0000-00-00 00:00:00', '2014-04-11 14:55:38', 0, 1, '2014-04-11 14:55:38', '', '', 'English'),
+(8, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', 1, 1, '0000-00-00 00:00:00', '2014-04-11 14:58:39', 0, 1, '2014-04-11 14:58:39', '', '', 'English');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

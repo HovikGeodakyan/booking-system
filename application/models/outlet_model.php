@@ -5,23 +5,23 @@
 			parent::__construct();
 		}
 
-
 		public function load_outlets(){
-			$query = $this->db->query('SELECT * FROM outlets WHERE deleted=0');
-			$query = $query->result_array();
-			$outlets=array();
+			$query	 = $this->db->query('SELECT * FROM outlets WHERE deleted = 0');
+			$query	 = $query->result_array();
+			$outlets = array();
+			
 			foreach ($query as $row) {
 				$o=array();
-				$o['outlet_id'] = $row['id'];
-				$o['outlet_name'] = $row['name'];
+				$o['outlet_id'] 		 = $row['id'];
+				$o['outlet_name'] 		 = $row['name'];
 				$o['outlet_description'] = $row['description'];
-				$o['outlet_capacity'] = $row['capacity'];
-				$o['outlet_tables'] = $row['tables'];
-				$o['outlet_open_time'] = $row['open-time'];
-				$o['outlet_close_time'] = $row['close-time'];
+				$o['outlet_capacity'] 	 = $row['capacity'];
+				$o['outlet_tables'] 	 = $row['tables'];
+				$o['outlet_open_time']   = $row['open-time'];
+				$o['outlet_close_time']  = $row['close-time'];
 				$o['outlet_break_start_time'] = $row['break-start-time'];
-				$o['outlet_break_end_time'] = $row['break-end-time'];
-				$o['outlet_day_off'] = $row['day-off'];
+				$o['outlet_break_end_time']   = $row['break-end-time'];
+				$o['outlet_day_off'] 		 = $row['day-off'];
 				$o['outlet_season_start'] = $row['season-start'];
 				$o['outlet_season_end'] = $row['season-end'];
 				$o['outlet_avg_duration'] = $row['avg-duration'];
@@ -57,25 +57,28 @@
 		}
 
 
-		public function create_outlet(){
-			$data = array(
-				'name'             => $_POST['outlet_name'],
-				'capacity'         => $_POST['outlet_capacity'],
-				'tables'           => $_POST['outlet_tables'],
-				'open-time'        => $_POST['outlet_open_time'],
-				'close-time'       => $_POST['outlet_close_time'],
-				'break-start-time' => $_POST['outlet_break_start_time'],
-				'break-end-time'   => $_POST['outlet_break_end_time'],
-				'avg-duration'     => $_POST['outlet_avg_duration'],
-				'day-off'          => $_POST['outlet_day_off'],
-				'season-start'     => $_POST['outlet_season_start'],
-				'season-end'       => $_POST['outlet_season_end'],
-				'description'      => $_POST['outlet_description'],
-				'online-booking'   => $_POST['outlet_if_bookable'],
-				'email'            => $_POST['outlet_email']
-			);
-			$this->db->insert('outlets', $data);
+		public function create_outlet($outlet){
+			$this->db->insert('outlets', $outlet);
+			return $this->db->insert_id();
 		}
+
+ 		public function insert_tables ($outled_id, $tables) {
+ 			foreach ($tables as $i => $s){
+ 				foreach ($s as $j => $value){
+ 					$t_tables[$j][$i] = $value;
+ 				}
+ 			}
+ 			foreach ($t_tables as $table) {
+ 				// var_dump($table);
+ 				$table['outlet-id'] = $outled_id;
+ 				$this->db->insert('tables', $table);
+ 			}exit;
+ 		}
+
+
+ 		public function insert_holydays ($outled_id, $holydays) {
+
+ 		}
 
 
 		public function update_outlet($id){
