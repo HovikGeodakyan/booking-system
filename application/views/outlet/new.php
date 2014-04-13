@@ -39,23 +39,23 @@
 				<h5>Default not bookable table number</h5>
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Lunch</label>
-					<input name="outlet_not_bookable_table_lunch" type="number" class="form-control">
+					<input name="outlet_default_not_bookable_table_lunch" type="number" class="form-control">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Dinner</label>
-					<input name="outlet_not_bookable_table_dinner" type="number" class="form-control">
+					<input name="outlet_default_not_bookable_table_dinner" type="number" class="form-control">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Pre-Concert</label>
-					<input name="outlet_not_bookable_table_pre_concert" type="number" class="form-control">
+					<input name="outlet_default_not_bookable_table_pre_concert" type="number" class="form-control">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Concert</label>
-					<input name="outlet_not_bookable_table_concert" type="number" class="form-control">
+					<input name="outlet_default_not_bookable_table_concert" type="number" class="form-control">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Post-Concert</label>
-					<input name="outlet_not_bookable_table_post_concert" type="number" class="form-control">
+					<input name="outlet_default_not_bookable_table_post_concert" type="number" class="form-control">
 				</div>
 			</div>
 
@@ -335,7 +335,7 @@
 				<div id="collapseTwo" class="panel-collapse collapse">
 					<div class="panel-body" id="holiday-container">
 
-						<div class="col-lg-12 col-xs-12 col-sm-12 form-group" id="holiday-form-group">
+						<!-- <div class="col-lg-12 col-xs-12 col-sm-12 form-group" id="holiday-form-group">
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_name">Name</label>
 								<input name="holiday_name[]" id="holiday_name" type="text" class="form-control">
@@ -357,7 +357,7 @@
 								<label class="control-label">Remove the holiday</label><br>
 								<button class="remove_holiday btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
 							</div>		
-						</div>
+						</div> -->
 
 						<button id="add_holiday" class="col-lg-12 col-xs-12 col-sm-12 btn btn-success" type="button">Add a holiday</button>
 
@@ -377,49 +377,10 @@
 					<div class="panel-body" id="table-container">
 					<button id="add_table" class="col-lg-12 col-xs-12 col-sm-12 btn btn-success" type="button">Add a table</button>
 					</div>	
+				</div>
 			</div>
-
 	</form>
-</div>
 
 
-<!-- <div class="form-group col-lg-12 col-xs-12 col-sm-12" id="table-form-group"
+<script src="<?php echo(JS.'outlets/outlet_edit_new.js'); ?>"></script>
 
-	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-		<label for="table_standard_seats">Standard number of seats</label>
-		<input name="table_seats_standart_number[]" id="table_standard_seats" type="number" class="form-control">
-	</div>
-
-	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-		<label for="table_max_seats">Maximum number of seats</label>
-		<input name="table_seats_max_number[]" id="table_max_seats" type="number" class="form-control">
-	</div>
-
-	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-		<label class="control-label">Combinable</label>
-		<div>
-			<label class="switch">
-				<input name="table_combinable[]" type="checkbox" checked="checked" value="1">
-				<span></span>
-			</label>
-		</div>
-	</div>
-
-	<div class="col-lg-4 col-xs-8 col-sm-8 form-group">
-		<label>Location</label>
-		<select name="table_location[]" class="form-control">
-			<option value="1">Window</option>
-			<option value="2">Middle</option>
-			<option value="3">Back</option>
-		</select>
-	</div>
-	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-		<label class="control-label">Remove the table</label><br>
-		<button class=" remove_tablebtn btn-danger" type="button"><i class="fa fa-minus"></i></button>
-	</div>
-</div> -->
-
-
-<script src="<?php echo(JS.'custom/outlet_edit_new.js'); ?>"></script>
-<script src="<?php echo(JS.'theme/js/parsley/parsley.min.js'); ?>"></script>
-<script src="<?php echo(JS.'theme/js/parsley/parsley.extend.js'); ?>"></script>

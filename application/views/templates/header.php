@@ -27,9 +27,11 @@
     <!-- Library -->
     <script src="<?php echo(JS.'lib/jquery.min.js'); ?>"></script>
     <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script> 
-    <script src="<?php echo(JS.'lib/tablesorter.min.js'); ?>"></script> 
+    <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script> 
+    <script src="<?php echo(JS.'lib/app.js'); ?>"></script> 
     <script src="<?php echo(JS.'lib/jquery.confirm.min.js'); ?>"></script>
     <script src="<?php echo(JS.'datepicker/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
+    <script src="<?php echo(JS.'datepicker/datepicker.js'); ?>"></script>
 
     <!-- Theme Validation -->
     <script src="<?php echo(JS.'lib/parsley.min.js'); ?>"></script>
@@ -38,28 +40,15 @@
 	
 
   <body style="background: transparent;">
-	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
-      <div class="navbar-header aside-md dk nav-header-custom">
-        <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
-          <i class="fa fa-bars"></i>
-        </a>
+	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">       
+      <div class="navbar-header aside-md dk nav-header-custom">       
         <a href="#"  class="navbar-brand" id="timesheet_calendar">
-          <input type="hidden" id="datepicker" />
-          <script>
-              $(function() {
-                $( "#datepicker" ).datepicker();
-                $( "#timesheet_calendar" ).click(function(){
-                  $( "#datepicker" ).datepicker('show');
-                });
-              });
-          </script>
+          <input type="hidden" id="datepicker" />         
           <!-- <img src="<?php //echo(JS.'theme/images/logo.png'); ?>" class="m-r-sm" alt="scale"> -->
           <i class="fa fa-calendar"></i>
           <span class="hidden-nav-xs">Calendar</span>
         </a>
-        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
-          <i class="fa fa-cog"></i>
-        </a>
+        
       </div>
 
       <div class="navbar-header aside-md dk nav-header-custom">
@@ -68,6 +57,12 @@
          	 <span class="hidden-nav-xs">Today</span>
       	</a>
       </div>
+      <a class="btn btn-link visible-xs custom-header-btns" data-toggle="class:nav-off-screen" data-target="#nav">
+          <i class="fa fa-bars"></i>
+      </a>
+      <a class="btn btn-link visible-xs custom-header-btns" data-toggle="dropdown" data-target=".user">
+          <i class="fa fa-cog"></i>
+      </a>
       <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
         <div class="form-group">
           <div class="input-group">

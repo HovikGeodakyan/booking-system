@@ -39,23 +39,23 @@
 				<h5>Default not bookable table number</h5>
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Lunch</label>
-					<input name="outlet_not_bookable_table_lunch" type="number" class="form-control"  value="<?php echo $outlet['outlet_default_not_bookable_table_lunch']; ?>">
+					<input name="outlet_default_not_bookable_table_lunch" type="number" class="form-control"  value="<?php echo $outlet['outlet_default_not_bookable_table_lunch']; ?>">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Dinner</label>
-					<input name="outlet_not_bookable_table_dinner" type="number" class="form-control" value="<?php echo $outlet['outlet_default_not_bookable_table_dinner']; ?>">
+					<input name="outlet_default_not_bookable_table_dinner" type="number" class="form-control" value="<?php echo $outlet['outlet_default_not_bookable_table_dinner']; ?>">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Pre-Concert</label>
-					<input name="outlet_not_bookable_table_pre_concert" type="number" class="form-control" value="<?php echo $outlet['outlet_default_not_bookable_table_pre_concert']; ?>">
+					<input name="outlet_default_not_bookable_table_pre_concert" type="number" class="form-control" value="<?php echo $outlet['outlet_default_not_bookable_table_pre_concert']; ?>">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Concert</label>
-					<input name="outlet_not_bookable_table_concert" type="number" class="form-control" value="<?php echo $outlet['outlet_default_not_bookable_table_concert']; ?>">
+					<input name="outlet_default_not_bookable_table_concert" type="number" class="form-control" value="<?php echo $outlet['outlet_default_not_bookable_table_concert']; ?>">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Post-Concert</label>
-					<input name="outlet_not_bookable_table_post_concert" type="number" class="form-control" value="<?php echo $outlet['outlet_default_not_bookable_table_post_concert']; ?>">
+					<input name="outlet_default_not_bookable_table_post_concert" type="number" class="form-control" value="<?php echo $outlet['outlet_default_not_bookable_table_post_concert']; ?>">
 				</div>
 			</div>
 
@@ -138,7 +138,7 @@
 
 			<div class="form-group">
 				<label>No-show time limit (in minutes)</label>
-				<input name="outlet_no_show_limit" type="number" class="form-control" placeholder="Time limit" data-type="digits" data-required="true" data-error-message="Required." value="<?php echo $outlet['no_show_limit']; ?>">
+				<input name="outlet_no_show_limit" type="number" class="form-control" placeholder="Time limit" data-type="digits" data-required="true" data-error-message="Required." value="<?php echo $outlet['outlet_no_show_limit']; ?>">
 			</div>	
 		</div>
 
@@ -379,7 +379,7 @@
 					<?php foreach ($table as $tbl) { ?>
 
 						<div class="form-group col-lg-12 col-xs-12 col-sm-12" id="table-form-group">
-
+							<input type="hidden" name="table_id[]" value="<?php echo $tbl['table_id']; ?>" />
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="table_standard_seats">Standard number of seats</label>
 								<input name="table_seats_standart_number[]" id="table_standard_seats" type="number" class="form-control" value="<?php echo $tbl['table_seats_standart_number']; ?>">

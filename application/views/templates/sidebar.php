@@ -20,7 +20,7 @@
                       <a href="index.html" class="auto">
                         <i class="i i-grid2 icon">
                         </i>
-                        <span class="font-bold">Reservations Overview</span>
+                        <span class="font-bold">Overview</span>
                       </a>
                     </li>
                     <li  class="">
@@ -31,7 +31,7 @@
                       </a>
                     </li>
                       <li  class="">
-                      <a href="outlet" class="auto">
+                      <a href="<?php echo URL; ?>outlet" class="auto">
                         <i class="i i-lab icon">
                         </i>
                         <span class="font-bold">Setup</span>

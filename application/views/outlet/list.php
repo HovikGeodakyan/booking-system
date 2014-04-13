@@ -14,7 +14,7 @@
 	<div id="_settings" class="settings">
 		<div class="settings_header">
 			<div class="crud">
-				<a href="<?php echo(URL.'outlet/newout'); ?>" type="button" class="btn btn-primary btn-sm">Add</a>
+				<a href="<?php echo(URL.'outlet/add'); ?>" type="button" class="btn btn-primary btn-sm">Add</a>
 				<a href="<?php echo URL; ?>" type="button" class="btn btn-default btn-sm">Back</a>
 			</div>
 			<h3 class="m-b-xs text-black">Exisiting Outlets</h3>
@@ -63,7 +63,7 @@
 							echo "<td>".$out["outlet_staying_time_lunch"]."</td>";
 							
 							$check="";
-							if($out['online-bookable']==1){
+							if($out['outlet_online_bookable']==1){
 								$check="checked";
 							}
 

@@ -1,6 +1,10 @@
+.custom-header-btns {
+	float:right;
+}
 .nav-header-custom {
 	width:150px;
 	border-right: 1px solid #ccc;
+	float: left;
 }
 .custom_cell_height {
 	height: 15px !important;
