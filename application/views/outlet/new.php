@@ -335,26 +335,31 @@
 				<div id="collapseTwo" class="panel-collapse collapse">
 					<div class="panel-body" id="holiday-container">
 
-						<div class="form-group" id="holiday-form-group">
-							<div class="col-lg-2 form-group">
+						<div class="col-lg-12 col-xs-12 col-sm-12 form-group" id="holiday-form-group">
+							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_name">Name</label>
 								<input name="holiday_name[]" id="holiday_name" type="text" class="form-control">
 							</div>				
-							<div class="col-lg-2 form-group">
+							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_start">Start</label>
 								<input name="holiday_start[]" id="holiday_start" type="date" class="form-control">
 							</div>				
-							<div class="col-lg-2 form-group">
+							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_end">End</label>
 								<input name="holiday_end[]" id="holiday_end" type="date" class="form-control">
 							</div>				
-							<div class="col-lg-6 form-group">
+							<div class="col-lg-4 col-xs-8 col-sm-8 form-group">
 								<label for="holiday_message">Message</label>
 								<input name="holiday_message[]" id="holiday_message" type="text" class="form-control">
-							</div>				
+							</div>
+
+							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
+								<label class="control-label">Remove the holiday</label><br>
+								<button id="remove_holiday" class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+							</div>		
 						</div>
 
-						<button id="add_holiday" class="col-lg-12 btn btn-success" type="button">Add a holiday</button>
+						<button id="add_holiday" class="col-lg-12 col-xs-12 col-sm-12 btn btn-success" type="button">Add a holiday</button>
 
 					</div>
 				</div>	
