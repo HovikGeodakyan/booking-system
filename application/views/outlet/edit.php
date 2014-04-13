@@ -355,7 +355,7 @@
 
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label class="control-label">Remove the holiday</label><br>
-								<button id="remove_holiday" class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+								<button class="remove_holiday btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
 							</div>			
 						</div>
 					<?php } ?>
@@ -378,19 +378,19 @@
 
 					<?php foreach ($table as $tbl) { ?>
 
-						<div class="form-group col-lg-12" id="table-form-group">
+						<div class="form-group col-lg-12 col-xs-12 col-sm-12" id="table-form-group">
 
-							<div class="col-lg-2 form-group">
+							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="table_standard_seats">Standard number of seats</label>
 								<input name="table_seats_standart_number[]" id="table_standard_seats" type="number" class="form-control" value="<?php echo $tbl['table_seats_standart_number']; ?>">
 							</div>
 
-							<div class="col-lg-2 form-group">
+							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="table_max_seats">Maximum number of seats</label>
 								<input name="table_seats_max_number[]" id="table_max_seats" type="number" class="form-control" value="<?php echo $tbl['table_seats_max_number']; ?>">
 							</div>
 
-							<div class="col-lg-2 form-group">
+							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label class="control-label">Combinable</label>
 								<div>
 									<label class="switch">
@@ -400,7 +400,7 @@
 								</div>
 							</div>
 
-							<div class="col-lg-4 form-group">
+							<div class="col-lg-4 col-xs-8 col-sm-8 form-group">
 								<label>Location</label>
 								<select name="table_location[]" class="form-control">
 									<option value="1" <?php if($tbl['table_location']==1){echo "selected='selected'";} ?>>Window</option>
@@ -409,15 +409,15 @@
 								</select>
 							</div>
 
-							<div class="col-lg-2 form-group">
+							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label class="control-label">Remove the table</label><br>
-								<button id="remove_table" class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+								<button class="remove_table btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
 							</div>
 						</div>
 						
 					<?php } ?>
 
-					<button id="add_table" class="col-lg-12 btn btn-success" type="button">Add a table</button>
+					<button id="add_table" class="col-lg-12 col-xs-12 col-sm-12 btn btn-success" type="button">Add a table</button>
 					</div>	
 			</div>
 
@@ -425,19 +425,19 @@
 </div>
 
 
-<!-- <div class="form-group col-lg-12" id="table-form-group" style="display:none">
+<!-- <div class="form-group col-lg-12 col-xs-12 col-sm-12" id="table-form-group">
 
-	<div class="col-lg-2 form-group">
+	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 		<label for="table_standard_seats">Standard number of seats</label>
 		<input name="table_seats_standart_number[]" id="table_standard_seats" type="number" class="form-control">
 	</div>
 
-	<div class="col-lg-2 form-group">
+	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 		<label for="table_max_seats">Maximum number of seats</label>
 		<input name="table_seats_max_number[]" id="table_max_seats" type="number" class="form-control">
 	</div>
 
-	<div class="col-lg-2 form-group">
+	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 		<label class="control-label">Combinable</label>
 		<div>
 			<label class="switch">
@@ -447,13 +447,17 @@
 		</div>
 	</div>
 
-	<div class="col-lg-6 form-group">
+	<div class="col-lg-4 col-xs-8 col-sm-8 form-group">
 		<label>Location</label>
 		<select name="table_location[]" class="form-control">
 			<option value="1">Window</option>
 			<option value="2">Middle</option>
 			<option value="3">Back</option>
 		</select>
+	</div>
+	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
+		<label class="control-label">Remove the table</label><br>
+		<button class="remove_table btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
 	</div>
 </div> -->
 

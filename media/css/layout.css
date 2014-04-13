@@ -13,7 +13,7 @@ a { color: #1155a3; }
 /* COLUMNS */
 #container { width:100% }
 #left { float:left; width: 180px; margin-left: 2px; }
-#content { margin-left: 200px;}
+#content { margin-top: 40px;}
 #content > div { width:99% }
 
 /* LAYOUT */
