@@ -462,6 +462,5 @@
 </div> -->
 
 
-<script src="<?php echo(JS.'custom/outlet_edit_new.js'); ?>"></script>
-<script src="<?php echo(JS.'theme/js/parsley/parsley.min.js'); ?>"></script>
-<script src="<?php echo(JS.'theme/js/parsley/parsley.extend.js'); ?>"></script>
+<script src="<?php echo(JS.'outlets/outlet_edit_new.js'); ?>"></script>
+

@@ -1,33 +1,59 @@
 <html>
 	<head>
 		<title><?php echo $title; ?> | MyTable</title>
-		<link rel="stylesheet" href="<?php echo(JS.'theme/css/bootstrap.css'); ?>" type="text/css" />
-		<link rel="stylesheet" href="<?php echo(JS.'theme/css/animate.css'); ?>" type="text/css" />
-		<link rel="stylesheet" href="<?php echo(JS.'theme/css/font-awesome.min.css'); ?>" type="text/css" />
-		<link rel="stylesheet" href="<?php echo(JS.'theme/css/icon.css'); ?>" type="text/css" />
-		<link rel="stylesheet" href="<?php echo(JS.'theme/css/font.css'); ?>" type="text/css" />
-		<link rel="stylesheet" href="<?php echo(JS.'theme/css/app.css'); ?>" type="text/css" />  
-		<link rel="stylesheet" href="<?php echo(JS.'theme/js/calendar/bootstrap_calendar.css'); ?>" type="text/css" />
-		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/>    
-    <!-- Sheduler -->
-    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'layout.css'); ?>" />    
-    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler_theme/scheduler_8.css'); ?>" />    
-    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler_theme/bubble_default.css'); ?>" />    
-    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler_theme/navigator_white.css'); ?>" />    
-    <!-- Our Custom Css -->
-		<link rel="stylesheet" href="<?php echo(JS.'custom.css'); ?>" type="text/css" />
+		 <!--  Theme Styles  -->
+    <link rel="stylesheet" href="<?php echo(CSS.'theme/bootstrap.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(CSS.'theme/animate.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(CSS.'theme/font-awesome.min.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(CSS.'theme/icon.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(CSS.'theme/font.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo(CSS.'theme/app.css'); ?>" type="text/css" />  
+		  
+    <!-- Scheduler Styles  -->
+    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler/layout.css'); ?>" />    
+    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler/scheduler_8.css'); ?>" />    
+    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler/bubble_default.css'); ?>" />    
+    <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler/navigator_white.css'); ?>" />    
+   
+    <!-- Custom Styles  -->
+    <link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/> 
+    
+    <!-- Datepicker Styles -->
+		<link rel="stylesheet" href="<?php echo(CSS.'datepicker/datepicker.css'); ?>" type="text/css" />
 
-    <script src="<?php echo(JS.'daypilot-all.min.js'); ?>"></script>
-    <script src="<?php echo(JS.'theme/js/jquery.min.js'); ?>"></script>
+    <script src="<?php echo(JS.'scheduler/daypilot-all.min.js'); ?>"></script>
+   
+
+    <!-- Library -->
+    <script src="<?php echo(JS.'lib/jquery.min.js'); ?>"></script>
+    <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script> 
+    <script src="<?php echo(JS.'lib/tablesorter.min.js'); ?>"></script> 
+    <script src="<?php echo(JS.'lib/jquery.confirm.min.js'); ?>"></script>
+    <script src="<?php echo(JS.'datepicker/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
+
+    <!-- Theme Validation -->
+    <script src="<?php echo(JS.'lib/parsley.min.js'); ?>"></script>
+    <script src="<?php echo(JS.'lib/parsley.extend.js'); ?>"></script>
 	</head>
-	<body style="background: transparent;">
+	
+
+  <body style="background: transparent;">
 	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
       <div class="navbar-header aside-md dk nav-header-custom">
         <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
           <i class="fa fa-bars"></i>
         </a>
-        <a href="index.html" class="navbar-brand">
-          <!-- <img src="<?php echo(JS.'theme/images/logo.png'); ?>" class="m-r-sm" alt="scale"> -->
+        <a href="#"  class="navbar-brand" id="timesheet_calendar">
+          <input type="hidden" id="datepicker" />
+          <script>
+              $(function() {
+                $( "#datepicker" ).datepicker();
+                $( "#timesheet_calendar" ).click(function(){
+                  $( "#datepicker" ).datepicker('show');
+                });
+              });
+          </script>
+          <!-- <img src="<?php //echo(JS.'theme/images/logo.png'); ?>" class="m-r-sm" alt="scale"> -->
           <i class="fa fa-calendar"></i>
           <span class="hidden-nav-xs">Calendar</span>
         </a>
@@ -37,83 +63,11 @@
       </div>
 
       <div class="navbar-header aside-md dk nav-header-custom">
-      	<a href="index.html" class="navbar-brand">
- 			<i class="i i-clock2"></i>
+      	<a href="welcome" class="navbar-brand">
+ 			     <i class="i i-clock2"></i>
          	 <span class="hidden-nav-xs">Today</span>
       	</a>
       </div>
-
- <!--      <ul class="nav navbar-nav hidden-xs">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="i i-grid"></i>
-          </a>
-          <section class="dropdown-menu aside-lg bg-white on animated fadeInLeft">
-            <div class="row m-l-none m-r-none m-t m-b text-center">
-              <div class="col-xs-4">
-                <div class="padder-v">
-                  <a href="#">
-                    <span class="m-b-xs block">
-                      <i class="i i-mail i-2x text-primary-lt"></i>
-                    </span>
-                    <small class="text-muted">Mailbox</small>
-                  </a>
-                </div>
-              </div>
-              <div class="col-xs-4">
-                <div class="padder-v">
-                  <a href="#">
-                    <span class="m-b-xs block">
-                      <i class="i i-calendar i-2x text-danger-lt"></i>
-                    </span>
-                    <small class="text-muted">Calendar</small>
-                  </a>
-                </div>
-              </div>
-              <div class="col-xs-4">
-                <div class="padder-v">
-                  <a href="#">
-                    <span class="m-b-xs block">
-                      <i class="i i-map i-2x text-success-lt"></i>
-                    </span>
-                    <small class="text-muted">Map</small>
-                  </a>
-                </div>
-              </div>
-              <div class="col-xs-4">
-                <div class="padder-v">
-                  <a href="#">
-                    <span class="m-b-xs block">
-                      <i class="i i-paperplane i-2x text-info-lt"></i>
-                    </span>
-                    <small class="text-muted">Trainning</small>
-                  </a>
-                </div>
-              </div>
-              <div class="col-xs-4">
-                <div class="padder-v">
-                  <a href="#">
-                    <span class="m-b-xs block">
-                      <i class="i i-images i-2x text-muted"></i>
-                    </span>
-                    <small class="text-muted">Photos</small>
-                  </a>
-                </div>
-              </div>
-              <div class="col-xs-4">
-                <div class="padder-v">
-                  <a href="#">
-                    <span class="m-b-xs block">
-                      <i class="i i-clock i-2x text-warning-lter"></i>
-                    </span>
-                    <small class="text-muted">Timeline</small>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-        </li>
-      </ul> -->
       <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
         <div class="form-group">
           <div class="input-group">
@@ -138,7 +92,7 @@
               <div class="list-group list-group-alt">
                 <a href="#" class="media list-group-item">
                   <span class="pull-left thumb-sm">
-                    <img src="<?php echo(JS.'theme/images/a0.png'); ?>" alt="..." class="img-circle">
+                    <img src="<?php echo(IMG.'a0.png'); ?>" alt="..." class="img-circle">
                   </span>
                   <span class="media-body block m-b-none">
                     Use awesome animate.css<br>
@@ -162,7 +116,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="thumb-sm avatar pull-left">
-              <img src="<?php echo(JS.'theme/images/a0.png'); ?>" alt="...">
+              <img src="<?php echo(IMG.'a0.png'); ?>" alt="...">
             </span>
             John.Smith <b class="caret"></b>
           </a>
