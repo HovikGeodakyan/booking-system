@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$(".confirm").confirm({
-	    text: "Are you sure you want to delete this outlet?",
+	    text: "Are you sure you want to delete?",
 	    title: "Confirmation required",
 	    confirm: function(button) {
 	    	var url = button.attr('href');
@@ -19,6 +19,7 @@ $(document).ready(function(){
 	    cancelButton: "No",
 	    post: true
 	});
+	
 	
 	$(function() {
 		$("#outlet_table").tablesorter();

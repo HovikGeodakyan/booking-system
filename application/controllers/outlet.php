@@ -86,7 +86,7 @@ class Outlet extends CI_Controller {
 	// Remove an Outlet
 	public function delete($id) {
 		$this->outlet_model->delete_outlet($id);
-		redirect(URL.'outlet');
+		// redirect(URL.'outlet');
 
 	}
 
