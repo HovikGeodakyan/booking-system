@@ -24,14 +24,14 @@
 				<thead>
 					<tr>
 						<th class="th-sortable" data-toggle="class">#</th>						
-						<th class="th-sortable" data-toggle="class">Name</th>						
+						<th class="th-sortable" data-toggle="class">Name</th>
+						<th class="th-sortable" data-toggle="class">Email</th>					
 						<th class="th-sortable" data-toggle="class">Seats</th>						
 						<th class="th-sortable" data-toggle="class">Tables</th>						
-						<th class="th-sortable" data-toggle="class">Open time</th>
+						<th class="th-sortable" data-toggle="class">Working time</th>
 						<th class="th-sortable" data-toggle="class">Break time</th>													
 						<th class="th-sortable" data-toggle="class">Day Off</th>
 						<th class="th-sortable" data-toggle="class">Residence time</th>							
-						<th class="th-sortable" data-toggle="class">Season</th>
 						<th>Bookable</th>
 						<th width="30">Delete</th>
 					</tr>
@@ -54,16 +54,16 @@
 							echo "<tr>";
 							echo "<td>".$i."</td>"; $i++;
 							echo "<td><a href='".URL."outlet/edit/".$out["outlet_id"]."'>".$out["outlet_name"]."</a></td>";
-							echo "<td>".$out["outlet_capacity"]."</td>";
-							echo "<td>".$out["outlet_tables"]."</td>";
-							echo "<td>".$out["outlet_open_time"]."</td>";
+							echo "<td>".$out['outlet_email']."</td>";
+							echo "<td>".$out['outlet_seats_number']."</td>";
+							echo "<td>".$out['outlet_tables_number']."</td>";
+							echo "<td>".$out["outlet_open_time"]."-".$out["outlet_close_time"]."</td>";
 							echo "<td>".$out["outlet_break_start_time"]."-".$out["outlet_break_end_time"]."</td>";
 							echo "<td>".$out["outlet_day_off"]."</td>";
-							echo "<td>".$out["outlet_avg_duration"]."</td>";
-							echo "<td>".$out['outlet_season_start']."-".$out['outlet_season_end']."</td>";
+							echo "<td>".$out["outlet_staying_time_lunch"]."</td>";
 							
 							$check="";
-							if($out['outlet_if_bookable']==1){
+							if($out['online-bookable']==1){
 								$check="checked";
 							}
 

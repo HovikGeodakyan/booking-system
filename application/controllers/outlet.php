@@ -22,9 +22,11 @@ class Outlet extends CI_Controller {
 
 	public function edit($id, $page = 'edit') {
 
-		$data['title']  = ucfirst($page);
-		$data['outlet'] = $this->read($id);
-
+		$data['title']   = ucfirst($page);
+		$data['outlet']  = $this->read($id);
+		$data['holiday'] = $this->read_holidays($id);
+		$data['table']   = $this->read_tables($id);
+		
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
 		$this->load->view('outlet/edit');
@@ -113,19 +115,32 @@ class Outlet extends CI_Controller {
 		);
 
 		$holidays = array(
-			"holidays_names"    => $this->input->post("holiday_name"),
-			"holidays_starts"   => $this->input->post("holiday_start"),
-			"holidays_ends"     => $this->input->post("holiday_end"),
-			"holidays_messages" => $this->input->post("holiday_message")
+			"name"       => $this->input->post("holiday_name"),
+			"start-date" => $this->input->post("holiday_start"),
+			"end-date"   => $this->input->post("holiday_end"),
+			"message"    => $this->input->post("holiday_message")
 		);
 
-
 		$outlet_id = $this->outlet_model->create_outlet($outlet);
-		$this->outlet_model->insert_tables($outlet_id, $tables);
-		//$this->outlet_model->insert_holidays($id, $holidays);
+		if(!in_array(false, $tables)){
+			$this->outlet_model->insert_tables($outlet_id, $tables);
+		}
+		if(!in_array(false, $holidays)){
+			$this->outlet_model->insert_holidays($outlet_id, $holidays);
+		}
 		redirect(URL.'outlet');
 	}
 
+
+	public function read_tables($outlet_id){
+		$res = $this->outlet_model->load_tables($outlet_id);
+		return $res;
+	}
+
+	public function read_holidays($outlet_id){
+		$res = $this->outlet_model->load_holidays($outlet_id);
+		return $res;
+	}
 
 	// Get All outlets
 	public function read($id = NULL) {

@@ -73,7 +73,7 @@
 				<label class="control-label">Is this outlet bookable via online webform?</label>
 				<div>
 					<label class="switch">
-						<input name="outlet_online_bookable" type="checkbox" checked value="1">
+						<input name="outlet_online_bookable" type="checkbox" checked="checked" value="1">
 						<span></span>
 					</label>
 				</div>
@@ -370,7 +370,7 @@
 				</div>
 				<div id="collapseThree" class="panel-collapse collapse">
 					<div class="panel-body" id="table-container">
-
+					<button id="add_table" class="col-lg-12 btn btn-success" type="button">Add a table</button>
 					</div>	
 			</div>
 
@@ -378,7 +378,7 @@
 </div>
 
 
-<!-- <div class="form-group" id="table-form-group" style="display:none">
+<!-- <div class="form-group col-lg-12" id="table-form-group" style="display:none">
 
 	<div class="col-lg-2 form-group">
 		<label for="table_standard_seats">Standard number of seats</label>
@@ -394,7 +394,7 @@
 		<label class="control-label">Combinable</label>
 		<div>
 			<label class="switch">
-				<input name="table_combinable[]" type="checkbox" checked value="1">
+				<input name="table_combinable[]" type="checkbox" checked="checked" value="1">
 				<span></span>
 			</label>
 		</div>
@@ -412,3 +412,5 @@
 
 
 <script src="<?php echo(JS.'custom/outlet_edit_new.js'); ?>"></script>
+<script src="<?php echo(JS.'theme/js/parsley/parsley.min.js'); ?>"></script>
+<script src="<?php echo(JS.'theme/js/parsley/parsley.extend.js'); ?>"></script>
