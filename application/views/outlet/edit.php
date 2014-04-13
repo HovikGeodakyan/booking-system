@@ -15,35 +15,25 @@
 
 		<!-- first column -->
 		<div class="col-lg-6">
-			<div class="col-lg-6 form-group">
+			<div class="form-group">
 				<label for="exampleInputEmail1">Outlet name</label>
 				<input name="outlet_name" class="form-control" id="exampleInputEmail1" placeholder="Outlet Name" data-required="true" data-error-message="You must enter a name for the outlet." value="<?php echo $outlet['outlet_name']; ?>">
 			</div>
 
-			<div class="col-lg-6 form-group">
+			<div class="form-group">
 				<label for="exampleInputEmail1">Outlet email address</label>
 				<input name="outlet_email" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" data-type="email" data-required="true" data-error-message="Enter a valid email, please." value="<?php echo $outlet['outlet_email']; ?>">
 			</div>
 
-			<div class="col-lg-4 form-group">
+			<div class="form-group">
 				<label for="exampleInputEmail1">Outlet capacity</label>
 				<input name="outlet_seats_number" type="number" class="form-control" id="exampleInputEmail1" placeholder="Outlet capacity" data-type="digits" data-required="true" data-error-message="You must enter the number of seats." value="<?php echo $outlet['outlet_seats_number']; ?>">
 			</div>
 
-			<div class="col-lg-4 form-group">
+			<div class="form-group">
 				<label for="exampleInputEmail1">Outlet tables</label>
 				<input name="outlet_tables_number" type="number" class="form-control" id="outlet_tables" placeholder="Outlet tables" data-type="number" data-required="true" data-error-message="You must enter the number of tables."  value="<?php echo $outlet['outlet_tables_number']; ?>">
 			</div>	
-
-			<div class="col-lg-4 form-group">
-				<label class="control-label">Online booking</label>
-				<div>
-					<label class="switch">
-						<input name="outlet_online_bookable" type="checkbox" value="1" <?php if($outlet['outlet_online_bookable']==1){echo "checked='checked'";} ?>>
-						<span></span>
-					</label>
-				</div>
-			</div>
 
 			<div class="form-group">
 				<h5>Default not bookable table number</h5>
@@ -69,12 +59,27 @@
 				</div>
 			</div>
 
+			<div class="form-group">
+				<label for="exampleInputEmail1">Outlet description</label>
+				<textarea name="outlet_description" class="form-control" id="exampleInputEmail1" placeholder="Outlet description"><?php echo $outlet['outlet_description']; ?></textarea>
+			</div>
+
 		</div>
 
 		<!-- second column -->
 		<div class="col-lg-6">
 
-			<div class="col-lg-6 form-group">
+			<div class="form-group">
+				<label class="control-label">Is this outlet bookable via online webform?</label>
+				<div>
+					<label class="switch">
+						<input name="outlet_online_bookable" type="checkbox" value="1" <?php if($outlet['outlet_online_bookable']==1){echo "checked='checked'";} ?>>
+						<span></span>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label>Outlet working time</label>
 				<div class="controls form-inline">
 					<label for="inputKey"></label>
@@ -84,7 +89,7 @@
 				</div>
 			</div>		
 
-			<div class="col-lg-6 form-group">
+			<div class="form-group">
 				<label>Outlet break</label>
 				<div class="controls form-inline">
 					<label for="inputKey"></label>
@@ -94,12 +99,7 @@
 				</div>	
 			</div>		
 
-			<div class="col-lg-6 form-group">
-				<label>No-show time limit (in minutes)</label>
-				<input name="outlet_no_show_limit" type="number" class="form-control" placeholder="Time limit" data-type="digits" data-required="true" data-error-message="Required." value="<?php echo $outlet['no_show_limit']; ?>">
-			</div>	
-
-			<div class="col-lg-6 form-group">
+			<div class="form-group">
 				<label>Outlet off day</label>
 				<select name="outlet_day_off" class="form-control">
 					<option value="1" <?php if($outlet['outlet_day_off']==1){echo "selected='selected'";} ?>>Monday</option>
@@ -136,11 +136,10 @@
 				</div>
 			</div>
 
-		</div>
-
-		<div class="col-lg-12 form-group">
-			<label for="exampleInputEmail1">Outlet description</label>
-			<textarea name="outlet_description" class="form-control" id="exampleInputEmail1" placeholder="Outlet description"><?php echo $outlet['outlet_description']; ?></textarea>
+			<div class="form-group">
+				<label>No-show time limit (in minutes)</label>
+				<input name="outlet_no_show_limit" type="number" class="form-control" placeholder="Time limit" data-type="digits" data-required="true" data-error-message="Required." value="<?php echo $outlet['no_show_limit']; ?>">
+			</div>	
 		</div>
 
 		<!-- Additional settings accordeon -->
