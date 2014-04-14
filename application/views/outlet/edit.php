@@ -335,18 +335,20 @@
 				<div id="collapseTwo" class="panel-collapse collapse">
 					<div class="panel-body" id="holiday-container">
 					<?php foreach ($holiday as $hol) { ?>
+						<input name="holiday_id[]" type="hidden" id="holiday_id"  class="form-control" value="<?php echo $hol['holiday_id']; ?>">
 						<div class="col-lg-12 col-xs-12 col-sm-12 form-group" id="holiday-form-group">
+							
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_name">Name</label>
 								<input name="holiday_name[]" id="holiday_name" type="text" class="form-control" value="<?php echo $hol['holiday_name']; ?>">
 							</div>				
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_start">Start</label>
-								<input name="holiday_start[]" id="holiday_start" type="date" class="form-control" value="<?php echo $hol['holiday_start_date']; ?>">
+								<input name="holiday_start[]" id="holiday_start" type="date" class="form-control" value="<?php echo $hol['holiday_start']; ?>">
 							</div>				
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_end">End</label>
-								<input name="holiday_end[]" id="holiday_end" type="date" class="form-control" value="<?php echo $hol['holiday_end_date']; ?>">
+								<input name="holiday_end[]" id="holiday_end" type="date" class="form-control" value="<?php echo $hol['holiday_end']; ?>">
 							</div>				
 							<div class="col-lg-4 col-xs-8 col-sm-8 form-group">
 								<label for="holiday_message">Message</label> 
@@ -377,9 +379,10 @@
 					<div class="panel-body" id="table-container">
 
 					<?php foreach ($table as $tbl) { ?>
-
-						<div class="form-group col-lg-12 col-xs-12 col-sm-12" id="table-form-group">
-							<input type="hidden" name="table_id[]" value="<?php echo $tbl['table_id']; ?>" />
+						<input type="hidden" name="table_id[]" value="<?php echo $tbl['table_id']; ?>" />
+						
+						<div class="form-group table_box col-lg-12 col-xs-12 col-sm-12" id="table-form-group">
+							
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="table_standard_seats">Standard number of seats</label>
 								<input name="table_seats_standart_number[]" id="table_standard_seats" type="number" class="form-control" value="<?php echo $tbl['table_seats_standart_number']; ?>">

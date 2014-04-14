@@ -1,9 +1,6 @@
 <section class="row m-b-md">
 </section>
 
-<?php 
-
-?>
 
 
 <!-- 	Outlets -->

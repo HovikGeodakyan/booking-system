@@ -44,8 +44,8 @@
 				$h=array();
 				$h['holiday_id'] 	     = $row['id'];
 				$h['holiday_name'] 		 = $row['name'];
-				$h['holiday_start_date'] = $row['start-date'];
-				$h['holiday_end_date']   = $row['end-date'];
+				$h['holiday_start']      = $row['start'];
+				$h['holiday_end']        = $row['end'];
 				$h['holiday_message']    = $row['message'];
 				
 				$holidays[] = $h;
@@ -77,36 +77,110 @@
 			return $this->db->insert_id();
 		}
 
- 		public function insert_tables ($outled_id, $tables) {
+ 		// public function insert_tables ($outled_id, $tables) {
 
- 			foreach ($tables as $i => $js){
- 				foreach ($js as $j => $value){
- 					$t_tables[$j][$i] = $value;
- 				}
- 			}
- 			foreach ($t_tables as $table) {
- 				$table['outlet_id'] = $outled_id;
- 				$this->db->insert('tables', $table);
- 			}
+ 		// 	foreach ($tables as $i => $js){
+ 		// 		foreach ($js as $j => $value){
+ 		// 			$t_tables[$j][$i] = $value;
+ 		// 		}
+ 		// 	}
+ 		// 	$count=count($t_tables);
+ 		// 	for($i=0; $i<$count; $i++) {
+ 		// 		$t_tables[$i]['outlet_id'] = $outled_id;	
+ 		// 		if(!isset($t_tables[$i]['combinable'])){
+ 		// 			$t_tables[$i]['combinable']=0;
+ 		// 		}	
+ 		// 	}
 
- 		}
+ 		// 	$this->db->insert_batch('tables', $t_tables);
+ 		// }
 
 
- 		public function insert_holidays ($outled_id, $holidays) {
- 			if(empty($holidays)){
- 				return false;
- 			}
+ 		// public function insert_holidays ($outled_id, $holidays) {
+ 		// 	foreach ($holidays as $i => $s){
+ 		// 		foreach ($s as $j => $value){
+ 		// 			$t_holidays[$j][$i] = $value;
+ 		// 		}
+ 		// 	}
+
+ 		// 	$count=count($t_holidays);
+ 		// 	for($i=0; $i<$count; $i++) {
+ 		// 		$t_holidays[$i]['outlet_id'] = $outled_id;
+ 		// 	}
+
+ 		// 	$this->db->insert_batch('holidays', $t_holidays);
+ 		// }
+
+ 		public function update_holidays ($outled_id, $holidays) {
  			foreach ($holidays as $i => $s){
  				foreach ($s as $j => $value){
  					$t_holidays[$j][$i] = $value;
  				}
  			}
- 			foreach ($t_holidays as $holiday) {
- 				$holiday['outlet_id'] = $outled_id;
- 				$this->db->insert('holidays', $holiday);
- 			}
+
+			$keys   = array_keys($t_holidays[0]);
+			$keys[] = 'outlet_id';
+			$values = '';
+			$results = array();
+			$duplicates = array();
+			for($i = 1; $i < count($keys); $i++) {
+				$str = $keys[$i].'=VALUES('. $keys[$i] . ')';
+				array_push($duplicates, $str);
+			}
+			
+			foreach ($t_holidays as $key => $value) {								
+					$values ='('; 
+					$res = array();	
+					$value['outlet_id'] = $outled_id;
+					foreach ($value as $k => $val) {						
+						array_push($res, '"'.$val.'"');
+					}
+					$values .= implode(',', $res).')';	
+					array_push($results, $values);			
+			}			
+ 			$query = "INSERT INTO holidays (".implode(',',$keys).") VALUES".implode(',', $results)."  ON DUPLICATE KEY UPDATE ".implode(',', $duplicates);
+ 			$this->db->query($query);
  		}
 
+ 		public function update_tables ($outled_id, $tables) {
+ 			foreach ($tables as $i => $s){
+ 				foreach ($s as $j => $value){
+ 					$t_tables[$j][$i] = $value;
+ 				}
+ 			}
+ 			$count=count($t_tables);
+ 			$n=0; $d=0; $e=0;
+ 			for($i=0; $i<$count; $i++) {
+ 				$t_tables[$i]['outlet_id'] = $outled_id;
+ 				if(!isset($t_tables[$i]['combinable'])){
+ 					$t_tables[$i]['combinable']=0;
+ 				}	
+
+ 				if(!isset($t_tables[$i]['id'])){
+ 					$new_tables[$n]=$t_tables[$i];
+ 					$n++;
+ 				}elseif($t_tables[$i]['location']=='deleted'){
+ 					$deleted_tables[$d]=$t_tables[$i]['id'];
+ 					$d++;
+ 				}else{
+ 					$existing_tables[$e]=$t_tables[$i];
+ 					$e++;
+ 				}
+ 			}
+
+ 			if(isset($existing_tables)){
+ 				$this->db->update_batch('tables', $existing_tables, 'id');
+ 			}
+
+			if(isset($new_tables)){
+ 				$this->db->insert_batch('tables', $new_tables);
+ 			}
+
+ 			if(isset($deleted_tables)){
+ 				$this->db->where_in('id', $deleted_tables);
+ 				$this->db->delete('tables');
+ 			}
+ 		}
 
 		public function update_outlet($id, $outlet) {
 

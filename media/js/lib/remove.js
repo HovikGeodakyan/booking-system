@@ -21,7 +21,4 @@ $(document).ready(function(){
 	});
 	
 	
-	$(function() {
-		$("#outlet_table").tablesorter();
-	});
 })

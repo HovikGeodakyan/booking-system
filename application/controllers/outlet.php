@@ -77,7 +77,8 @@ class Outlet extends CI_Controller {
 
 		// var_dump('<pre>',$tables );exit;
 		$this->outlet_model->update_outlet($id, $outlet);	
-
+		$this->outlet_model->update_holidays($id, $holidays);
+		$this->outlet_model->update_tables($id, $tables);
 		redirect(URL.'outlet');
 
 	}
