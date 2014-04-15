@@ -4,6 +4,7 @@
 	<ul class="nav nav-tabs settings_tabs">
 		<li><a href="<?php echo(URL.'outlet'); ?>">Outlet</a></li>
 		<li class="active"><a href="<?php echo(URL.'user'); ?>">Users</a></li>
+		<li><a href="<?php echo(URL.'holiday'); ?>">Holidays</a></li>
 	</ul>
 	<div id="_settings" class="settings">
 		<div class="settings_header">

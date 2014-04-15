@@ -1,0 +1,44 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Holiday extends CI_Controller {
+
+	public function __construct(){
+		parent::__construct();
+		$this->load->model('holiday_model');
+	}
+
+
+	public function index($page = 'holidays') {
+
+		$data['title']    = ucfirst($page); //page title
+		$data['holidays'] = $this->read();  //list of holidays
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar');
+		$this->load->view('holiday/list');
+		$this->load->view('templates/footer');
+	}
+
+
+
+
+
+
+	// Remove a holiday
+	public function delete($id) {
+		echo $this->input->post('name');
+		//$this->holiday_model->delete_holiday($id);
+	}
+
+	// read holiday/holidays
+	public function read() {
+		$res = $this->holiday_model->load_general_holidays();
+		return $res;
+	}
+
+	public function update($id) {
+		$holiday = $this->input->post();
+		$this->holiday_model->update_a_holiday($id, $holiday);
+	}
+}
+

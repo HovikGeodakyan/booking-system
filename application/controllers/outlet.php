@@ -5,6 +5,7 @@ class Outlet extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('outlet_model');
+		$this->load->model('holiday_model');
 	}
 
 
@@ -77,7 +78,7 @@ class Outlet extends CI_Controller {
 
 		// var_dump('<pre>',$tables );exit;
 		$this->outlet_model->update_outlet($id, $outlet);	
-		// $this->outlet_model->update_holidays($id, $holidays);
+		// $this->holiday_model->update_holidays($id, $holidays);
 		if(!empty($tables)) {
 			$this->outlet_model->update_tables($id, $tables);
 		}
@@ -108,7 +109,7 @@ class Outlet extends CI_Controller {
 
 
 	public function read_holidays($outlet_id){
-		$res = $this->outlet_model->load_holidays($outlet_id);
+		$res = $this->holiday_model->load_outlet_holidays($outlet_id);
 		return $res;
 	}
 

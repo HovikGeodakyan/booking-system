@@ -33,6 +33,7 @@
     <script src="<?php echo(JS.'datepicker/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
     <script src="<?php echo(JS.'datepicker/datepicker.js'); ?>"></script>  
     <script src="<?php echo(JS.'lib/remove.js'); ?>"></script>
+    <script src="<?php echo(JS.'lib/tableEdit.js'); ?>"></script>
 
     <!-- Theme Validation -->
     <script src="<?php echo(JS.'lib/parsley.min.js'); ?>"></script>

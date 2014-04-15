@@ -39,10 +39,10 @@
 .settings .settings_content table tbody{
 	background-color:#f1f2f2;
 }
-.settings .settings_content table tbody a{
+/*.settings .settings_content table tbody a{
 	color:#777;
 	font-weight:bold;
-}
+}*/
 .settings_tabs li{
 	width:100px;
 	text-align: center;
