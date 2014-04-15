@@ -21,7 +21,7 @@ class Outlet extends CI_Controller {
 	}
 
 
-	// Render View 
+	// Render Add View 
 	public function add($page = 'new outlet'){
 		$data['title'] = ucfirst($page);
 
@@ -31,7 +31,7 @@ class Outlet extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
-
+	// Render Edit View 
 	public function edit($id, $page = 'edit') {
 
 		$data['title']   = ucfirst($page);
@@ -59,9 +59,9 @@ class Outlet extends CI_Controller {
 			$this->outlet_model->insert_tables($outlet_id, $tables);
 		}
 
-		// if(!empty($holidays)) {
-		// 	$this->outlet_model->insert_holidays($outlet_id, $holidays);
-		// }
+		if(!empty($holidays)) {
+			$this->holiday_model->update_holidays($outlet_id, $holidays);
+		}
 
 		redirect(URL.'outlet');
 
@@ -94,8 +94,6 @@ class Outlet extends CI_Controller {
 	// Remove an Outlet
 	public function delete($id) {
 		$this->outlet_model->delete_outlet($id);
-		// redirect(URL.'outlet');
-
 	}
 
 
@@ -129,7 +127,16 @@ class Outlet extends CI_Controller {
 		return $res;
 	}
 
-	
+
+	public function get_current_outlet() {
+
+	}
+
+	public function get_active_outlet_details() {
+
+	}
+
+
 	public function remove_prefix($data, $prefix) {		
 		$result = array();
 		
