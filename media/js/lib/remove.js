@@ -8,7 +8,10 @@ $(document).ready(function(){
 				type: "POST",
 				url: url,
 				success: function(data) {
-					button.parent().parent().hide('slow', function(){ $this.remove(); });
+					var self = button.parent().parent();
+					self.hide('slow', function(){
+						self.remove(); 
+					});
 				}
 			});
 	    },

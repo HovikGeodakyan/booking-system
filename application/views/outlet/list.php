@@ -1,12 +1,10 @@
-<section class="row m-b-md">
-</section>
-
-
+<section class="row m-b-md"></section>
 
 <!-- 	Outlets -->
 	<ul class="nav nav-tabs settings_tabs">
 		<li class="active"><a href="<?php echo(URL.'outlet'); ?>">Outlet</a></li>
 		<li><a href="<?php echo(URL.'user'); ?>">Users</a></li>
+		<li><a href="<?php echo(URL.'user'); ?>">Holidays</a></li>
 	</ul>
 	<div id="_settings" class="settings">
 		<div class="settings_header">
@@ -74,19 +72,4 @@
 		</div>
 	</div>
 	
-<script src="<?php echo(JS.'custom/user-outlet-remove.js'); ?>"></script>
 
-<!-- Modal -->
-<div class="modal fade custom-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">Are yo sure?</h4>
-			</div>
-			<div class="modal-body">
-				<button type="button" id="confirm_remove" class="btn btn-primary">Yes</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

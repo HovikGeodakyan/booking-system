@@ -32,7 +32,7 @@
 
 			<div class="form-group">
 				<label for="exampleInputEmail1">Outlet tables</label>
-				<input name="outlet_tables_number" type="number" class="form-control" id="outlet_tables" placeholder="Outlet tables" data-type="number" data-required="true" data-error-message="You must enter the number of tables."  value="<?php echo $outlet['outlet_tables_number']; ?>">
+				<input name="outlet_tables_number" disabled type="number" class="form-control" id="outlet_tables" placeholder="Outlet tables" data-type="number" data-required="true" data-error-message="You must enter the number of tables."  value="<?php echo $outlet['outlet_tables_number']; ?>">
 			</div>	
 
 			<div class="form-group">
@@ -379,18 +379,18 @@
 					<div class="panel-body" id="table-container">
 
 					<?php foreach ($table as $tbl) { ?>
-						<input type="hidden" name="table_id[]" value="<?php echo $tbl['table_id']; ?>" />
-						
-						<div class="form-group table_box col-lg-12 col-xs-12 col-sm-12" id="table-form-group">
+
+						<div class="form-group table_box col-lg-12 col-xs-12 col-sm-12">
+							<input type="hidden" name="table_id[]" value="<?php echo $tbl['table_id']; ?>" />
 							
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="table_standard_seats">Standard number of seats</label>
-								<input name="table_seats_standart_number[]" id="table_standard_seats" type="number" class="form-control" value="<?php echo $tbl['table_seats_standart_number']; ?>">
+								<input name="table_seats_standart_number[]" type="number" class="form-control" value="<?php echo $tbl['table_seats_standart_number']; ?>">
 							</div>
 
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="table_max_seats">Maximum number of seats</label>
-								<input name="table_seats_max_number[]" id="table_max_seats" type="number" class="form-control" value="<?php echo $tbl['table_seats_max_number']; ?>">
+								<input name="table_seats_max_number[]" type="number" class="form-control" value="<?php echo $tbl['table_seats_max_number']; ?>">
 							</div>
 
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
@@ -413,8 +413,8 @@
 							</div>
 
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-								<label class="control-label">Remove the table</label><br>
-								<button class="remove_table btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+								<label class="control-label">Remove</label><br>
+								<a href="<?php echo URL; ?>outlet/remove_table/<?php echo $tbl['table_id']; ?>" class="confirm"><button class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button></a>
 							</div>
 						</div>
 						
@@ -426,44 +426,6 @@
 
 	</form>
 </div>
-
-
-<!-- <div class="form-group col-lg-12 col-xs-12 col-sm-12" id="table-form-group">
-
-	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-		<label for="table_standard_seats">Standard number of seats</label>
-		<input name="table_seats_standart_number[]" id="table_standard_seats" type="number" class="form-control">
-	</div>
-
-	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-		<label for="table_max_seats">Maximum number of seats</label>
-		<input name="table_seats_max_number[]" id="table_max_seats" type="number" class="form-control">
-	</div>
-
-	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-		<label class="control-label">Combinable</label>
-		<div>
-			<label class="switch">
-				<input name="table_combinable[]" type="checkbox" checked="checked" value="1">
-				<span></span>
-			</label>
-		</div>
-	</div>
-
-	<div class="col-lg-4 col-xs-8 col-sm-8 form-group">
-		<label>Location</label>
-		<select name="table_location[]" class="form-control">
-			<option value="1">Window</option>
-			<option value="2">Middle</option>
-			<option value="3">Back</option>
-		</select>
-	</div>
-	<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-		<label class="control-label">Remove the table</label><br>
-		<button class="remove_table btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
-	</div>
-</div> -->
-
 
 <script src="<?php echo(JS.'outlets/outlet_edit_new.js'); ?>"></script>
 

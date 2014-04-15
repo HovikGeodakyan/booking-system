@@ -58,9 +58,9 @@ class Outlet extends CI_Controller {
 			$this->outlet_model->insert_tables($outlet_id, $tables);
 		}
 
-		if(!empty($holidays)) {
-			$this->outlet_model->insert_holidays($outlet_id, $holidays);
-		}
+		// if(!empty($holidays)) {
+		// 	$this->outlet_model->insert_holidays($outlet_id, $holidays);
+		// }
 
 		redirect(URL.'outlet');
 
@@ -77,8 +77,11 @@ class Outlet extends CI_Controller {
 
 		// var_dump('<pre>',$tables );exit;
 		$this->outlet_model->update_outlet($id, $outlet);	
-		$this->outlet_model->update_holidays($id, $holidays);
-		$this->outlet_model->update_tables($id, $tables);
+		// $this->outlet_model->update_holidays($id, $holidays);
+		if(!empty($tables)) {
+			$this->outlet_model->update_tables($id, $tables);
+		}
+		
 		redirect(URL.'outlet');
 
 	}
@@ -94,6 +97,12 @@ class Outlet extends CI_Controller {
 
 	public function read_tables($outlet_id){
 		$res = $this->outlet_model->load_tables($outlet_id);
+		return $res;
+	}
+
+
+	public function remove_table($id) {
+		$res = $this->outlet_model->remove_table($id);
 		return $res;
 	}
 

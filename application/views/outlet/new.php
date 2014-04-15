@@ -1,7 +1,3 @@
-<section class="row m-b-md">
-</section>
-
-
 <div class="_edit">
 
 	<form role="form" action="<?php echo(URL.'outlet/create/'); ?>" method="post" data-validate="parsley">
@@ -17,17 +13,17 @@
 		<div class="col-lg-6">
 			<div class="form-group">
 				<label for="exampleInputEmail1">Outlet name</label>
-				<input name="outlet_name" class="form-control" id="exampleInputEmail1" placeholder="Outlet Name" data-required="true" data-error-message="You must enter a name for the outlet.">
+				<input name="outlet_name" class="form-control" placeholder="Enter Outlet Name" data-required="true" data-error-message="You must enter a name for the outlet.">
 			</div>
 
 			<div class="form-group">
 				<label for="exampleInputEmail1">Outlet email address</label>
-				<input name="outlet_email" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" data-type="email" data-required="true" data-error-message="Enter a valid email, please.">
+				<input name="outlet_email" type="text" class="form-control"  placeholder="Enter email" data-type="email" data-required="true" data-error-message="Enter a valid email, please.">
 			</div>
 
 			<div class="form-group">
 				<label for="exampleInputEmail1">Outlet capacity</label>
-				<input name="outlet_seats_number" type="number" class="form-control" id="exampleInputEmail1" placeholder="Outlet capacity" data-type="digits" data-required="true" data-error-message="You must enter the number of seats.">
+				<input name="outlet_seats_number" type="number" class="form-control" placeholder="Outlet capacity" data-type="digits" data-required="true" data-error-message="You must enter the number of seats.">
 			</div>
 
 			<div class="form-group">
@@ -334,31 +330,7 @@
 				</div>
 				<div id="collapseTwo" class="panel-collapse collapse">
 					<div class="panel-body" id="holiday-container">
-
-						<!-- <div class="col-lg-12 col-xs-12 col-sm-12 form-group" id="holiday-form-group">
-							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-								<label for="holiday_name">Name</label>
-								<input name="holiday_name[]" id="holiday_name" type="text" class="form-control">
-							</div>				
-							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-								<label for="holiday_start">Start</label>
-								<input name="holiday_start[]" id="holiday_start" type="date" class="form-control">
-							</div>				
-							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-								<label for="holiday_end">End</label>
-								<input name="holiday_end[]" id="holiday_end" type="date" class="form-control">
-							</div>				
-							<div class="col-lg-4 col-xs-8 col-sm-8 form-group">
-								<label for="holiday_message">Message</label>
-								<input name="holiday_message[]" id="holiday_message" type="text" class="form-control">
-							</div>
-
-							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-								<label class="control-label">Remove the holiday</label><br>
-								<button class="remove_holiday btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
-							</div>		
-						</div> -->
-
+						
 						<button id="add_holiday" class="col-lg-12 col-xs-12 col-sm-12 btn btn-success" type="button">Add a holiday</button>
 
 					</div>

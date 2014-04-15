@@ -5,7 +5,7 @@
 			parent::__construct();
 		}
 
-		public function load_outlets(){
+		public function load_outlets() {
 			$query	 = $this->db->query('SELECT * FROM outlets WHERE deleted = 0');
 			$query	 = $query->result_array();
 			$outlets = array();
@@ -77,23 +77,34 @@
 			return $this->db->insert_id();
 		}
 
- 		// public function insert_tables ($outled_id, $tables) {
+ 		public function insert_tables ($outled_id, $tables) {
 
- 		// 	foreach ($tables as $i => $js){
- 		// 		foreach ($js as $j => $value){
- 		// 			$t_tables[$j][$i] = $value;
- 		// 		}
- 		// 	}
- 		// 	$count=count($t_tables);
- 		// 	for($i=0; $i<$count; $i++) {
- 		// 		$t_tables[$i]['outlet_id'] = $outled_id;	
- 		// 		if(!isset($t_tables[$i]['combinable'])){
- 		// 			$t_tables[$i]['combinable']=0;
- 		// 		}	
- 		// 	}
+ 			foreach ($tables as $i => $js) {
+ 				foreach ($js as $j => $value) {
+ 					$t_tables[$j][$i] = $value;
+ 				}
+ 			}
+ 			$count = count($t_tables);
+ 			for($i=0; $i<$count; $i++) {
+ 				$t_tables[$i]['outlet_id'] = $outled_id;	
+ 				if(!isset($t_tables[$i]['combinable'])){
+ 					$t_tables[$i]['combinable']=0;
+ 				}	
+ 			}
 
- 		// 	$this->db->insert_batch('tables', $t_tables);
- 		// }
+ 			$this->db->insert_batch('tables', $t_tables);
+ 		}
+
+ 		public function remove_table($id) {
+			$this->db->where_in('id', $id);
+ 			$result = $this->db->delete('tables');
+ 			if($result) {
+ 				return  array(
+		 					'status'=>'sucsess',
+		 					'code' => 200
+		 				);
+ 			}
+ 		}
 
 
  		// public function insert_holidays ($outled_id, $holidays) {
@@ -143,44 +154,44 @@
  		}
 
  		public function update_tables ($outled_id, $tables) {
- 			foreach ($tables as $i => $s){
- 				foreach ($s as $j => $value){
+			foreach ($tables as $i => $s) {
+ 				foreach ($s as $j => $value) {
  					$t_tables[$j][$i] = $value;
  				}
- 			}
- 			$count=count($t_tables);
- 			$n=0; $d=0; $e=0;
- 			for($i=0; $i<$count; $i++) {
- 				$t_tables[$i]['outlet_id'] = $outled_id;
- 				if(!isset($t_tables[$i]['combinable'])){
- 					$t_tables[$i]['combinable']=0;
- 				}	
-
- 				if(!isset($t_tables[$i]['id'])){
- 					$new_tables[$n]=$t_tables[$i];
- 					$n++;
- 				}elseif($t_tables[$i]['location']=='deleted'){
- 					$deleted_tables[$d]=$t_tables[$i]['id'];
- 					$d++;
- 				}else{
- 					$existing_tables[$e]=$t_tables[$i];
- 					$e++;
- 				}
- 			}
-
- 			if(isset($existing_tables)){
- 				$this->db->update_batch('tables', $existing_tables, 'id');
- 			}
-
-			if(isset($new_tables)){
- 				$this->db->insert_batch('tables', $new_tables);
- 			}
-
- 			if(isset($deleted_tables)){
- 				$this->db->where_in('id', $deleted_tables);
- 				$this->db->delete('tables');
- 			}
+ 			} 			
+			
+			$keys   = ["id", "seats_standart_number", "seats_max_number",  "location", "combinable", "outlet_id"];			
+			$duplicates = array();
+			for($i = 1; $i < count($keys); $i++) {
+				$str = $keys[$i].'=VALUES('. $keys[$i] . ')';
+				array_push($duplicates, $str);
+			}
+			
+			$values = '';
+			$results = array();
+			foreach ($t_tables as $key => $value) {								
+				$values ='('; 
+				$res = array();	
+				
+				if(!array_key_exists('combinable', $value)){
+					$value['combinable']=0;
+				} else {
+					$tmp=$value['combinable'];
+					unset($value['combinable']);
+					$value['combinable'] = $tmp;
+				}
+				$value['outlet_id'] = $outled_id;					
+				foreach ($value as $k => $val) {						
+					array_push($res, '"'.$val.'"');
+				}
+				$values .= implode(',', $res).')';	
+				array_push($results, $values);			
+			}	
+ 			
+ 			$query = "INSERT INTO tables (".implode(',',$keys).") VALUES".implode(',', $results)."  ON DUPLICATE KEY UPDATE ".implode(',', $duplicates);
+ 			$this->db->query($query);
  		}
+
 
 		public function update_outlet($id, $outlet) {
 
@@ -188,6 +199,7 @@
 			$this->db->update('outlets', $outlet);
 
 		}
+
 
 		public function delete_outlet($id){
 			$this->db->set('deleted', 1);
