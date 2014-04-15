@@ -8,8 +8,8 @@ $(document).ready(function(){
             callback: function(e){
             	var holiday = {
             		'name'    : e.name,
-            		'start'   : e.start,
-            		'end'     : e.end,
+            		'start_date'   : e.start_date,
+            		'end_date'     : e.end_date,
             		'message' : e.message
             	};
             	var url='holiday/update/'+e.id;
@@ -25,21 +25,11 @@ $(document).ready(function(){
             }
         });
 
-        var holiday = '<div class="col-lg-12 col-xs-12 col-sm-12 form-group"><input name="holiday_id[]" type="hidden" /><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="holiday_name">Name</label><input name="holiday_name[]" id="holiday_name" type="text" class="form-control"></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="holiday_start">Start</label><input name="holiday_start[]" id="holiday_start" type="date" class="form-control"></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="holiday_end">End</label><input name="holiday_end[]" id="holiday_end" type="date" class="form-control"></div><div class="col-lg-4 col-xs-8 col-sm-8 form-group"><label for="holiday_message">Message</label><input name="holiday_message[]" id="holiday_message" type="text" class="form-control"></div></div>'
+        var holiday = '<div class="col-lg-12 col-xs-12 col-sm-12 form-group"><input name="id[]" type="hidden" /><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="name">Name</label><input name="name[]" type="text" class="form-control"></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="start_date">Start</label><input name="start_date[]" type="date" class="form-control"></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="end_date">End</label><input name="end_date[]" type="date" class="form-control"></div><div class="col-lg-4 col-xs-8 col-sm-8 form-group"><label for="holiday_message">Message</label><input name="message[]" type="text" class="form-control"></div></div>'
         
         $(".add_holiday").click(function(){
-        	$("#new_holiday").append(holiday);
-        	$(this).html("Create");
-        	$(this).attr("type", "submit");
-        	$('.back_button').html('Cancel');
-        	$(this).unbind();
+        	$("#new_holiday").append(holiday);        	
         });
 
-        $(".back_button").on("click", function(event){
-        	if($(this).html() === "Cancel") {
-	        	event.preventDefault();
-	        	
-	        	$("#new_holiday .form-group").remove();
-        	}
-        });
+        
 })

@@ -336,28 +336,29 @@
 					<div class="panel-body" id="holiday-container">
 					<?php foreach ($holiday as $hol) { ?>
 						<input name="holiday_id[]" type="hidden" id="holiday_id"  class="form-control" value="<?php echo $hol['holiday_id']; ?>">
-						<div class="col-lg-12 col-xs-12 col-sm-12 form-group" id="holiday-form-group">
+						<div class="col-lg-12 col-xs-12 col-sm-12 form-group">
 							
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_name">Name</label>
-								<input name="holiday_name[]" id="holiday_name" type="text" class="form-control" value="<?php echo $hol['holiday_name']; ?>">
+								<input name="holiday_name[]"  type="text" class="form-control" value="<?php echo $hol['holiday_name']; ?>">
 							</div>				
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-								<label for="holiday_start">Start</label>
-								<input name="holiday_start[]" id="holiday_start" type="date" class="form-control" value="<?php echo $hol['holiday_start']; ?>">
+								<label for="holiday_start">Start Date</label>
+								<input name="holiday_start_date[]"  type="date" class="form-control" value="<?php echo $hol['holiday_start']; ?>">
 							</div>				
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
-								<label for="holiday_end">End</label>
-								<input name="holiday_end[]" id="holiday_end" type="date" class="form-control" value="<?php echo $hol['holiday_end']; ?>">
+								<label for="holiday_end">End Date</label>
+								<input name="holiday_end_date[]"  type="date" class="form-control" value="<?php echo $hol['holiday_end']; ?>">
 							</div>				
 							<div class="col-lg-4 col-xs-8 col-sm-8 form-group">
 								<label for="holiday_message">Message</label> 
-								<input name="holiday_message[]" id="holiday_message" type="text" class="form-control" value="<?php echo $hol['holiday_message']; ?>">
+								<input name="holiday_message[]" type="text" class="form-control" value="<?php echo $hol['holiday_message']; ?>">
 							</div>	
 
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label class="control-label">Remove the holiday</label><br>
-								<button class="remove_holiday btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+								<a href="<?php echo URL; ?>holiday/delete/<?php echo $hol['holiday_id']; ?>" class="confirm"><button class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button></a>
+							
 							</div>			
 						</div>
 					<?php } ?>
@@ -371,7 +372,7 @@
 				<div class="panel-heading">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-							<h4>Set table parameters</h4>
+							<h4>Tables Settings</h4>
 						</a>
 					</h4>
 				</div>

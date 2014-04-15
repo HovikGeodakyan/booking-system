@@ -28,6 +28,7 @@
 						<th class="th-sortable" data-toggle="class">Day Off</th>
 						<th class="th-sortable" data-toggle="class">Residence time</th>							
 						<th>Bookable</th>
+						<th>Edit</th>
 						<th width="30">Delete</th>
 					</tr>
                     </thead>
@@ -63,6 +64,7 @@
 							}
 
 							echo '<td class="i-checks" style="text-align:center"><input type="checkbox" '.$check.' disabled><i></i></td>';
+							echo "<td><a class='btEdit btn btn-success' href='".URL."outlet/edit/".$out["outlet_id"]."'>Edit</a></td>";
 							echo '<td><a href="'.URL."outlet/delete/".$out["outlet_id"].'" class="confirm"><div class="delete_button" style="background-image:url('.IMG.'/delete.png)"></div></a></td>';
 							echo "</tr>";
 						}

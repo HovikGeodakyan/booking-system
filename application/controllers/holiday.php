@@ -10,8 +10,8 @@ class Holiday extends CI_Controller {
 
 	public function index($page = 'holidays') {
 
-		$data['title']    = ucfirst($page); //page title
-		$data['holidays'] = $this->read();  //list of holidays
+		$data['title']    = ucfirst($page); 
+		$data['holidays'] = $this->read();  
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
@@ -20,21 +20,25 @@ class Holiday extends CI_Controller {
 	}
 
 
-
-
-
-
-	// Remove a holiday
-	public function delete($id) {
-		echo $this->input->post('name');
+	public function create() {
+		$res = $this->holiday_model->update_holidays($this->input->post());
+		redirect(URL.'holiday');
 		//$this->holiday_model->delete_holiday($id);
 	}
 
-	// read holiday/holidays
+	
+	public function delete($id) {
+		// echo $this->input->post('name');
+		$this->holiday_model->delete_holiday($id);
+	}
+
+	
+
 	public function read() {
 		$res = $this->holiday_model->load_general_holidays();
 		return $res;
 	}
+
 
 	public function update($id) {
 		$holiday = $this->input->post();

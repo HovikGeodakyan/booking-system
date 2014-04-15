@@ -1,16 +1,17 @@
 <section class="row m-b-md"></section>
 
-
 	<ul class="nav nav-tabs settings_tabs">
 		<li><a href="<?php echo(URL.'outlet'); ?>">Outlet</a></li>
 		<li><a href="<?php echo(URL.'user'); ?>">Users</a></li>
 		<li class="active"><a href="<?php echo(URL.'holiday'); ?>">Holidays</a></li>
 	</ul>
+
 	<div id="_settings" class="settings">
 		<div class="settings_header">
 			<form id="new_holiday" class="col-lg-12" method="post" action="<?php echo(URL.'holiday/create/'); ?>">
 				<div class="crud">
-					<a type="button" class="add_holiday btn btn-primary btn-sm">Add</a>
+					<input type="submit" class="add_holiday btn btn-primary btn-sm" value="Save" />
+					<a type="button" class="add_holiday btn btn-success btn-sm">Add</a>					
 					<a class="back_button btn btn-default btn-sm" href="<?php echo URL; ?>">Back</a>
 				</div>
 			</form>
@@ -32,17 +33,16 @@
                     <tbody>
                     <?php 
 						$i=1;
-						foreach($holidays as $hol){
-							
+						foreach($holidays as $hol) {							
 							echo "<tr>";
 							echo "<td>".$i."</td>"; $i++;
-							echo "<td style='display:none' ref='type:number, name:id, class:form-control, id:idId'>".$hol['holiday_id']."</td>";
-							echo "<td ref='type:text, name:name, class:form-control, id:nameId'>".$hol['holiday_name']."</td>";
-							echo "<td ref='type:date, name:start, class:form-control, id:startId'>".$hol['holiday_start']."</td>";
-							echo "<td ref='type:date, name:end, class:form-control, id:endId'>".$hol['holiday_end']."</td>";
-							echo "<td ref='type:text, name:message, class:form-control, id:messageId'>".$hol['holiday_message']."</td>";
+							echo "<td style='display:none' ref='type:number, name:id, class:form-control, id:idId'>".$hol['id']."</td>";
+							echo "<td ref='type:text, name:name, class:form-control, id:nameId'>".$hol['name']."</td>";
+							echo "<td ref='type:date, name:start, class:form-control, id:startId'>".$hol['start_date']."</td>";
+							echo "<td ref='type:date, name:end, class:form-control, id:endId'>".$hol['end_date']."</td>";
+							echo "<td ref='type:text, name:message, class:form-control, id:messageId'>".$hol['message']."</td>";
 							echo '<td><a href="javascript:;" class="btEdit btn btn-success">Edit</a></td>';
-							echo '<td><a href="'.URL."holiday/delete/".$hol["holiday_id"].'" class="confirm"><div class="delete_button" style="background-image:url('.IMG.'/delete.png)"></div></a></td>';
+							echo '<td><a href="'.URL."holiday/delete/".$hol["id"].'" class="confirm"><div class="delete_button" style="background-image:url('.IMG.'/delete.png)"></div></a></td>';
 							echo "</tr>";
 						}
 					?>

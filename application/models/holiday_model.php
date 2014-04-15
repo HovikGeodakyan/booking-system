@@ -7,20 +7,7 @@
 
 		public function load_general_holidays(){
 			$query = $this->db->query('SELECT * FROM holidays WHERE outlet_id = 0');
-			$query	 = $query->result_array();
-			$holidays = array();
-			
-			foreach ($query as $row) {
-				$h=array();
-				$h['holiday_id'] 	     = $row['id'];
-				$h['holiday_name'] 		 = $row['name'];
-				$h['holiday_start']      = $row['start'];
-				$h['holiday_end']        = $row['end'];
-				$h['holiday_message']    = $row['message'];
-				
-				$holidays[] = $h;
-			}
-			
+			$holidays	 = $query->result_array();			
 			return $holidays;			
 		}
 
@@ -34,8 +21,8 @@
 				$h=array();
 				$h['holiday_id'] 	     = $row['id'];
 				$h['holiday_name'] 		 = $row['name'];
-				$h['holiday_start']      = $row['start'];
-				$h['holiday_end']        = $row['end'];
+				$h['holiday_start']      = $row['start_date'];
+				$h['holiday_end']        = $row['end_date'];
 				$h['holiday_message']    = $row['message'];
 				
 				$holidays[] = $h;

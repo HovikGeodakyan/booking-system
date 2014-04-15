@@ -75,12 +75,15 @@ class Outlet extends CI_Controller {
 		$outlet   = $this->remove_prefix($form, 'outlet');
 		$tables   = $this->remove_prefix($form, 'table');
 		$holidays = $this->remove_prefix($form, 'holiday');
-
-		// var_dump('<pre>',$tables );exit;
+		
 		$this->outlet_model->update_outlet($id, $outlet);	
-		// $this->holiday_model->update_holidays($id, $holidays);
+		
 		if(!empty($tables)) {
 			$this->outlet_model->update_tables($id, $tables);
+		}
+
+		if(!empty($holidays)) {
+			$this->holiday_model->update_holidays($id, $holidays);
 		}
 		
 		redirect(URL.'outlet');
