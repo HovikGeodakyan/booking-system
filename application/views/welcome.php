@@ -22,7 +22,7 @@
       </section>
  
  <div class="white_content">
-<section class="" >
+<section class="">
 <!--  <form class="form-inline" role="form">
    <div class="form-group">    
     <input type="time" step="900" class="form-control" placeholder="Enter name">
@@ -69,21 +69,30 @@
 </form>
  -->
 
-<form class="form-inline" role="form">
+<form class="form-inline add_reservation" role="form">
 
-  <div class="form-group">    
+  <div class="form-group date">   
     <input type="date" class="form-control">
   </div>
 
-  <div class="form-group">    
+  <div class="form-group time">   
     <input type="time" step="900" class="form-control">
   </div>
 
-  <div class="form-group">    
-    <input type="number" class="form-control" placeholder="Number of Guets">
+  <div class="form-group guests">   
+    <input type="number" class="form-control" placeholder="Guests number">
   </div>
 
-  <div class="form-group">    
+  <div class="form-group table">
+    <select class="form-control">
+      <option>NA</option>
+      <option>T1</option>
+      <option>T2</option>
+      <option>T3</option>
+    </select>
+  </div>
+
+  <div class="form-group title">
     <select class="form-control">
       <option>Mr.</option>
       <option>Mrs.</option>
@@ -92,36 +101,33 @@
     </select>
   </div>
 
-  <div class="form-group">    
+  <div class="form-group name">   
     <input type="text" class="form-control" placeholder="Name">
   </div>
 
-  <div class="form-group">    
+  <div class="form-group phone">   
     <input type="tel" class="form-control" placeholder="Phone">
   </div>
 
-  <div class="form-group">    
+  <div class="form-group email">  
     <input type="email" class="form-control" placeholder="Email">
   </div>
 
-  <div class="form-group">    
-    <div class="checkbox i-checks">
-      <label>
-        Confirmation
-        <input type="checkbox" value="">
-        <i></i>
-      </label>
+  <div class="form-group confirmation">    
+    <div class="">
+      <label></label>
+        <input type="checkbox" value="1">  
     </div>
   </div>
 
-  <div class="form-group">    
+  <div class="form-group language">
     <select class="form-control">
       <option>EN</option>
       <option>GE</option>
     </select>
   </div>
 
-  <div class="form-group">    
+  <div class="form-group author">   
     <input type="text" class="form-control" placeholder="Author">
   </div>
 
