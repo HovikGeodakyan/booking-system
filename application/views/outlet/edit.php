@@ -83,9 +83,9 @@
 				<label>Outlet working time</label>
 				<div class="controls form-inline">
 					<label for="inputKey"></label>
-					<input name="outlet_open_time" type="time" class="form-control" placeholder="Open time" data-required="true" value="<?php echo $outlet['outlet_open_time']; ?>">
+					<input name="outlet_open_time" type="time" step="900" class="form-control" placeholder="Open time" data-required="true" value="<?php echo $outlet['outlet_open_time']; ?>">
 					<label for="inputValue">-</label>
-					<input name="outlet_close_time" type="time" class="form-control" placeholder="Close time" data-required="true" value="<?php echo $outlet['outlet_close_time']; ?>">
+					<input name="outlet_close_time" type="time" step="900" class="form-control" placeholder="Close time" data-required="true" value="<?php echo $outlet['outlet_close_time']; ?>">
 				</div>
 			</div>		
 
@@ -93,9 +93,9 @@
 				<label>Outlet break</label>
 				<div class="controls form-inline">
 					<label for="inputKey"></label>
-					<input name="outlet_break_start_time" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time']; ?>">
+					<input name="outlet_break_start_time" type="time" step="900" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time']; ?>">
 					<label for="inputValue">-</label>
-					<input name="outlet_break_end_time" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time']; ?>">
+					<input name="outlet_break_end_time" type="time" step="900" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time']; ?>">
 				</div>	
 			</div>		
 
@@ -116,23 +116,23 @@
 				<h5>Avearage staying time for</h5>
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Lunch</label>
-					<input name="outlet_staying_time_lunch" type="time" class="form-control" value="<?php echo $outlet['outlet_staying_time_lunch']; ?>">
+					<input name="outlet_staying_time_lunch" type="time" step="900" class="form-control" value="<?php echo $outlet['outlet_staying_time_lunch']; ?>">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Dinner</label>
-					<input name="outlet_staying_time_dinner" type="time" class="form-control" value="<?php echo $outlet['outlet_staying_time_dinner']; ?>">
+					<input name="outlet_staying_time_dinner" type="time" step="900" class="form-control" value="<?php echo $outlet['outlet_staying_time_dinner']; ?>">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Pre-Concert</label>
-					<input name="outlet_staying_time_pre_concert" type="time" class="form-control" value="<?php echo $outlet['outlet_staying_time_pre_concert']; ?>">
+					<input name="outlet_staying_time_pre_concert" type="time" step="900" class="form-control" value="<?php echo $outlet['outlet_staying_time_pre_concert']; ?>">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Concert</label>
-					<input name="outlet_staying_time_concert" type="time" class="form-control" value="<?php echo $outlet['outlet_staying_time_concert']; ?>">
+					<input name="outlet_staying_time_concert" type="time" step="900" class="form-control" value="<?php echo $outlet['outlet_staying_time_concert']; ?>">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Post-Concert</label>
-					<input name="outlet_staying_time_post_concert" type="time" class="form-control" value="<?php echo $outlet['outlet_staying_time_post_concert']; ?>">
+					<input name="outlet_staying_time_post_concert" type="time" step="900" class="form-control" value="<?php echo $outlet['outlet_staying_time_post_concert']; ?>">
 				</div>
 			</div>
 
@@ -164,9 +164,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_1" type="time" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_1']; ?>">
+									<input name="outlet_open_time_1" type="time" step="900" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_1']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_1" type="time" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_1']; ?>">
+									<input name="outlet_close_time_1" type="time" step="900" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_1']; ?>">
 								</div>
 							</div>		
 
@@ -174,9 +174,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_1" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_1']; ?>">
+									<input name="outlet_break_start_time_1" type="time" step="900" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_1']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_1" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_1']; ?>">
+									<input name="outlet_break_end_time_1" type="time" step="900" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_1']; ?>">
 								</div>	
 							</div>		
 						</div>	
@@ -187,9 +187,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_2" type="time" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_2']; ?>">
+									<input name="outlet_open_time_2" type="time" step="900" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_2']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_2" type="time" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_2']; ?>">
+									<input name="outlet_close_time_2" type="time" step="900" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_2']; ?>">
 								</div>
 							</div>		
 
@@ -197,9 +197,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_2" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_2']; ?>">
+									<input name="outlet_break_start_time_2" type="time" step="900" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_2']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_2" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_2']; ?>">
+									<input name="outlet_break_end_time_2" type="time" step="900" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_2']; ?>">
 								</div>	
 							</div>		
 						</div>		
@@ -210,9 +210,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_3" type="time" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_3']; ?>">
+									<input name="outlet_open_time_3" type="time" step="900" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_3']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_3" type="time" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_3']; ?>">
+									<input name="outlet_close_time_3" type="time" step="900" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_3']; ?>">
 								</div>
 							</div>		
 
@@ -220,9 +220,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_3" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_3']; ?>">
+									<input name="outlet_break_start_time_3" type="time" step="900" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_3']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_3" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_3']; ?>">
+									<input name="outlet_break_end_time_3" type="time" step="900" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_3']; ?>">
 								</div>	
 							</div>		
 						</div>		
@@ -233,9 +233,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_4" type="time" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_4']; ?>">
+									<input name="outlet_open_time_4" type="time" step="900" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_4']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_4" type="time" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_4']; ?>">
+									<input name="outlet_close_time_4" type="time" step="900" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_4']; ?>">
 								</div>
 							</div>		
 
@@ -243,9 +243,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_4" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_4']; ?>">
+									<input name="outlet_break_start_time_4" type="time" step="900" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_4']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_4" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_4']; ?>">
+									<input name="outlet_break_end_time_4" type="time" step="900" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_4']; ?>">
 								</div>	
 							</div>		
 						</div>
@@ -257,9 +257,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_5" type="time" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_5']; ?>">
+									<input name="outlet_open_time_5" type="time" step="900" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_5']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_5" type="time" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_5']; ?>">
+									<input name="outlet_close_time_5" type="time" step="900" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_5']; ?>">
 								</div>
 							</div>		
 
@@ -267,9 +267,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_5" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_5']; ?>">
+									<input name="outlet_break_start_time_5" type="time" step="900" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_5']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_5" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_5']; ?>">
+									<input name="outlet_break_end_time_5" type="time" step="900" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_5']; ?>">
 								</div>	
 							</div>		
 						</div>	
@@ -280,9 +280,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_6" type="time" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_6']; ?>">
+									<input name="outlet_open_time_6" type="time" step="900" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_6']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_6" type="time" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_6']; ?>">
+									<input name="outlet_close_time_6" type="time" step="900" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_6']; ?>">
 								</div>
 							</div>		
 
@@ -290,9 +290,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_6" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_6']; ?>">
+									<input name="outlet_break_start_time_6" type="time" step="900" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_6']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_6" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_6']; ?>">
+									<input name="outlet_break_end_time_6" type="time" step="900" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_6']; ?>">
 								</div>	
 							</div>		
 						</div>		
@@ -303,9 +303,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_0" type="time" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_0']; ?>">
+									<input name="outlet_open_time_0" type="time" step="900" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_0']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_0" type="time" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_0']; ?>">
+									<input name="outlet_close_time_0" type="time" step="900" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_0']; ?>">
 								</div>
 							</div>		
 
@@ -313,9 +313,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_0" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_0']; ?>">
+									<input name="outlet_break_start_time_0" type="time" step="900" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_0']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_0" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_0']; ?>">
+									<input name="outlet_break_end_time_0" type="time" step="900" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_0']; ?>">
 								</div>	
 							</div>		
 						</div>
@@ -368,9 +368,8 @@
 
 					<h4>Outlet holidays</h4>
 					<?php foreach ($holiday as $hol) { ?>
-						<input name="holiday_id[]" type="hidden" id="holiday_id"  class="form-control" value="<?php echo $hol['holiday_id']; ?>">
 						<div class="col-lg-12 col-xs-12 col-sm-12 form-group">
-							
+							<input name="holiday_id[]" type="hidden" id="holiday_id"  class="form-control" value="<?php echo $hol['holiday_id']; ?>">
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_name">Name</label>
 								<input name="holiday_name[]"  type="text" class="form-control" value="<?php echo $hol['holiday_name']; ?>">

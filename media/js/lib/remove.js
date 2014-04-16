@@ -9,14 +9,13 @@ $(document).ready(function(){
 				url: url,
 				success: function(data) {
 					var self = button.parent().parent();
+					var ifTables = self.hasClass('table_box');
 					self.hide('slow', function(){
 						self.remove(); 
+						if(ifTables){
+							$("#outlet_tables").val($('.table_box').length);
+						}
 					});
-					console.log(self, self.hasClass('table_box '));
-					if(self.hasClass('table_box')){
-						$("#outlet_tables").val($('.table_box').length);
-					}
-
 				}
 			});
 	    },

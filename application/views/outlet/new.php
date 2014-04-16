@@ -79,9 +79,9 @@
 				<label>Outlet working time</label>
 				<div class="controls form-inline">
 					<label for="inputKey"></label>
-					<input name="outlet_open_time" type="time" class="form-control" placeholder="Open time" data-required="true">
+					<input name="outlet_open_time" type="time" step="900" class="form-control" placeholder="Open time" data-required="true">
 					<label for="inputValue">-</label>
-					<input name="outlet_close_time" type="time" class="form-control" placeholder="Close time" data-required="true">
+					<input name="outlet_close_time" type="time" step="900" class="form-control" placeholder="Close time" data-required="true">
 				</div>
 			</div>		
 
@@ -89,9 +89,9 @@
 				<label>Outlet break</label>
 				<div class="controls form-inline">
 					<label for="inputKey"></label>
-					<input name="outlet_break_start_time" type="time" class="form-control" placeholder="Break starts time">
+					<input name="outlet_break_start_time" type="time" step="900" class="form-control" placeholder="Break starts time">
 					<label for="inputValue">-</label>
-					<input name="outlet_break_end_time" type="time" class="form-control" placeholder="Break ends time">
+					<input name="outlet_break_end_time" type="time" step="900" class="form-control" placeholder="Break ends time">
 				</div>	
 			</div>		
 
@@ -112,23 +112,23 @@
 				<h5>Avearage staying time for</h5>
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Lunch</label>
-					<input name="outlet_staying_time_lunch" type="time" class="form-control">
+					<input name="outlet_staying_time_lunch" type="time" step="900" class="form-control">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Dinner</label>
-					<input name="outlet_staying_time_dinner" type="time" class="form-control">
+					<input name="outlet_staying_time_dinner" type="time" step="900" class="form-control">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Pre-Concert</label>
-					<input name="outlet_staying_time_pre_concert" type="time" class="form-control">
+					<input name="outlet_staying_time_pre_concert" type="time" step="900" class="form-control">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Concert</label>
-					<input name="outlet_staying_time_concert" type="time" class="form-control">
+					<input name="outlet_staying_time_concert" type="time" step="900" class="form-control">
 				</div>				
 				<div class="col-lg-2-4 form-group">
 					<label for="exampleInputEmail1">Post-Concert</label>
-					<input name="outlet_staying_time_post_concert" type="time" class="form-control">
+					<input name="outlet_staying_time_post_concert" type="time" step="900" class="form-control">
 				</div>
 			</div>
 
@@ -160,9 +160,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_1" type="time" class="form-control" placeholder="Open time">
+									<input name="outlet_open_time_1" type="time" step="900" class="form-control" placeholder="Open time">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_1" type="time" class="form-control" placeholder="Close time">
+									<input name="outlet_close_time_1" type="time" step="900" class="form-control" placeholder="Close time">
 								</div>
 							</div>		
 
@@ -170,9 +170,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_1" type="time" class="form-control" placeholder="Break starts time">
+									<input name="outlet_break_start_time_1" type="time" step="900" class="form-control" placeholder="Break starts time">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_1" type="time" class="form-control" placeholder="Break ends time">
+									<input name="outlet_break_end_time_1" type="time" step="900" class="form-control" placeholder="Break ends time">
 								</div>	
 							</div>		
 						</div>	
@@ -183,9 +183,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_2" type="time" class="form-control" placeholder="Open time">
+									<input name="outlet_open_time_2" type="time" step="900" class="form-control" placeholder="Open time">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_2" type="time" class="form-control" placeholder="Close time">
+									<input name="outlet_close_time_2" type="time" step="900" class="form-control" placeholder="Close time">
 								</div>
 							</div>		
 
@@ -193,9 +193,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_2" type="time" class="form-control" placeholder="Break starts time">
+									<input name="outlet_break_start_time_2" type="time" step="900" class="form-control" placeholder="Break starts time">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_2" type="time" class="form-control" placeholder="Break ends time">
+									<input name="outlet_break_end_time_2" type="time" step="900" class="form-control" placeholder="Break ends time">
 								</div>	
 							</div>		
 						</div>		
@@ -206,9 +206,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_3" type="time" class="form-control" placeholder="Open time">
+									<input name="outlet_open_time_3" type="time" step="900" class="form-control" placeholder="Open time">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_3" type="time" class="form-control" placeholder="Close time">
+									<input name="outlet_close_time_3" type="time" step="900" class="form-control" placeholder="Close time">
 								</div>
 							</div>		
 
@@ -216,9 +216,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_3" type="time" class="form-control" placeholder="Break starts time">
+									<input name="outlet_break_start_time_3" type="time" step="900" class="form-control" placeholder="Break starts time">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_3" type="time" class="form-control" placeholder="Break ends time">
+									<input name="outlet_break_end_time_3" type="time" step="900" class="form-control" placeholder="Break ends time">
 								</div>	
 							</div>		
 						</div>		
@@ -229,9 +229,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_4" type="time" class="form-control" placeholder="Open time">
+									<input name="outlet_open_time_4" type="time" step="900" class="form-control" placeholder="Open time">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_4" type="time" class="form-control" placeholder="Close time">
+									<input name="outlet_close_time_4" type="time" step="900" class="form-control" placeholder="Close time">
 								</div>
 							</div>		
 
@@ -239,9 +239,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_4" type="time" class="form-control" placeholder="Break starts time">
+									<input name="outlet_break_start_time_4" type="time" step="900" class="form-control" placeholder="Break starts time">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_4" type="time" class="form-control" placeholder="Break ends time">
+									<input name="outlet_break_end_time_4" type="time" step="900" class="form-control" placeholder="Break ends time">
 								</div>	
 							</div>		
 						</div>
@@ -253,9 +253,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_5" type="time" class="form-control" placeholder="Open time">
+									<input name="outlet_open_time_5" type="time" step="900" class="form-control" placeholder="Open time">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_5" type="time" class="form-control" placeholder="Close time">
+									<input name="outlet_close_time_5" type="time" step="900" class="form-control" placeholder="Close time">
 								</div>
 							</div>		
 
@@ -263,9 +263,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_5" type="time" class="form-control" placeholder="Break starts time">
+									<input name="outlet_break_start_time_5" type="time" step="900" class="form-control" placeholder="Break starts time">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_5" type="time" class="form-control" placeholder="Break ends time">
+									<input name="outlet_break_end_time_5" type="time" step="900" class="form-control" placeholder="Break ends time">
 								</div>	
 							</div>		
 						</div>	
@@ -276,9 +276,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_6" type="time" class="form-control" placeholder="Open time">
+									<input name="outlet_open_time_6" type="time" step="900" class="form-control" placeholder="Open time">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_6" type="time" class="form-control" placeholder="Close time">
+									<input name="outlet_close_time_6" type="time" step="900" class="form-control" placeholder="Close time">
 								</div>
 							</div>		
 
@@ -286,9 +286,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_6" type="time" class="form-control" placeholder="Break starts time">
+									<input name="outlet_break_start_time_6" type="time" step="900" class="form-control" placeholder="Break starts time">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_6" type="time" class="form-control" placeholder="Break ends time">
+									<input name="outlet_break_end_time_6" type="time" step="900" class="form-control" placeholder="Break ends time">
 								</div>	
 							</div>		
 						</div>		
@@ -299,9 +299,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_0" type="time" class="form-control" placeholder="Open time">
+									<input name="outlet_open_time_0" type="time" step="900" class="form-control" placeholder="Open time">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_0" type="time" class="form-control" placeholder="Close time">
+									<input name="outlet_close_time_0" type="time" step="900" class="form-control" placeholder="Close time">
 								</div>
 							</div>		
 
@@ -309,9 +309,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_0" type="time" class="form-control" placeholder="Break starts time">
+									<input name="outlet_break_start_time_0" type="time" step="900" class="form-control" placeholder="Break starts time">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_0" type="time" class="form-control" placeholder="Break ends time">
+									<input name="outlet_break_end_time_0" type="time" step="900" class="form-control" placeholder="Break ends time">
 								</div>	
 							</div>		
 						</div>
@@ -329,8 +329,7 @@
 					</h4>
 				</div>
 				<div id="collapseTwo" class="panel-collapse collapse">
-					<div class="panel-body" id="holiday-container">
-						
+					<div class="panel-body" id="holiday-container">						
 						<button id="add_holiday" class="col-lg-12 col-xs-12 col-sm-12 btn btn-success" type="button">Add a holiday</button>
 
 					</div>
