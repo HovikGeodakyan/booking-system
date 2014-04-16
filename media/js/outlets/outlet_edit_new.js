@@ -7,34 +7,35 @@ $(document).ready(function(){
 	
 	$("#add_table").click(function() {
 		$("#table-container").append(table);
-		$("#outlet_tables").val($('.table_box').length);
-		$( this ).appendTo( "#table-container" );	
+		$( this ).appendTo( "#table-container" );
+		$("#outlet_tables").val($('.table_box').length);	
 	});
 
 	$("#outlet_tables").change(function() {
-		var i = parseInt($(this).val());
-		if(i>= old) {
-			i = i-old;
-			while(i>0){
-				$("#table-container").prepend(table);
-				i--;
-			}
-		} else {
-			i= old-i;
-			while(i>0) {
-				var cont = $( ".table_box").eq(old-1);
-				cont.remove();				
-				old--;
-				i--;
-			}
-		}		
-		old = parseInt($(this).val());
+		// var i = parseInt($(this).val());
+		// if(i>= old) {
+		// 	i = i-old;
+		// 	while(i>0){
+		// 		$("#table-container").prepend(table);
+		// 		i--;
+		// 	}
+		// } else {
+		// 	i= old-i;
+		// 	while(i>0) {
+		// 		var cont = $( ".table_box").eq(old-1);
+		// 		cont.remove();				
+		// 		old--;
+		// 		i--;
+		// 	}
+		// }		
+		// old = parseInt($(this).val());
 
 	});
 
 	$(document).on("click", ".remove_table", function(event){
 		var table = $(this).parent().parent();
 		table.remove();
+		$("#outlet_tables").val($('.table_box').length);
 		
 	});
 	$("#add_holiday").click(function(){

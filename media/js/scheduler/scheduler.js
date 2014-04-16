@@ -9,6 +9,7 @@
           url: url,
           dataType: 'json',
           success: function(data) {
+            // console.log(data);
             var day = new Date().getDay();
             //working and break time
             str = "outlet_open_time_" + day;
@@ -167,9 +168,9 @@ dp.resources = [];
 
 var tables_number = data.outlet_tables_number;
 var not_assigned_number = data.not_assigned;
-console.log(data[0]);
-for(var i=1; i<=tables_number; i++){
-  dp.resources.push({name: "T"+i, id: data[i-1]['table_id']});
+
+for(var i=0; i < data['tables'].length; i++){
+  dp.resources.push({name: "T"+(i+1), id: data['tables'][i]['table_id']});
 }
 
 dp.resources.push({name: "", id: "D"});

@@ -12,6 +12,11 @@ $(document).ready(function(){
 					self.hide('slow', function(){
 						self.remove(); 
 					});
+					console.log(self, self.hasClass('table_box '));
+					if(self.hasClass('table_box')){
+						$("#outlet_tables").val($('.table_box').length);
+					}
+
 				}
 			});
 	    },

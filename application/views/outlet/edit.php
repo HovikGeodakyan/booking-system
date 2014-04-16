@@ -32,7 +32,7 @@
 
 			<div class="form-group">
 				<label for="exampleInputEmail1">Outlet tables</label>
-				<input name="outlet_tables_number" disabled type="number" class="form-control" id="outlet_tables" placeholder="Outlet tables" data-type="number" data-required="true" data-error-message="You must enter the number of tables."  value="<?php echo $outlet['outlet_tables_number']; ?>">
+				<input name="outlet_tables_number" type="number" class="form-control" id="outlet_tables" placeholder="Outlet tables" data-type="number" data-required="true" data-error-message="You must enter the number of tables."  value="<?php echo $outlet['outlet_tables_number']; ?>">
 			</div>	
 
 			<div class="form-group">
