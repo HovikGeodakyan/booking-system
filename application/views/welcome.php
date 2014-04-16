@@ -23,9 +23,12 @@
  
  <div class="white_content">
 <section class="" >
- <form class="form-inline" role="form">
+<!--  <form class="form-inline" role="form">
    <div class="form-group">    
-    <select class="form-control"><option>17:30</option></select>
+    <input type="time" step="900" class="form-control" placeholder="Enter name">
+  </div>
+  <div class="form-group">    
+    <input type="time" step="900" class="form-control" placeholder="Enter name">
   </div>
    <div class="form-group">
   
@@ -55,13 +58,73 @@
       <div class="checkbox i-checks">
         <label>
           <input class="form-control" type="checkbox" checked=""><i></i>VIP
-          <!-- <input class="form-control" type="checkbox" checked=""><i></i>Email Confirmation
-          <input class="form-control" type="checkbox" checked=""><i></i>Invoice -->
+
         </label>
      
     </div>
   </div>
   <button type="button" class="btn btn-default">Cancel</button>
+  <button type="button" class="btn btn-primary">Save</button>
+  
+</form>
+ -->
+
+<form class="form-inline" role="form">
+
+  <div class="form-group">    
+    <input type="date" class="form-control">
+  </div>
+
+  <div class="form-group">    
+    <input type="time" step="900" class="form-control">
+  </div>
+
+  <div class="form-group">    
+    <input type="number" class="form-control" placeholder="Number of Guets">
+  </div>
+
+  <div class="form-group">    
+    <select class="form-control">
+      <option>Mr.</option>
+      <option>Mrs.</option>
+      <option>Dr.</option>
+      <option>Prof.</option>
+    </select>
+  </div>
+
+  <div class="form-group">    
+    <input type="text" class="form-control" placeholder="Name">
+  </div>
+
+  <div class="form-group">    
+    <input type="tel" class="form-control" placeholder="Phone">
+  </div>
+
+  <div class="form-group">    
+    <input type="email" class="form-control" placeholder="Email">
+  </div>
+
+  <div class="form-group">    
+    <div class="checkbox i-checks">
+      <label>
+        Confirmation
+        <input type="checkbox" value="">
+        <i></i>
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">    
+    <select class="form-control">
+      <option>EN</option>
+      <option>GE</option>
+    </select>
+  </div>
+
+  <div class="form-group">    
+    <input type="text" class="form-control" placeholder="Author">
+  </div>
+
   <button type="button" class="btn btn-primary">Save</button>
   
 </form>

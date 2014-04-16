@@ -6,6 +6,7 @@ class Outlet extends CI_Controller {
 		parent::__construct();
 		$this->load->model('outlet_model');
 		$this->load->model('holiday_model');
+		$this->load->model('scheduler_model');
 	}
 
 
@@ -37,6 +38,7 @@ class Outlet extends CI_Controller {
 		$data['title']   = ucfirst($page);
 		$data['outlet']  = $this->read($id);
 		$data['holiday'] = $this->read_holidays($id);
+		$data['general_holidays'] = $this->read_holidays();
 		$data['table']   = $this->read_tables($id);
 		
 		$this->load->view('templates/header', $data);
@@ -109,13 +111,17 @@ class Outlet extends CI_Controller {
 	}
 
 
-	public function read_holidays($outlet_id){
-		$res = $this->holiday_model->load_outlet_holidays($outlet_id);
+	public function read_holidays($outlet_id = 0){
+		if($outlet_id === 0) {
+			$res = $this->holiday_model->load_general_holidays();
+		} else {
+			$res = $this->holiday_model->load_outlet_holidays($outlet_id);
+		}
 		return $res;
 	}
 
 
-	// Get All outlets
+	// Get outlets
 	public function read($id = NULL) {
 
 		if($id == NULL) {
@@ -125,6 +131,15 @@ class Outlet extends CI_Controller {
 		}
 
 		return $res;
+	}
+
+	public function get($id) {
+		$res = $this->outlet_model->load_one_outlet($id);
+		$tables = $this->read_tables($id);
+		$not_assigned = $this->scheduler_model->load_not_assigned_events($res['outlet_open_time'], $res['outlet_close_time'], $res['outlet_id']);
+		$res = array_merge($res, $tables);
+		$res['not_assigned']= $not_assigned;
+		echo json_encode($res);
 	}
 
 

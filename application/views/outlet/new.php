@@ -299,9 +299,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_7" type="time" class="form-control" placeholder="Open time">
+									<input name="outlet_open_time_0" type="time" class="form-control" placeholder="Open time">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_7" type="time" class="form-control" placeholder="Close time">
+									<input name="outlet_close_time_0" type="time" class="form-control" placeholder="Close time">
 								</div>
 							</div>		
 
@@ -309,9 +309,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_7" type="time" class="form-control" placeholder="Break starts time">
+									<input name="outlet_break_start_time_0" type="time" class="form-control" placeholder="Break starts time">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_7" type="time" class="form-control" placeholder="Break ends time">
+									<input name="outlet_break_end_time_0" type="time" class="form-control" placeholder="Break ends time">
 								</div>	
 							</div>		
 						</div>

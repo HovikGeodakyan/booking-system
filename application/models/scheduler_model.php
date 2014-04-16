@@ -28,10 +28,10 @@
 			}
 		}
 
-		public function load_events(){
+		public function load_events($outlet_id){
 			$start = $_POST['start'];
 			$end = $_POST['end'];
-			$query = $this->db->query('SELECT * FROM events WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'"))');
+			$query = $this->db->query('SELECT * FROM events WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'"');
 			$query = $query->result_array();
 			$events=array();
 			foreach ($query as $row ) {
@@ -47,13 +47,22 @@
 			return $events;
 		}
 
-		public function create_event(){
+
+		public function load_not_assigned_events($start, $end, $outlet_id){
+			$query = $this->db->query('SELECT DISTINCT resource FROM events WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND SUBSTRING(resource, 1, 2)="na" AND outlet_id = "'.$outlet_id.'"');
+			$query = $query->num_rows();
+
+			return $query;
+		}
+
+		public function create_event($outlet_id){
 
 			$data = array(
 				'name' => $_POST['name'],
 				'start' => $_POST['start'],
 				'end' => $_POST['end'],
-				'resource' => $_POST['resource']
+				'resource' => $_POST['resource'],
+				'outlet_id' => $outlet_id
 			);
 
 			$this->db->insert('events', $data);
@@ -65,7 +74,7 @@
 			return $response;
 		}		
 
-		public function move_event(){
+		public function move_event($outlet_id){
 			$id = $_POST['id'];
 			$data = array(
 				'start' => $_POST['newStart'],
@@ -75,6 +84,7 @@
 			$query=$this->db->query('SELECT * 
 									FROM events 
 									WHERE resource="'.$data['resource'].'" 
+									AND outlet_id = "'.$outlet_id.'"
 									AND id!="'.$id.'"
 									AND (
 										(start>="'.$data['start'].'" AND end<="'.$data['end'].'") 
@@ -104,14 +114,14 @@
 			return $response;
 		}	
 
-		public function resize_event(){
+		public function resize_event($outlet_id){
 			$id = $_POST['id'];
 			$data = array(
 				'start' => $_POST['newStart'],
 				'end' => $_POST['newEnd'],
 				'resource' => $_POST['resource']
 			);
-			$query=$this->db->query('SELECT * FROM events WHERE resource="'.$data['resource'].'" AND start<"'.$data['end'].'" AND start>"'.$data['start'].'"');
+			$query=$this->db->query('SELECT * FROM events WHERE resource="'.$data['resource'].'" AND start<"'.$data['end'].'" AND start>"'.$data['start'].'" AND outlet_id = "'.$outlet_id.'"');
 			$query = $query->result();
 			$response=array();
 
@@ -129,7 +139,7 @@
 			return $response;
 		}
 
-		public function cancel_event(){
+		public function cancel_event($outlet_id){
 			$id=$_POST['id'];
 			$this->db->set('status', "cancelled");
 			$this->db->where('id', $id);

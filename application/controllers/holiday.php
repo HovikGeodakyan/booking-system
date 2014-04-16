@@ -21,7 +21,7 @@ class Holiday extends CI_Controller {
 
 
 	public function create() {
-		$res = $this->holiday_model->update_holidays($this->input->post());
+		$res = $this->holiday_model->update_holidays(0, $this->input->post());
 		redirect(URL.'holiday');
 		//$this->holiday_model->delete_holiday($id);
 	}

@@ -303,9 +303,9 @@
 								<label>Outlet working time</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_open_time_7" type="time" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_7']; ?>">
+									<input name="outlet_open_time_0" type="time" class="form-control" placeholder="Open time" value="<?php echo $outlet['outlet_open_time_0']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_close_time_7" type="time" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_7']; ?>">
+									<input name="outlet_close_time_0" type="time" class="form-control" placeholder="Close time" value="<?php echo $outlet['outlet_close_time_0']; ?>">
 								</div>
 							</div>		
 
@@ -313,9 +313,9 @@
 								<label>Outlet break</label>
 								<div class="controls form-inline">
 									<label for="inputKey"></label>
-									<input name="outlet_break_start_time_7" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_7']; ?>">
+									<input name="outlet_break_start_time_0" type="time" class="form-control" placeholder="Break starts time" value="<?php echo $outlet['outlet_break_start_time_0']; ?>">
 									<label for="inputValue">-</label>
-									<input name="outlet_break_end_time_7" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_7']; ?>">
+									<input name="outlet_break_end_time_0" type="time" class="form-control" placeholder="Break ends time" value="<?php echo $outlet['outlet_break_end_time_0']; ?>">
 								</div>	
 							</div>		
 						</div>
@@ -334,6 +334,39 @@
 				</div>
 				<div id="collapseTwo" class="panel-collapse collapse">
 					<div class="panel-body" id="holiday-container">
+
+						<div class="settings_content table-responsive">
+							<h4>System holidays</h4>
+							<table class="table table-striped b-t b-light" id="tableEdit">
+								<thead>
+									<tr>
+										<th class="th-sortable" data-toggle="class" width="30">#</th>						
+										<th class="th-sortable" data-toggle="class">Name</th>
+										<th class="th-sortable" data-toggle="class">Start</th>					
+										<th class="th-sortable" data-toggle="class">End</th>						
+										<th class="th-sortable" data-toggle="class">Message</th>
+									</tr>
+				                    </thead>
+				                    <tbody>
+				                    <?php 
+										$i=1;
+										foreach($general_holidays as $hol) {							
+											echo "<tr>";
+											echo "<td>".$i."</td>"; $i++;
+											echo "<td style='display:none' ref='type:number, name:id, class:form-control, id:idId'>".$hol['id']."</td>";
+											echo "<td ref='type:text, name:name, class:form-control, id:nameId'>".$hol['name']."</td>";
+											echo "<td ref='type:date, name:start, class:form-control, id:startId'>".$hol['start']."</td>";
+											echo "<td ref='type:date, name:end, class:form-control, id:endId'>".$hol['end']."</td>";
+											echo "<td ref='type:text, name:message, class:form-control, id:messageId'>".$hol['message']."</td>";
+											echo "</tr>";
+										}
+									?>
+								</tbody>
+							</table>
+							
+						</div>
+
+					<h4>Outlet holidays</h4>
 					<?php foreach ($holiday as $hol) { ?>
 						<input name="holiday_id[]" type="hidden" id="holiday_id"  class="form-control" value="<?php echo $hol['holiday_id']; ?>">
 						<div class="col-lg-12 col-xs-12 col-sm-12 form-group">
@@ -344,11 +377,11 @@
 							</div>				
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_start">Start Date</label>
-								<input name="holiday_start_date[]"  type="date" class="form-control" value="<?php echo $hol['holiday_start']; ?>">
+								<input name="holiday_start[]"  type="date" class="form-control" value="<?php echo $hol['holiday_start']; ?>">
 							</div>				
 							<div class="col-lg-2 col-xs-4 col-sm-4 form-group">
 								<label for="holiday_end">End Date</label>
-								<input name="holiday_end_date[]"  type="date" class="form-control" value="<?php echo $hol['holiday_end']; ?>">
+								<input name="holiday_end[]"  type="date" class="form-control" value="<?php echo $hol['holiday_end']; ?>">
 							</div>				
 							<div class="col-lg-4 col-xs-8 col-sm-8 form-group">
 								<label for="holiday_message">Message</label> 

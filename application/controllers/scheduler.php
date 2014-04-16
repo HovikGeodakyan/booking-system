@@ -13,40 +13,40 @@ class scheduler extends CI_Controller {
 	}
 
 
-	public function create() {
-		$response = $this->scheduler_model->create_event();
+	public function create($outlet_id) {
+		$response = $this->scheduler_model->create_event($outlet_id);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}
 
 
-	public function events() {
-		$events = $this->scheduler_model->load_events();
+	public function events($outlet_id) {
+		$events = $this->scheduler_model->load_events($outlet_id);
 		
 		header('Content-Type: application/json');
 		echo json_encode($events);
 	}
 
 
-	public function move(){		
-		$response = $this->scheduler_model->move_event();
+	public function move($outlet_id){		
+		$response = $this->scheduler_model->move_event($outlet_id);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}
 
 
-	public function resize() {
-		$response = $this->scheduler_model->resize_event();
+	public function resize($outlet_id) {
+		$response = $this->scheduler_model->resize_event($outlet_id);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}
 
 
-	public function cancel(){
-		$response = $this->scheduler_model->cancel_event();
+	public function cancel($outlet_id){
+		$response = $this->scheduler_model->cancel_event($outlet_id);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);

@@ -1,13 +1,41 @@
+
+
  $( document ).ready(function() {
     $('td[resource="D"] div').css('background', '#fff');
-});
+
+    var url= 'outlet/get/65';
+      $.ajax({
+          type: "POST",
+          url: url,
+          dataType: 'json',
+          success: function(data) {
+            var day = new Date().getDay();
+            //working and break time
+            str = "outlet_open_time_" + day;
+            var open_time = (data[str]==="00:00:00") ? data['outlet_open_time'] : data[str];
+            open_time = open_time.substr(0, 2);
+
+            str = "outlet_close_time_" + day;
+            var close_time = (data[str]==="00:00:00") ? data['outlet_close_time'] : data[str];
+            close_time = close_time.substr(0, 2);
+
+            str = "outlet_break_start_time_" + day;
+            var break_start_time = (data[str]==="00:00:00") ? data['outlet_break_start_time'] : data[str];
+            break_start_time = break_start_time.substr(0, 2);
+
+            str = "outlet_break_end_time_" + day;
+            var break_end_time = (data[str]==="00:00:00") ? data['outlet_break_end_time'] : data[str];
+            break_end_time = break_end_time.substr(0, 2);
+
+            console.log(data);
+
 
 var outlet_settings = {
-		  open_time : "10",
-		  close_time : "23",
-		  break_start_time : "13",
-		  break_end_time : "14",
-		 
+		  open_time : open_time,
+		  close_time : close_time,
+		  break_start_time : break_start_time,
+		  break_end_time : break_end_time,
+		  
 		  launch_time:"10",
 		  pre_concert_time: "15",
 		  concert_time: "18",
@@ -135,23 +163,20 @@ dp.onBeforeTimeHeaderRender = function(args) {
 
 };
 
-dp.resources =  [
-		             { name: "T1", id: "A"},
-		             { name: "T2", id: "B" },
-		             { name: "T3", id: "L" },
-		             { name: "T4", id: "K" },
-		             { name: "T5", id: "M" },
-		             { name: "T6", id: "N" },
-		             { name: "T7", id: "O" },
-		             { name: "T8", id: "P" },
-		             { name: "T9", id: "R" },
-		             { name: "", id: "D" },
-		             { name: "U1", id: "qq", loaded: false },
-		             { name: "U2", id: "ww", loaded: false },
-		             { name: "U3", id: "ee", loaded: false },
-		             { name: "U4", id: "rr", loaded: false },
-		             { name: "U5", id: "tt", loaded: false },
-            	];
+dp.resources = [];
+
+var tables_number = data.outlet_tables_number;
+var not_assigned_number = data.not_assigned;
+console.log(data[0]);
+for(var i=1; i<=tables_number; i++){
+  dp.resources.push({name: "T"+i, id: data[i-1]['table_id']});
+}
+
+dp.resources.push({name: "", id: "D"});
+
+for(var i=1; i<=not_assigned_number; i++){
+  dp.resources.push({name: "U"+i, id: "na"+i});
+}
 
 
 dp.onBeforeEventRender = function(args) {    
@@ -202,7 +227,7 @@ dp.onEventMoved = function (args) {
           args.e.data.start = args.e.part.start;
           args.e.data.end   = args.e.part.end;
       }
-    $.post("scheduler/move", {
+    $.post("scheduler/move/" + data["outlet_id"], {
         id: args.e.id(),
         newStart: args.newStart.toString(),
         newEnd: args.newEnd.toString(),
@@ -224,7 +249,7 @@ dp.onEventMoved = function (args) {
 
 
 dp.onEventResized = function (args) {
-    $.post("scheduler/resize",  {
+    $.post("scheduler/resize/" + data["outlet_id"],  {
         id: args.e.id(),
         newStart: args.newStart.toString(),
         newEnd: args.newEnd.toString(),
@@ -253,7 +278,11 @@ dp.onTimeRangeSelected = function (args) {
     dp.clearSelection();
     if (!name) return;
 
-    $.post("scheduler/create", 
+    // if((args.end.ticks-args.start.ticks)===900000){
+    //   args.e.data.end=;
+    // }
+
+    $.post("scheduler/create/" + data["outlet_id"], 
         {
             start: args.start.toString(),
             end: args.end.toString(),
@@ -280,8 +309,7 @@ loadEvents();
 function loadEvents() {
     var start = dp.startDate;
     var end   = dp.startDate.addDays(dp.days);
-    
-    $.post("scheduler/events", {
+    $.post("scheduler/events/" + data["outlet_id"], {
             start: start.toString(),
             end: end.toString()
         }, function(data) {
@@ -290,3 +318,6 @@ function loadEvents() {
         	}
     );
 }
+          }
+        });
+});
