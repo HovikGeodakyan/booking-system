@@ -133,7 +133,8 @@ class Outlet extends CI_Controller {
 		return $res;
 	}
 
-	public function get($id) {
+	public function get() {
+		$id = $this->outlet_model->get_active_outlet();
 		$res = $this->outlet_model->load_one_outlet($id);
 		$tables = $this->read_tables($id);
 		$not_assigned = $this->scheduler_model->load_not_assigned_events($res['outlet_open_time'], $res['outlet_close_time'], $res['outlet_id']);

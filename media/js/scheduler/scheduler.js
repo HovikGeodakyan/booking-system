@@ -3,7 +3,7 @@
  $( document ).ready(function() {
     $('td[resource="D"] div').css('background', '#fff');
 
-    var url= 'outlet/get/65';
+    var url= 'outlet/get';
       $.ajax({
           type: "POST",
           url: url,

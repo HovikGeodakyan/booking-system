@@ -144,5 +144,23 @@
 			$this->db->update('outlets');
 		}
 
+		public function activate_outlet($id){
+			$this->db->set('active', 1);
+			$this->db->where('id', $id);
+			$this->db->update('outlets');
+		}
+
+		public function deactivate_outlet($id){
+			$this->db->set('active', 0);
+			$this->db->where('id', $id);
+			$this->db->update('outlets');
+		}
+
+		public function get_active_outlet(){
+			$query = $this->db->query('SELECT id FROM outlets WHERE deleted = 0 AND active = 1');
+			$row = $query->row_array();
+			return $row['id'];
+		}
+
 	}
 ?>

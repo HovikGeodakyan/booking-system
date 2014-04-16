@@ -75,3 +75,36 @@
 	height:23px;
 }
 
+
+
+.add_reservation input{
+	width:100% !important;
+}
+
+.add_reservation .date{
+	width:12%;
+}
+.add_reservation .time{
+	width:8%;
+}
+.add_reservation .guests{
+	width:7%;
+}
+.add_reservation .table{
+	width: 6%;
+}
+.add_reservation .title{
+	width: 7%;
+}
+.add_reservation .language{
+	width: 6%;
+}
+.add_reservation .confirmation{
+	width: 2%;
+}
+.add_reservation .name{
+	width: 10%;
+}
+.add_reservation .author{
+	width: 6%;
+}
