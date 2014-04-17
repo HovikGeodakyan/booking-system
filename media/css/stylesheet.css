@@ -1,3 +1,7 @@
+/*
+tr {display: block; }
+th, td { width: 30%; }
+tbody { display: block; height: 500px; overflow: auto;}*/
 .custom-header-btns {
 	float:right;
 }

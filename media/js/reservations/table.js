@@ -1,9 +1,11 @@
 var start = "2014-04-05";
 var end = "2014-04-28";
-var name = "%";
+var keyword = "%";
 
 $(document).ready(function(){
-    get_reservations(start, end ,name);
+    get_reservations(start, end , keyword);
+    $('input[name=start_date]').datepicker()
+    $('input[name=end_date]').datepicker()
     $("#reservations_table").tablesorter();
 });
 
@@ -13,20 +15,21 @@ $('#filter').on("submit", function(event){
     
     start = (form[0].value.length > 0) ? form[0].value : start;
     end = (form[1].value.length > 0) ? form[1].value : end ;
-    name = (form[2].value.length > 0) ? form[2].value : "%";
-    get_reservations(start, end, name);
+    keyword = (form[2].value.length > 0) ? form[2].value : "%";
+    console.log(keyword);
+    get_reservations(start, end, keyword);
 });
 
 $(document).ajaxStop(function(){ 
     $("#reservations_table").trigger("update");
 })
 
-function get_reservations(start, end, name){
+function get_reservations(start, end, keyword){
     var url = "reservations/load/";
     data = {
         start : start,
         end   :end,
-        name  : name
+        keyword  : keyword
     };
 
     $('#reservations_table tbody').empty();
@@ -41,7 +44,7 @@ function get_reservations(start, end, name){
 
                 var duration = (data[i]['end'].substr(11, 2)*60 - data[i]['start'].substr(11, 2)*60) + (data[i]['end'].substr(14, 2) - data[i]['start'].substr(14, 2));
                 
-                if(data[i]['resource']==0){
+                if(data[i]['resource'] == 0){
                     j++;
                     data[i]['resource']="NA";
                 };               

@@ -8,11 +8,11 @@
 	<form class="form-inline" role="form" id="filter">
 		<div class="form-group">
 			<label></label>
-			<input type="date" class="form-control" name="start_date">
+			<input type="text" class="form-control" name="start_date">
 		</div>
 		<div class="form-group">
 			<label>-</label>
-			<input type="date" class="form-control" name="end_date">
+			<input type="text" class="form-control" name="end_date">
 		</div>
 		<div class="form-group" style="float:right">
 			<input type="text" class="form-control" placeholder="Search" name="name_filter">

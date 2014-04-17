@@ -15,7 +15,7 @@ class Reservations extends CI_Controller {
 		$this->load->model('reservations_model');
 		$this->load->model('outlet_model');
 		$outlet_id = $this->outlet_model->get_active_outlet();
-		$res = $this->reservations_model->load_reservations($outlet_id, $this->input->post('start'), $this->input->post('end'), $this->input->post('name'));
+		$res = $this->reservations_model->load_reservations($outlet_id, $this->input->post('start'), $this->input->post('end'), $this->input->post('keyword'));
 		echo json_encode($res);
 	}
 }
