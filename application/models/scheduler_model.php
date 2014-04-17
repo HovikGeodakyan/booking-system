@@ -28,34 +28,42 @@
 			}
 		}
 
-		public function load_events($outlet_id){
+		public function load_reservations($outlet_id){
 			$start = $_POST['start'];
 			$end = $_POST['end'];
-			$query = $this->db->query('SELECT * FROM events WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'"');
+			$query = $this->db->query('SELECT * FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'"');
 			$query = $query->result_array();
-			$events=array();
+			$reservations=array();
 			foreach ($query as $row ) {
 				$e=array();
-				$e['id'] = $row['id'];
-				$e['text'] = $row['name'];
-				$e['start'] = $row['start'];
-				$e['end'] = $row['end'];
-				$e['resource'] = $row['resource'];
-				$e['bubbleHtml'] = "Event details: <br/>".$e['text'];
-				$events[] = $e;
+				$e['id']           = $row['id'];
+				$e['text']         = $row['name'];
+				$e['title']        = $row['title'];
+				$e['guest_number'] = $row['guest_number'];
+				$e['phone']        = $row['phone'];
+				$e['email']        = $row['email'];
+				$e['language']     = $row['language'];
+				$e['author']       = $row['author'];
+				$e['status']       = $row['status'];
+		   $e['confirm_via_email'] = $row['confirm_via_email'];
+				$e['start']        = $row['start'];
+				$e['end']          = $row['end'];
+				$e['resource']     = $row['resource'];
+				$e['bubbleHtml']   = "Reservation details: <br/>".$e['text'];
+				$reservations[]    = $e;
 			}
-			return $events;
+			return $reservations;
 		}
 
 
-		public function load_not_assigned_events($start, $end, $outlet_id){
-			$query = $this->db->query('SELECT DISTINCT resource FROM events WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND SUBSTRING(resource, 1, 2)="na" AND outlet_id = "'.$outlet_id.'"');
+		public function load_not_assigned_reservations($start, $end, $outlet_id){
+			$query = $this->db->query('SELECT DISTINCT resource FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND SUBSTRING(resource, 1, 2)=0 AND outlet_id = "'.$outlet_id.'"');
 			$query = $query->num_rows();
 
 			return $query;
 		}
 
-		public function create_event($outlet_id){
+		public function create_reservation($outlet_id){
 
 			$data = array(
 				'name' => $_POST['name'],
@@ -65,7 +73,7 @@
 				'outlet_id' => $outlet_id
 			);
 
-			$this->db->insert('events', $data);
+			$this->db->insert('reservations', $data);
 			$last_id=$this->db->insert_id();
 			$response=array();
 			$response['result'] = 'OK';
@@ -74,7 +82,7 @@
 			return $response;
 		}		
 
-		public function move_event($outlet_id){
+		public function move_reservation($outlet_id){
 			$id = $_POST['id'];
 			$data = array(
 				'start' => $_POST['newStart'],
@@ -82,7 +90,7 @@
 				'resource' => $_POST['newResource']
 			);
 			$query=$this->db->query('SELECT * 
-									FROM events 
+									FROM reservations 
 									WHERE resource="'.$data['resource'].'" 
 									AND outlet_id = "'.$outlet_id.'"
 									AND id!="'.$id.'"
@@ -92,9 +100,9 @@
 										OR (start<"'.$data['start'].'" AND end>"'.$data['start'].'")
 										OR (start<"'.$data['end'].'" AND end>"'.$data['start'].'")
 									)');
-									//inserted contains any event
-									//any event contains the inserted
-									//inserted contains part of any event
+									//inserted contains any reservation
+									//any reservation contains the inserted
+									//inserted contains part of any reservation
 			$query = $query->result();
 			$response=array();
 			$current_time=date('Y-m-d')."T".date("H:i:s");
@@ -106,7 +114,7 @@
 				$this->db->set('end', $data['end']);
 				$this->db->set('resource', $data['resource']);
 				$this->db->where('id', $id);
-				$this->db->update('events');
+				$this->db->update('reservations');
 				$response=array();
 				$response['result'] = 'OK';
 				$response['message'] = 'Update successful';
@@ -114,14 +122,14 @@
 			return $response;
 		}	
 
-		public function resize_event($outlet_id){
+		public function resize_reservation($outlet_id){
 			$id = $_POST['id'];
 			$data = array(
 				'start' => $_POST['newStart'],
 				'end' => $_POST['newEnd'],
 				'resource' => $_POST['resource']
 			);
-			$query=$this->db->query('SELECT * FROM events WHERE resource="'.$data['resource'].'" AND start<"'.$data['end'].'" AND start>"'.$data['start'].'" AND outlet_id = "'.$outlet_id.'"');
+			$query=$this->db->query('SELECT * FROM reservations WHERE resource="'.$data['resource'].'" AND start<"'.$data['end'].'" AND start>"'.$data['start'].'" AND outlet_id = "'.$outlet_id.'"');
 			$query = $query->result();
 			$response=array();
 
@@ -132,18 +140,18 @@
 				$this->db->set('start', $data['start']);
 				$this->db->set('end', $data['end']);
 				$this->db->where('id', $id);
-				$this->db->update('events');
+				$this->db->update('reservations');
 				$response['result'] = 'OK';
 				$response['message'] = 'Update successful';
 			}
 			return $response;
 		}
 
-		public function cancel_event($outlet_id){
+		public function cancel_reservation($outlet_id){
 			$id=$_POST['id'];
 			$this->db->set('status', "cancelled");
 			$this->db->where('id', $id);
-			$this->db->update('events');
+			$this->db->update('reservations');
 			$response['result'] = 'OK';
 			$response['message'] = 'Canceled';
 		}

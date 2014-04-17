@@ -9,28 +9,28 @@ class scheduler extends CI_Controller {
 
 
 	public function index(){
-		$this->scheduler_model->table_exists('events');
+		$this->scheduler_model->table_exists('reservations');
 	}
 
 
 	public function create($outlet_id) {
-		$response = $this->scheduler_model->create_event($outlet_id);
+		$response = $this->scheduler_model->create_reservation($outlet_id);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}
 
 
-	public function events($outlet_id) {
-		$events = $this->scheduler_model->load_events($outlet_id);
+	public function reservations($outlet_id) {
+		$reservations = $this->scheduler_model->load_reservations($outlet_id);
 		
 		header('Content-Type: application/json');
-		echo json_encode($events);
+		echo json_encode($reservations);
 	}
 
 
 	public function move($outlet_id){		
-		$response = $this->scheduler_model->move_event($outlet_id);
+		$response = $this->scheduler_model->move_reservation($outlet_id);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);
@@ -38,7 +38,7 @@ class scheduler extends CI_Controller {
 
 
 	public function resize($outlet_id) {
-		$response = $this->scheduler_model->resize_event($outlet_id);
+		$response = $this->scheduler_model->resize_reservation($outlet_id);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);
@@ -46,7 +46,7 @@ class scheduler extends CI_Controller {
 
 
 	public function cancel($outlet_id){
-		$response = $this->scheduler_model->cancel_event($outlet_id);
+		$response = $this->scheduler_model->cancel_reservation($outlet_id);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);

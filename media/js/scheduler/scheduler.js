@@ -310,7 +310,7 @@ loadEvents();
 function loadEvents() {
     var start = dp.startDate;
     var end   = dp.startDate.addDays(dp.days);
-    $.post("scheduler/events/" + data["outlet_id"], {
+    $.post("scheduler/reservations/" + data["outlet_id"], {
             start: start.toString(),
             end: end.toString()
         }, function(data) {

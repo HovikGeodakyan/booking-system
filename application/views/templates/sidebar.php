@@ -17,10 +17,10 @@
                       </a>
                     </li>
                     <li  class="">
-                      <a href="index.html" class="auto">
+                      <a href="<?php echo URL; ?>reservations" class="auto">
                         <i class="i i-grid2 icon">
                         </i>
-                        <span class="font-bold">Overview</span>
+                        <span class="font-bold">Reservations</span>
                       </a>
                     </li>
                     <li  class="">
