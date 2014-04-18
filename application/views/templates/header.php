@@ -46,7 +46,7 @@
 	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">       
       <div class="navbar-header aside-md dk nav-header-custom">       
         <a href="#"  class="navbar-brand" id="timesheet_calendar">
-          <input type="hidden" id="datepicker" />         
+          <input type="hidden" id="main_calendar" />         
           <!-- <img src="<?php //echo(JS.'theme/images/logo.png'); ?>" class="m-r-sm" alt="scale"> -->
           <i class="fa fa-calendar"></i>
           <span class="hidden-nav-xs">Calendar</span>
@@ -143,3 +143,4 @@
         </li>
       </ul>      
     </header>
+

@@ -37,7 +37,7 @@
 			foreach ($query as $row ) {
 				$e=array();
 				$e['id']           = $row['id'];
-				$e['text']         = $row['name'];
+				$e['text']         = $row['title']." ".$row['guest_name']." (".$row['guest_number'].")";
 				$e['title']        = $row['title'];
 				$e['guest_number'] = $row['guest_number'];
 				$e['phone']        = $row['phone'];
@@ -63,15 +63,7 @@
 			return $query;
 		}
 
-		public function create_reservation($outlet_id){
-
-			$data = array(
-				'name' => $_POST['name'],
-				'start' => $_POST['start'],
-				'end' => $_POST['end'],
-				'resource' => $_POST['resource'],
-				'outlet_id' => $outlet_id
-			);
+		public function create_reservation($outlet_id, $data){
 
 			$this->db->insert('reservations', $data);
 			$last_id=$this->db->insert_id();
@@ -79,6 +71,7 @@
 			$response['result'] = 'OK';
 			$response['message'] = 'Created with id:'.$last_id;
 			$response['id'] = $last_id;
+			$response['reservation'] = $data;
 			return $response;
 		}		
 

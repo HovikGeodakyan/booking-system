@@ -1,5 +1,7 @@
 
 
+
+
  $( document ).ready(function() {
     $('td[resource="D"] div').css('background', '#fff');
 
@@ -37,11 +39,11 @@ var outlet_settings = {
 		  break_start_time : break_start_time,
 		  break_end_time : break_end_time,
 		  
-		  launch_time:"10",
-		  pre_concert_time: "15",
-		  concert_time: "18",
-		  after_concert_time:"20",
-		  evening_time:"20",
+		  launch_time: open_time,
+		  pre_concert_time: break_end_time,
+		  concert_time: "20",
+		  after_concert_time:"22",
+		  evening_time: break_end_time,
 };
 
 var dp = new DayPilot.Scheduler("dp");
@@ -72,10 +74,18 @@ var dp = new DayPilot.Scheduler("dp");
 // autoRefreshMaxCount: 20
 // autoRefreshTimeout: 3
 
+$("#main_calendar").on("change", function(){
+  dp.startDate = new DayPilot.Date($(this).val());
+  //console.log(dp.startDate);
+  loadEvents();
+  dp.update();
+});
+
+
 dp.bubble = new DayPilot.Bubble({
     cssClassPrefix: "bubble_default",
     onLoad: function(args) {
-      console.log(args.e.ShowBaseTimeHeader);
+      // console.log(args.e.ShowBaseTimeHeader);
         var ev = args.source;
         args.async = true;  // notify manually using .loaded()
         // simulating slow server-side load
@@ -149,15 +159,33 @@ dp.onBeforeTimeHeaderRender = function(args) {
 	    i++;
 	    args.header.html = '<div class="'+ className+'">' + val + '</div>';   
  	}
- 	var progress = Math.floor(Math.random() * 19) + 0
-  	var progressClass ='';
+
  	if (args.header.level === 2) {
-	    if (progress > 10) {
+    var progress = 0;
+    
+
+
+      for (var j=0; j<dp.events.list.length; j++) {
+        if(typeof dp.events.list[j] !== 'undefined') {
+         if(dp.events.list[j].start.substr(11,5) <= args.header.start.toString().substr(11,5) && dp.events.list[j].end.substr(11,5) >= args.header.end.toString().substr(11,5)){
+          progress++;
+         }
+       }
+         // console.log(dp.events.list[j].start.substr(11,5) <= args.header.start.toString().substr(11,5) && dp.events.list[j].end.substr(11,5)>=args.header.end.toString().substr(11,5));
+        // console.log(args.header.start.ticks,new Date(dp.events.list[j].start).getTime());
+      }
+    
+   // console.log(progress);
+    progress = data.outlet_tables_number - progress;
+   
+    // var progress = Math.floor(Math.random() * 19) + 0;
+    var progressClass ='';
+	    if (progress > 3) {
 	      progressClass = 'progress_green';
-	    } else if(progress < 6){
-	        progressClass = 'progress_blue';
-	    } else {
-      	progressClass = 'progress_red';
+	    } else if(progress == 0){
+	        progressClass = 'progress_red';
+	    } else if(progress <= 3){
+      	progressClass = 'progress_blue';
     }
     args.header.html = '<div class="sheduler_minut_value">'+args.header.html +'</div><div class="sheduler_progress_bar '+ progressClass +'"></div>';
   }
@@ -166,10 +194,12 @@ dp.onBeforeTimeHeaderRender = function(args) {
 
 dp.resources = [];
 
-var tables_number = data.outlet_tables_number;
+
 var not_assigned_number = data.not_assigned;
 
 for(var i=0; i < data['tables'].length; i++){
+  var table = '<option value="'+data['tables'][i]['table_id']+'" >'+"T"+(i+1)+'</option>';
+  $('#new_reservation_table').append(table);
   dp.resources.push({name: "T"+(i+1), id: data['tables'][i]['table_id']});
 }
 
@@ -181,7 +211,8 @@ for(var i=1; i<=not_assigned_number; i++){
 
 
 dp.onBeforeEventRender = function(args) {    
-    args.e.innerHTML = args.e.text + ":";
+   // console.log(args.e.title);
+    //args.e.innerHTML = args.e.text + ":";
 };
 
 
@@ -221,7 +252,7 @@ dp.onEventMove = function (args){
 }
 
 dp.onEventMoved = function (args) {
-    console.log(args.newStart.toString());
+    //console.log(args.newStart.toString());
     if(args.newResource === "D" || args.newStart.ticks < new DayPilot.Date().ticks){
           args.e.data.resource = revert;//revert to original row
           //reverting event start and end
@@ -244,8 +275,11 @@ dp.onEventMoved = function (args) {
 	        } else {
 	          dp.message("Moved");
 	          dp.events.update(args.e);
+            
 	        }
+
    		 });
+
 };
 
 
@@ -260,14 +294,15 @@ dp.onEventResized = function (args) {
 	          dp.message(data.message);
 	          //revert event
 	          args.e.data.end=args.e.part.end;
-	          dp.events.update(args.e);
+	          //dp.events.update(args.e);
+            
 	        }else{
 	          dp.message("Resized");
 	        }
    		});
 };
 
-
+var reservation_end = "";
 dp.onTimeRangeSelected = function (args) {
   // Disable event creation in Time < Current Time
     if(args.start.ticks < new DayPilot.Date().ticks) {
@@ -275,33 +310,20 @@ dp.onTimeRangeSelected = function (args) {
       dp.clearSelection();
       return false;
     }
-    var name = prompt("New event name:", "Event");
+    //console.log(args.resource);
+    $('#new_reservation_date').val(args.start.toString().substr(0, 10));
+    $('#new_reservation_time').val(args.start.toString().substr(11, 5));
+    $('#new_reservation_table').val(args.resource);
+    reservation_end = args.end.toString();
+    //var name = prompt("New event name:", "Event");
     dp.clearSelection();
-    if (!name) return;
-
+    //if (!name) return;
+    //console.log(args.end.toString());
     // if((args.end.ticks-args.start.ticks)===900000){
     //   args.e.data.end=;
     // }
 
-    $.post("scheduler/create/" + data["outlet_id"], 
-        {
-            start: args.start.toString(),
-            end: args.end.toString(),
-            resource: args.resource,
-            name: name
-        }, 
-        function(data) {
-          console.log(data);
-            var e = new DayPilot.Event({
-                start: args.start,
-                end: args.end,
-                id: data.id,
-                resource: args.resource,
-                text: name
-            });
-            dp.events.add(e);
-            dp.message(data.message);
-        });
+
 };
 
 dp.init();
@@ -312,13 +334,66 @@ function loadEvents() {
     var end   = dp.startDate.addDays(dp.days);
     $.post("scheduler/reservations/" + data["outlet_id"], {
             start: start.toString(),
-            end: end.toString()
+            end: end.toString(), 
         }, function(data) {
 	            dp.events.list = data;
 	            dp.update();
         	}
     );
 }
+
+
+$('.add_reservation').on("submit", function(event){
+      event.preventDefault();
+      var form = $(this).serializeArray();
+      //console.log(form);
+      var reservation_start = form[0].value + "T" + form[1].value + ":00";
+      var staying_time;
+      
+      if(form[1].value < outlet_settings.pre_concert_time){
+        staying_time = data.outlet_staying_time_lunch;
+      } else if(form[1].value < outlet_settings.concert_time) {
+        staying_time = data.outlet_staying_time_pre_concert;
+      } else if(form[1].value < outlet_settings.after_concert_time){
+        console.log("dsfga");
+        staying_time = data.outlet_staying_time_concert;
+      } else {
+        staying_time = data.outlet_staying_time_post_concert;
+      }
+
+      console.log(staying_time);
+      reservation_end = (reservation_end.length > 0) ? reservation_end : reservation_start;
+      console.log(new Date(reservation_start).getMinutes() + 15);
+      $.post("scheduler/create/" + data["outlet_id"], 
+        {
+            start: reservation_start,
+            end: reservation_end,
+            guest_number: form[2].value,
+            resource: form[3].value,
+            title: form[4].value,
+            guest_name: form[5].value,
+            phone: form[6].value,
+            email: form[7].value,
+            language: form[8].value,
+            author: form[9].value,
+            confirm_via_email : (form[10].value.length > 0) ? 1 : 0
+        }, 
+        function(data) {
+          //console.log(data);
+            var e = new DayPilot.Event({
+                start: data.reservation.start,
+                end: data.reservation.end,
+                id: data.id,
+                resource: data.reservation.resource,
+                text: data.reservation.title + " " + data.reservation.guest_name
+            });
+            dp.events.add(e);
+            dp.message(data.message);
+        });
+
+});
+
           }
+
         });
 });

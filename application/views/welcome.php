@@ -72,28 +72,25 @@
 <form class="form-inline add_reservation" role="form">
 
   <div class="form-group date">   
-    <input type="date" class="form-control">
+    <input type="text" class="form-control" id="new_reservation_date" name='new_reservation_date'>
   </div>
 
   <div class="form-group time">   
-    <input type="time" step="900" class="form-control">
+    <input type="text" step="900" class="form-control" id="new_reservation_time" name="new_reservation_time">
   </div>
 
   <div class="form-group guests">   
-    <input type="number" class="form-control" placeholder="Guests number">
+    <input type="number" class="form-control" placeholder="Guests number" name="new_reservation_guest_number">
   </div>
 
   <div class="form-group table">
-    <select class="form-control">
-      <option>NA</option>
-      <option>T1</option>
-      <option>T2</option>
-      <option>T3</option>
+    <select class="form-control" id="new_reservation_table" name="new_reservation_table">
+      <option value="0">NA</option>
     </select>
   </div>
 
   <div class="form-group title">
-    <select class="form-control">
+    <select class="form-control" name="new_reservation_title">
       <option>Mr.</option>
       <option>Mrs.</option>
       <option>Dr.</option>
@@ -102,36 +99,36 @@
   </div>
 
   <div class="form-group name">   
-    <input type="text" class="form-control" placeholder="Name">
+    <input type="text" class="form-control" placeholder="Name" name="new_reservation_guest_name">
   </div>
 
   <div class="form-group phone">   
-    <input type="tel" class="form-control" placeholder="Phone">
+    <input type="tel" class="form-control" placeholder="Phone" name="new_reservation_phone">
   </div>
 
   <div class="form-group email">  
-    <input type="email" class="form-control" placeholder="Email">
+    <input type="email" class="form-control" placeholder="Email" name="new_reservation_email">
+  </div>
+
+  <div class="form-group language">
+    <select class="form-control" name="new_reservation_language">
+      <option value="English">EN</option>
+      <option value="German">GE</option>
+    </select>
+  </div>
+
+  <div class="form-group author">   
+    <input type="text" class="form-control" placeholder="Author" name="new_reservation_author">
   </div>
 
   <div class="form-group confirmation">    
     <div class="">
       <label></label>
-        <input type="checkbox" value="1">  
+        <input type="checkbox" value="1" name="new_reservation_confirmation">  
     </div>
   </div>
-
-  <div class="form-group language">
-    <select class="form-control">
-      <option>EN</option>
-      <option>GE</option>
-    </select>
-  </div>
-
-  <div class="form-group author">   
-    <input type="text" class="form-control" placeholder="Author">
-  </div>
-
-  <button type="button" class="btn btn-primary">Save</button>
+  
+  <button type="submit" class="btn btn-primary">Save</button>
   
 </form>
 

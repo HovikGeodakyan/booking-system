@@ -1,22 +1,23 @@
-var start = "2014-04-05";
-var end = "2014-04-28";
+var date = new Date();
+var start = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+var end = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + (date.getDate()+1);
 var keyword = "%";
 
 $(document).ready(function(){
     get_reservations(start, end , keyword);
-    $('input[name=start_date]').datepicker()
-    $('input[name=end_date]').datepicker()
+    $('input[name=start_date]').datepicker({ dateFormat: 'yy-mm-dd' })
+    $('input[name=end_date]').datepicker({ dateFormat: 'yy-mm-dd' })
     $("#reservations_table").tablesorter();
 });
 
 $('#filter').on("submit", function(event){
     event.preventDefault();
     var form = $(this).serializeArray();
-    
+
     start = (form[0].value.length > 0) ? form[0].value : start;
     end = (form[1].value.length > 0) ? form[1].value : end ;
     keyword = (form[2].value.length > 0) ? form[2].value : "%";
-    console.log(keyword);
+
     get_reservations(start, end, keyword);
 });
 

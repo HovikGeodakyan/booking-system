@@ -14,7 +14,9 @@ class scheduler extends CI_Controller {
 
 
 	public function create($outlet_id) {
-		$response = $this->scheduler_model->create_reservation($outlet_id);
+		$data = $this->input->post();
+		$data['outlet_id'] = $outlet_id;
+		$response = $this->scheduler_model->create_reservation($outlet_id, $data);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);
