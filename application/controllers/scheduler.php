@@ -47,8 +47,9 @@ class scheduler extends CI_Controller {
 	}
 
 
-	public function cancel($outlet_id){
-		$response = $this->scheduler_model->cancel_reservation($outlet_id);
+	public function status($outlet_id){
+		$data = $this->input->post();
+		$response = $this->scheduler_model->change_status($outlet_id, $data);
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);

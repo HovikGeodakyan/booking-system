@@ -276,3 +276,65 @@
 	border-right: 1px solid #eee;
 	height: 100%;
 }
+
+
+
+
+.arrived .scheduler_8_event_inner  
+{
+	position:absolute;
+	left:0px;
+	right: 1px;
+	top: 0px;
+	bottom: 1px;
+	padding: 4px;	
+	font-size: 14px;
+	color: #ffffff;
+	background: #66bda9;
+	border: 1px solid #66bda9;
+}
+
+.arrived .scheduler_8_event_inner:hover
+{
+	background: #539989;
+}
+
+
+.not_show .scheduler_8_event_inner  
+{
+	position:absolute;
+	left:0px;
+	right: 1px;
+	top: 0px;
+	bottom: 1px;
+	padding: 4px;	
+	font-size: 14px;
+	color: #ffffff;
+	background: #e27682;
+	border: 1px solid #e27682;
+}
+
+.not_show .scheduler_8_event_inner:hover
+{
+	background: #c56872;
+}
+
+
+.late .scheduler_8_event_inner  
+{
+	position:absolute;
+	left:0px;
+	right: 1px;
+	top: 0px;
+	bottom: 1px;
+	padding: 4px;	
+	font-size: 14px;
+	color: #ffffff;
+	background: #ffa800;
+	border: 1px solid #ffa800;
+}
+
+.late .scheduler_8_event_inner:hover
+{
+	background: #dcaf43;
+}

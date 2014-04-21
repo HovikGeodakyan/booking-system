@@ -31,7 +31,7 @@
 		public function load_reservations($outlet_id){
 			$start = $_POST['start'];
 			$end = $_POST['end'];
-			$query = $this->db->query('SELECT * FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'"');
+			$query = $this->db->query('SELECT * FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'" AND status != "cancelled"');
 			$query = $query->result_array();
 			$reservations=array();
 			foreach ($query as $row ) {
@@ -57,14 +57,14 @@
 
 
 		public function load_not_assigned_reservations($start, $end, $outlet_id){
-			$query = $this->db->query('SELECT DISTINCT resource FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND SUBSTRING(resource, 1, 2)=0 AND outlet_id = "'.$outlet_id.'"');
+			$query = $this->db->query('SELECT DISTINCT resource FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND SUBSTRING(resource, 1, 2)=0 AND outlet_id = "'.$outlet_id.'" AND status != "cancelled"');
 			$query = $query->num_rows();
 
 			return $query;
 		}
 
 		public function create_reservation($outlet_id, $data){
-
+			// var_dump($data);exit;
 			$this->db->insert('reservations', $data);
 			$last_id=$this->db->insert_id();
 			$response=array();
@@ -72,6 +72,7 @@
 			$response['message'] = 'Created with id:'.$last_id;
 			$response['id'] = $last_id;
 			$response['reservation'] = $data;
+			
 			return $response;
 		}		
 
@@ -87,6 +88,7 @@
 									WHERE resource="'.$data['resource'].'" 
 									AND outlet_id = "'.$outlet_id.'"
 									AND id!="'.$id.'"
+									AND status != "cancelled"
 									AND (
 										(start>="'.$data['start'].'" AND end<="'.$data['end'].'") 
 										OR (start<="'.$data['start'].'" AND end>="'.$data['end'].'")
@@ -122,7 +124,7 @@
 				'end' => $_POST['newEnd'],
 				'resource' => $_POST['resource']
 			);
-			$query=$this->db->query('SELECT * FROM reservations WHERE resource="'.$data['resource'].'" AND start<"'.$data['end'].'" AND start>"'.$data['start'].'" AND outlet_id = "'.$outlet_id.'"');
+			$query=$this->db->query('SELECT * FROM reservations WHERE resource="'.$data['resource'].'" AND start<"'.$data['end'].'" AND start>"'.$data['start'].'" AND outlet_id = "'.$outlet_id.'" AND status != "cancelled"');
 			$query = $query->result();
 			$response=array();
 
@@ -140,11 +142,14 @@
 			return $response;
 		}
 
-		public function cancel_reservation($outlet_id){
-			$id=$_POST['id'];
-			$this->db->set('status', "cancelled");
+		public function change_status($outlet_id, $data){
+
+			$id = $data['id'];
+			$status = $data['status'];
+			$this->db->set('status', $status);
 			$this->db->where('id', $id);
 			$this->db->update('reservations');
+			$response = array();
 			$response['result'] = 'OK';
 			$response['message'] = 'Canceled';
 		}
