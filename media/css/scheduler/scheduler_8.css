@@ -22,13 +22,13 @@
 
 .no_border {
 	background: #fff !important;
-	z-index: 99999;
+	z-index: 100;
 	border-bottom: 1px solid #eee  !important;
 }
 
 .no_border_res_header  {
 	background: #fff !important;
-	z-index: 99999;
+	z-index: 100;
 	border:none !important;
 }
 

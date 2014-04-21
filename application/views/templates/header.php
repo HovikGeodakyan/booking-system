@@ -7,7 +7,8 @@
 		<link rel="stylesheet" href="<?php echo(CSS.'theme/font-awesome.min.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(CSS.'theme/icon.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(CSS.'theme/font.css'); ?>" type="text/css" />
-		<link rel="stylesheet" href="<?php echo(CSS.'theme/app.css'); ?>" type="text/css" />  
+    <link rel="stylesheet" href="<?php echo(CSS.'theme/app.css'); ?>" type="text/css" />  
+		<link rel="stylesheet" href="<?php echo(CSS.'theme/chosen.css'); ?>" type="text/css" />  
 		  
     <!-- Scheduler Styles  -->
     <link type="text/css" rel="stylesheet" href="<?php echo(CSS.'scheduler/layout.css'); ?>" />    
@@ -27,7 +28,7 @@
     <!-- Library -->
     <script src="<?php echo(JS.'lib/jquery.min.js'); ?>"></script>
     <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script> 
-    <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script> 
+    
     <script src="<?php echo(JS.'lib/app.js'); ?>"></script> 
     <script src="<?php echo(JS.'lib/jquery.confirm.min.js'); ?>"></script>
     <script src="<?php echo(JS.'datepicker/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
@@ -39,6 +40,12 @@
     <!-- Theme Validation -->
     <script src="<?php echo(JS.'lib/parsley.min.js'); ?>"></script>
     <script src="<?php echo(JS.'lib/parsley.extend.js'); ?>"></script>
+    
+    <script src="<?php echo(JS.'search/search.js'); ?>"></script>
+
+    <!-- Multiselect -->
+    <script src="<?php echo(JS.'lib/chosen.jquery.min.js'); ?>"></script>
+
 	</head>
 	
 
@@ -66,13 +73,13 @@
       <a class="btn btn-link visible-xs custom-header-btns" data-toggle="dropdown" data-target=".user">
           <i class="fa fa-cog"></i>
       </a>
-      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
+      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs search_form" role="search">
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-btn">
               <button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button>
             </span>
-            <input type="text" class="form-control input-sm no-border" placeholder="Search apps, projects...">            
+            <input type="text" class="search_text form-control input-sm no-border" placeholder="Search apps, projects...">            
           </div>
         </div>
       </form>
@@ -143,4 +150,36 @@
         </li>
       </ul>      
     </header>
+    <!-- Search Modal -->
+          <div class="modal fade" id="search_modal" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">Search Results</h4>
+                </div>
+                <div class="modal-body"> 
+                    <table class="table table-striped b-t b-light" id="search_results_table">
+                      <thead>
+                        <tr>
+                          <th class="th-sortable" data-toggle="class">#</th>
+                          <th class="th-sortable" data-toggle="class">Name</th>          
+                          <th class="th-sortable" data-toggle="class">Email</th>            
+                          <th class="th-sortable" data-toggle="class">Phone</th>           
+                          <th class="th-sortable" data-toggle="class">Guest Number</th>           
+                          <th class="th-sortable" data-toggle="class">Resarvation Start</th>
+                          <th class="th-sortable" data-toggle="class">Resarvation End</th>
+                        </tr>
+                       </thead>
+                        <tbody>
+                        </tbody>
+                    </table>               
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
 

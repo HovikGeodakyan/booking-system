@@ -38,6 +38,7 @@
 				$e=array();
 				$e['id']           = $row['id'];
 				$e['text']         = $row['title']." ".$row['guest_name']." (".$row['guest_number'].")";
+				$e['guest_name']   = $row['guest_name'];
 				$e['title']        = $row['title'];
 				$e['guest_number'] = $row['guest_number'];
 				$e['phone']        = $row['phone'];
@@ -64,7 +65,7 @@
 		}
 
 		public function create_reservation($outlet_id, $data){
-			// var_dump($data);exit;
+			$data['outlet_id'] = $outlet_id;
 			$this->db->insert('reservations', $data);
 			$last_id=$this->db->insert_id();
 			$response=array();
@@ -151,7 +152,14 @@
 			$this->db->update('reservations');
 			$response = array();
 			$response['result'] = 'OK';
-			$response['message'] = 'Canceled';
+			$response['message'] = 'Status changed';
+		}
+
+		public function update_reservation($id, $data){
+			unset($data['date']);
+			unset($data['time']);
+			$this->db->where('id', $id);
+			$this->db->update('reservations', $data);
 		}
 	}
 ?>

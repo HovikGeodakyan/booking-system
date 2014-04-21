@@ -54,4 +54,16 @@ class scheduler extends CI_Controller {
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}
+
+	public function update($outlet_id, $id = NULL){
+		$data = $this->input->post();
+		unset($data['date']);
+		unset($data['time']);
+		$data['confirm_via_email'] = (isset($data['confirm_via_email'])) ? 1 : 0;
+
+		$response = ($id === NULL) ? $this->scheduler_model->create_reservation($outlet_id, $data) : $this->scheduler_model->update_reservation($id, $data);
+		
+		header('Content-Type: application/json');
+		echo json_encode($response);
+	}
 }

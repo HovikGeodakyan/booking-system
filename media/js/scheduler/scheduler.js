@@ -1,6 +1,7 @@
 $( document ).ready(function() {
   $('td[resource="D"] div').css('background', '#fff');
   $('input[name=new_reservation_date]').datepicker({ dateFormat: 'yy-mm-dd' });
+  $('.table_select').chosen();
 
   var url= 'outlet/get';
   //getting outlet and table information
@@ -10,39 +11,18 @@ $( document ).ready(function() {
       dataType: 'json',
         success: function(data) {
 
-            var day = new Date().getDay();
-            //working and break time
-            str = "outlet_open_time_" + day;
-            var open_time = (data[str]==="00:00:00") ? data['outlet_open_time'] : data[str];
-            open_time = open_time.substr(0, 2);
+            //change the start date on when calendar has changed
+            $("#main_calendar").on("change", function(){
+              dp.startDate = new DayPilot.Date($(this).val());
+              get_working_time(new Date($(this).val()).getDay());
+              loadEvents();
+              dp.update();
+            });
 
-            str = "outlet_close_time_" + day;
-            var close_time = (data[str]==="00:00:00") ? data['outlet_close_time'] : data[str];
-            close_time = close_time.substr(0, 2);
 
-            str = "outlet_break_start_time_" + day;
-            var break_start_time = (data[str]==="00:00:00") ? data['outlet_break_start_time'] : data[str];
-            break_start_time = break_start_time.substr(0, 2);
-
-            str = "outlet_break_end_time_" + day;
-            var break_end_time = (data[str]==="00:00:00") ? data['outlet_break_end_time'] : data[str];
-            break_end_time = break_end_time.substr(0, 2);
+            get_working_time(new Date().getDay());
 
             console.log(data);
-
-
-            var outlet_settings = {
-            		  open_time : open_time,
-            		  close_time : close_time,
-            		  break_start_time : break_start_time,
-            		  break_end_time : break_end_time,
-            		  
-            		  launch_time: open_time,
-            		  pre_concert_time: break_end_time,
-            		  concert_time: "20",
-            		  after_concert_time:"22",
-            		  evening_time: break_end_time,
-            };
 
             //setting matrix options
             var dp = new DayPilot.Scheduler("dp");
@@ -67,13 +47,6 @@ $( document ).ready(function() {
             	dp.eventRightClickHandling="Enabled";
             	dp.eventDoubleClickHandling="Bubble";
 
-              //change the start date on when calendar has changed
-              $("#main_calendar").on("change", function(){
-                dp.startDate = new DayPilot.Date($(this).val());
-                loadEvents();
-                dp.update();
-              });
-
               //daypilot reservation info bubble
               dp.bubble = new DayPilot.Bubble({
                   cssClassPrefix: "bubble_default",
@@ -88,45 +61,136 @@ $( document ).ready(function() {
                   }
               });
 
-              //rservation context menu (on Left click)
-              dp.contextMenu = new DayPilot.Menu(
-                  {items:[
-                      {text:"Cancel", onclick: function() { 
-                          var e = this.source;           
-                          $.post("scheduler/status/" + data["outlet_id"],
-                          {
-                              id: e.value(),
-                              status: "cancelled"
-                          }, 
-                          function(data){
-                            dp.events.remove(e);
-                          });
-                      }},
-                      {text:"Arrived", onclick: function(args) { 
-                          var e = this.source;           
-                          $.post("scheduler/status/" + data["outlet_id"],
-                          {
-                              id: e.value(),
-                              status: "arrived"
-                          }, 
-                          function(data){
-                            dp.events.update(e);
-                            loadEvents();
-                            dp.update();
-                          });
-                      }}, 
-                      {text:"Extend", onclick: function(args) { 
-                          var e = this.source;
-                          dp.events.update(e);
-                      }},                         
-                      {text:"Edit", onclick: function(args) { 
-                          var e = this.source;
-                          dp.events.update(e);
-                      }}, 
-                      {text:"Information"}
-                  ],
-                  cssClassPrefix: "menu_default"
+              //reservation context menu (on Left click)
+              // dp.contextMenu = new DayPilot.Menu(
+              //     {items:[
+              //         {text:"Cancel", onclick: function() { 
+              //             var e = this.source;           
+              //             $.post("scheduler/status/" + data["outlet_id"],
+              //             {
+              //                 id: e.value(),
+              //                 status: "cancelled"
+              //             }, 
+              //             function(data){
+              //               dp.events.remove(e);
+              //             });
+              //         }},
+              //         {text:"Arrived", onclick: function(args) { 
+              //             var e = this.source;           
+              //             $.post("scheduler/status/" + data["outlet_id"],
+              //             {
+              //                 id: e.value(),
+              //                 status: "arrived"
+              //             }, 
+              //             function(data){
+              //               dp.events.update(e);
+              //               loadEvents();
+              //               dp.update();
+              //             });
+              //         }}, 
+              //         {text:"Extend", onclick: function(args) { 
+              //             var e = this.source;
+              //             dp.events.update(e);
+              //         }},                         
+              //         {text:"Edit", onclick: function(args) { 
+              //             var e = this.source;
+              //             dp.events.update(e);
+              //         }}, 
+              //         {text:"Information"}
+              //     ],
+              //     cssClassPrefix: "menu_default"
+              // });
+              var clicked_reservation;
+              dp.onEventClicked = function(args) {
+                $('#reservation_edit').modal('show');
+                var reservation_info = args.e.data;
+                
+                $('#reservation_edit input').val();
+                $('#reservation_edit input[name=date]').val(reservation_info.start.substr(0, 10));
+                $('#reservation_edit input[name=time]').val(reservation_info.start.substr(11, 5));
+                $('#reservation_edit input[name=guest_number]').val(reservation_info.guest_number);
+                $('#reservation_edit select[name=title]').val(reservation_info.title);
+                $('#reservation_edit input[name=guest_name]').val(reservation_info.guest_name);
+                $('#reservation_edit input[name=phone]').val(reservation_info.phone);
+                $('#reservation_edit input[name=email]').val(reservation_info.email);
+                $('#reservation_edit input[name=author]').val(reservation_info.author);
+
+                $('#reservation_table option').attr("selected", false);
+                $('#reservation_table option[value=' + reservation_info.resource + ']').attr('selected', 'selected');
+
+                mark_busy_tables(reservation_info.start.substr(11, 5), "reservation_table");        
+                mark_incufficent_capacity_tables(reservation_info.guest_number, "reservation_table");
+                
+                $('#has_arrived').removeAttr('disabled');
+                $('#cancel_reservation').removeAttr('disabled');
+
+                clicked_reservation = args.e;
+              };
+
+              $('#has_arrived').click(function(){
+                  $.post("scheduler/status/" + data["outlet_id"],
+                  {
+                      id: clicked_reservation.value(),
+                      status: "arrived"
+                  }, 
+                  function(data){
+                    dp.events.update(clicked_reservation);
+                    loadEvents();
+                    dp.update();
+                  });
+              });                  
+
+
+              $('#cancel_reservation').confirm({
+                  text: "Are you sure you want to cancel the reservation?",
+                  title: "Confirmation required",
+                  confirm: function(button) {
+                    $.post("scheduler/status/" + data["outlet_id"],
+                    {
+                        id: clicked_reservation.value(),
+                        status: "cancelled"
+                    }, 
+                    function(data){
+                      $('#reservation_edit').modal('hide');
+                      dp.events.remove(clicked_reservation);
+                      loadEvents();
+                      dp.update();
+                    });
+                  },
+                  cancel: function(button) {
+                      return false;
+                  },
+                  confirmButton: "Yes I am",
+                  cancelButton: "No",
+                  post: true
               });
+
+
+              $('#save_reservation').click(function(){
+                  var form = $('.edit_reservation').serialize();  
+
+                  var reservation_date = $('#reservation_edit input[name=date]').val();
+                  var reservation_time = $('#reservation_edit input[name=time]').val();
+                  var reservation_start = reservation_date + "T" + reservation_time + ":00";
+                  var reservation_end = get_staying_time(reservation_time) + ":00";
+                  reservation_end = reservation_date + "T" + reservation_end;
+                  
+                  var reservation_id = (typeof clicked_reservation === 'undefined') ? '' : clicked_reservation.value()
+                  
+                  $.ajax({
+                    url: "scheduler/update/" + data.outlet_id + "/" + reservation_id,
+                    type: "post",
+                    data: form + "&start=" + reservation_start + "&end=" + reservation_end,
+                    success: function(data) {
+                      $('#reservation_edit').modal('hide');
+                      dp.clearSelection();
+                      loadEvents();
+                      dp.update();
+                    }
+                });
+
+              });
+              
 
               //intialising matrix header (launc/dinner/concert boxes and availability bar)
               var i=0; //Time header, light dark counter
@@ -193,9 +257,11 @@ $( document ).ready(function() {
 
               for(var i=0; i < data['tables'].length; i++){
                 var table = '<option value="'+data['tables'][i]['table_id']+'" >'+"T"+(i+1)+'</option>'; ///add outlet tabes to the new reservation select menu
-                $('#new_reservation_table').append(table); ///add outlet tabes to the new reservation select menu
+                $('#reservation_table').append(table); ///add outlet tabes to the new reservation select menu
                 dp.resources.push({name: "T"+(i+1), id: data['tables'][i]['table_id']}); //add the outlet table to the matrix resources tab
               }
+
+              $('#reservation_table').chosen({width: "100%"});
 
               dp.resources.push({name: "", id: "D"}); //add the divider
               //add fields for not assigned tables
@@ -210,8 +276,7 @@ $( document ).ready(function() {
                     case 'not_show': args.e.cssClass = "not_show"; break;
                     case 'late'    : args.e.cssClass = "late"; break;
                   }
-                console.log(args.e.start);
-                  
+  
               };
 
               //change the color of divider and past hours
@@ -312,9 +377,18 @@ $( document ).ready(function() {
                     dp.clearSelection();
                     return false;
                   }
-                  $('#new_reservation_date').val(args.start.toString().substr(0, 10));
-                  $('#new_reservation_time').val(args.start.toString().substr(11, 5));
-                  $('#new_reservation_table').val(args.resource);
+
+                  $('#reservation_edit').modal('show');
+                  
+                  $('#reservation_edit input').val("");
+                  $('#reservation_edit input[name=date]').val(args.start.toString().substr(0, 10));
+                  $('#reservation_edit input[name=time]').val(args.start.toString().substr(11, 5));
+
+                  $('#reservation_table option').attr("selected", false);
+                  $('#reservation_table option[value=' + args.resource + ']').attr('selected', 'selected');
+                  
+                  mark_busy_tables(args.start.toString().substr(11, 5), "reservation_table");
+                  
                   reservation_end = args.end.toString();
               };
 
@@ -337,124 +411,197 @@ $( document ).ready(function() {
               }
 
               //add a new reservation to db when the form is submitted
-              $('.add_reservation').on("submit", function(event){
-                    event.preventDefault();
-                    var form = [];    
-                    $.each($('.add_reservation').serializeArray(), function() {
-                        form[this.name] = this.value;
-                    });
+              // $('.add_reservation').on("submit", function(event){
+              //       event.preventDefault();
+              //       var form = [];    
+              //       $.each($('.add_reservation').serializeArray(), function() {
+              //           form[this.name] = this.value;
+              //       });
 
-                    var reservation_time_start = form.new_reservation_time + ":00";
-                    var reservation_start = form.new_reservation_date + "T" + reservation_time_start;
-                    var staying_time;                    
+              //       var reservation_start = form.new_reservation_date + "T" + form.new_reservation_time + ":00";
 
-                    if(form.new_reservation_time < outlet_settings.pre_concert_time){
-                      staying_time = data.outlet_staying_time_lunch;
-                    } else if(form.new_reservation_time < outlet_settings.concert_time) {
-                      staying_time = data.outlet_staying_time_pre_concert;
-                    } else if(form.new_reservation_time < outlet_settings.after_concert_time){
-                      staying_time = data.outlet_staying_time_concert;
-                    } else {
-                      staying_time = data.outlet_staying_time_post_concert;
-                    }
-                    var staying_time;
-                    var staying_time_array = staying_time.split(':');
+              //       if(typeof reservation_end === 'undefined') {
+              //         reservation_end = get_staying_time(form.new_reservation_time) + ":00";
+              //         reservation_end = form.new_reservation_date + "T" + reservation_end;
+              //         console.log("END:" + reservation_end);       
+              //       } 
 
-                    if(typeof reservation_end === 'undefined') {
-                      var reservation_time_array =  reservation_time_start.split(':'); 
-                      var reservation_end_hours = parseInt(reservation_time_array[0]);
-                      var reservation_end_minutes = parseInt(reservation_time_array[1]);
-
-                      reservation_end_hours += parseInt(staying_time_array[0]);
-                      reservation_end_minutes += parseInt(staying_time_array[1]);
-                      
-                      if( reservation_end_minutes >= 60) {
-                        reservation_end_hours += 1;
-                        reservation_end_minutes = reservation_end_minutes - 60;
-                      }
-
-                      if(reservation_end_hours > close_time){
-                        reservation_end_hours = close_time;
-                      } else if (reservation_end_hours > break_start_time && parseInt(reservation_time_array[0]) < break_start_time) {
-                        reservation_end_hours = break_start_time;
-                      }
-
-                      if(reservation_end_minutes < 10) {
-                        reservation_end_minutes = "0" + reservation_end_minutes; 
-                      }
-                      if(reservation_end_hours < 10) {
-                        reservation_end_hours = "0" + reservation_end_hours; 
-                      }
-                      reservation_end = form.new_reservation_date + "T" + reservation_end_hours + ":" + reservation_end_minutes + ":00";        
-                    } 
-
-                    $.post("scheduler/create/" + data["outlet_id"], 
-                      {
-                          start: reservation_start,
-                          end: reservation_end,
-                          guest_number: form.new_reservation_guest_number,
-                          resource: form.new_reservation_table,
-                          title: form.new_reservation_title,
-                          guest_name: form.new_reservation_guest_name,
-                          phone: form.new_reservation_phone,
-                          email: form.new_reservation_email,
-                          language: form.new_reservation_language,
-                          author: form.new_reservation_author,
-                          confirm_via_email : (typeof form.new_reservation_confirmation === 'undefined') ? 1 : 0
-                      }, 
-                      function(data) {
-                        //console.log(data);
-                          var e = new DayPilot.Event({
-                              start: data.reservation.start,
-                              end: data.reservation.end,
-                              id: data.id,
-                              resource: data.reservation.resource,
-                              text: data.reservation.title + " " + data.reservation.guest_name
-                          });
-                          dp.events.add(e);
-                          dp.message(data.message);
-                          dp.update();
-                          delete reservation_end;
-                      });
-              });
+              //       $.post("scheduler/create/" + data["outlet_id"], 
+              //         {
+              //             start: reservation_start,
+              //             end: reservation_end,
+              //             guest_number: form.new_reservation_guest_number,
+              //             resource: form.new_reservation_table,
+              //             title: form.new_reservation_title,
+              //             guest_name: form.new_reservation_guest_name,
+              //             phone: form.new_reservation_phone,
+              //             email: form.new_reservation_email,
+              //             language: form.new_reservation_language,
+              //             author: form.new_reservation_author,
+              //             confirm_via_email : (typeof form.new_reservation_confirmation === 'undefined') ? 1 : 0
+              //         }, 
+              //         function(data) {
+              //           //console.log(data);
+              //             var e = new DayPilot.Event({
+              //                 start: data.reservation.start,
+              //                 end: data.reservation.end,
+              //                 id: data.id,
+              //                 resource: data.reservation.resource,
+              //                 text: data.reservation.title + " " + data.reservation.guest_name
+              //             });
+              //             dp.events.add(e);
+              //             dp.message(data.message);
+              //             dp.update();
+              //             delete reservation_end;
+              //         });
+              // });
 
 
-              $('input[name=new_reservation_time]').on("change", function(){
-                var time = $(this).val().split(':');
+            $('.edit_reservation input[name=time]').on("change", function(){
+                time = $(this).val().split(':');
                 var current_hour = new DayPilot.Date().toString().substr(11, 2);
                 var current_minutes = new DayPilot.Date().toString().substr(14, 2);
                 if (time[0] < current_hour || (time[0] === current_hour && time[1] <= current_minutes)) {
-                  current_minutes = Math.round(current_minutes/15 + 1) * 15;
+                  console.log(current_minutes);
+                  current_minutes = Math.round(current_minutes/15) * 15;
+                  if(current_minutes === 60){
+                    current_minutes = 0;
+                    current_hour++;
+                  }
                   if(current_minutes < 10) {
                     current_minutes = "0" + current_minutes; 
                   }
                   $(this).val(current_hour + ":" + current_minutes);
+
                   time = $(this).val().split(':');
                 }
 
-                
-                $('#new_reservation_table').empty();
-                var table = '<option value="0" >NA</option>';
-                $('#new_reservation_table').append(table);
+                if($(this).val() >= break_start_time && $(this).val() <= break_end_time){
+                  $(this).val(break_end_time + ":00");
+                }
 
-                var busy_tables = [];
-                var j = 0;
+                mark_busy_tables($(this).val(), "reservation_table");        
+            });
+
+            $('.edit_reservation input[name=guest_number]').on("change", function(){
+                mark_incufficent_capacity_tables($(this).val(), "reservation_table");
+            });
+
+            function get_working_time(day){
+                  //working and break time
+                  str = "outlet_open_time_" + day;
+                  open_time = (data[str]==="00:00:00") ? data['outlet_open_time'] : data[str];
+                  open_time = open_time.substr(0, 2);
+
+                  str = "outlet_close_time_" + day;
+                  close_time = (data[str]==="00:00:00") ? data['outlet_close_time'] : data[str];
+                  close_time = close_time.substr(0, 2);
+
+                  str = "outlet_break_start_time_" + day;
+                  break_start_time = (data[str]==="00:00:00") ? data['outlet_break_start_time'] : data[str];
+                  break_start_time = break_start_time.substr(0, 2);
+
+                  str = "outlet_break_end_time_" + day;
+                  break_end_time = (data[str]==="00:00:00") ? data['outlet_break_end_time'] : data[str];
+                  break_end_time = break_end_time.substr(0, 2);
+
+                  outlet_settings = {
+                    open_time : open_time,
+                    close_time : close_time,
+                    break_start_time : break_start_time,
+                    break_end_time : break_end_time,
+                    
+                    launch_time: open_time,
+                    pre_concert_time: break_end_time,
+                    concert_time: "20",
+                    after_concert_time:"22",
+                    evening_time: break_end_time,
+                  };
+            }//get working time
+
+
+            function get_staying_time(start_time){
+              var reservation_time_start = start_time + ":00";
+              var staying_time;
+
+              if(start_time < outlet_settings.pre_concert_time){
+                staying_time = data.outlet_staying_time_lunch;
+              } else if(start_time < outlet_settings.concert_time) {
+                staying_time = data.outlet_staying_time_pre_concert;
+              } else if(start_time < outlet_settings.after_concert_time){
+                staying_time = data.outlet_staying_time_concert;
+              } else {
+                staying_time = data.outlet_staying_time_post_concert;
+              }
+
+              var staying_time_array = staying_time.split(':');
+              var reservation_time_array =  reservation_time_start.split(':'); 
+              var reservation_end_hours = parseInt(reservation_time_array[0]);
+              var reservation_end_minutes = parseInt(reservation_time_array[1]);
+
+              reservation_end_hours += parseInt(staying_time_array[0]);
+              reservation_end_minutes += parseInt(staying_time_array[1]);
+              
+              if( reservation_end_minutes >= 60) {
+                reservation_end_hours += 1;
+                reservation_end_minutes = reservation_end_minutes - 60;
+              }
+
+              if(reservation_end_hours > close_time){
+                reservation_end_hours = close_time;
+              } else if (reservation_end_hours > break_start_time && parseInt(reservation_time_array[0]) < break_start_time) {
+                reservation_end_hours = break_start_time;
+              }
+
+              if(reservation_end_minutes < 10) {
+                reservation_end_minutes = "0" + reservation_end_minutes; 
+              }
+              if(reservation_end_hours < 10) {
+                reservation_end_hours = "0" + reservation_end_hours; 
+              }
+              return reservation_end_hours + ":" + reservation_end_minutes;  
+            }
+
+
+            function mark_busy_tables(start_time, select_box){
+                end_time = get_staying_time(start_time);
+                
+                $('#' + select_box + ' option').removeAttr('disabled');
+
                 for (var i=0; i < dp.events.list.length; i++) {
-                  if($(this).val() >= dp.events.list[i].start.substr(11,5) && $(this).val() < dp.events.list[i].end.substr(11,5)){
-                    busy_tables[j] = dp.events.list[i]['resource'];
-                    j++;
+                  var event_start = dp.events.list[i].start.substr(11,5);
+                  var event_end  = dp.events.list[i].end.substr(11,5)
+
+                  if((start_time >= event_start && start_time < event_end) || 
+                     (end_time > event_start && end_time <= event_end) ||
+                     (start_time < event_start && end_time > event_end) ||
+                     (start_time > event_start && end_time < event_end)
+                  ){
+                    $('#' + select_box + ' option[value=' + dp.events.list[i]['resource'] + ']').attr('disabled', 'true');
                   }
                 }
-                
-                for (var i=0; i < data['tables'].length; i++ ) {
+                $('#' + select_box).chosen().change();
+                $('#' + select_box).trigger("chosen:updated");
+            }
 
-                  if($.inArray(data['tables'][i]['table_id'], busy_tables) === -1){
-                    var table = '<option value="'+data['tables'][i]['table_id']+'" >'+"T"+(i+1)+'</option>';
-                    $('#new_reservation_table').append(table);
+            function mark_incufficent_capacity_tables(guest_number, select_box){
+                for (var i=0; i < data['tables'].length; i++) {
+                  if(guest_number > data['tables'][i]['table_seats_max_number']){
+                    $('#' + select_box + ' option[value=' + data['tables'][i]['table_id'] + ']').addClass("warning");
                   }
                 }
-              });
-          }
+                $('#' + select_box).chosen().change();
+                $('#' + select_box).trigger("chosen:updated");
+            }
 
-        });
-});
+            $('#reservation_edit').on('hidden.bs.modal', function () {
+                dp.clearSelection();
+                $('#has_arrived').attr('disabled', true);
+                $('#cancel_reservation').attr('disabled', true);
+
+            })
+
+
+          }///ajax success
+        }); //ajax 
+});//document ready function
