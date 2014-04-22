@@ -21,8 +21,18 @@ class statistics extends CI_Controller {
 	{
 		$data['title'] = ucfirst($page); // Capitalize the first letter
 		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
 		$this->load->view('statistics', $data);
 		$this->load->view('templates/footer', $data);
+	}
+
+	public function load(){
+		$this->load->model('statistics_model');
+		$this->load->model('outlet_model');
+		$outlet_id = $this->outlet_model->get_active_outlet();
+		$res['reservations'] = $this->statistics_model->load_reservations($outlet_id, $this->input->post('start'), $this->input->post('end'));
+		$res['outlet'] = $this->outlet_model->load_one_outlet($outlet_id);
+		echo json_encode($res);
 	}
 }
 

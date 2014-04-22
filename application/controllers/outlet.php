@@ -139,8 +139,8 @@ class Outlet extends CI_Controller {
 		$tables = $this->read_tables($id);
 		$not_assigned = $this->scheduler_model->load_not_assigned_reservations($res['outlet_open_time'], $res['outlet_close_time'], $res['outlet_id']);
 		// $res = array_merge($res, $tables);
-		$res['tables']=$tables;
-		$res['not_assigned']= $not_assigned;
+		$res['tables'] = $tables;
+		$res['not_assigned'] = $not_assigned;
 		echo json_encode($res);
 	}
 

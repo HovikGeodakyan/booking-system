@@ -24,7 +24,7 @@
                       </a>
                     </li>
                     <li  class="">
-                      <a href="index.html" class="auto">
+                      <a href="<?php echo URL; ?>statistics" class="auto">
                         <i class="i i-docs icon">
                         </i>
                         <span class="font-bold">Statistics</span>

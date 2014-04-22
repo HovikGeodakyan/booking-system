@@ -1,10 +1,11 @@
 var date = new Date();
-var start = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
-var end = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + (date.getDate()+1);
+var start = new DayPilot.Date().getDatePart().toString();
+var end = new DayPilot.Date().addDays(1).getDatePart().toString();
 var keyword = "%";
 
 $(document).ready(function(){
     get_reservations(start, end , keyword);
+    console.log(start);
     $('input[name=start_date]').datepicker({ dateFormat: 'yy-mm-dd' })
     $('input[name=end_date]').datepicker({ dateFormat: 'yy-mm-dd' })
     $("#reservations_table").tablesorter();
@@ -14,10 +15,10 @@ $('#filter').on("submit", function(event){
     event.preventDefault();
     var form = $(this).serializeArray();
 
-    start = (form[0].value.length > 0) ? form[0].value : start;
-    end = (form[1].value.length > 0) ? form[1].value : end ;
+    start = (form[0].value.length > 0) ? form[0].value + "T00:00:00" : start;
+    end = (form[1].value.length > 0) ? form[1].value + "T00:00:00" : end ;
     keyword = (form[2].value.length > 0) ? form[2].value : "%";
-
+    console.log(start);
     get_reservations(start, end, keyword);
 });
 

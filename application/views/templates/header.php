@@ -32,7 +32,7 @@
     <script src="<?php echo(JS.'lib/jquery.min.js'); ?>"></script>
     <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script> 
     
-    <script src="<?php echo(JS.'lib/app.js'); ?>"></script> 
+    <!--<script src="<?php //echo(JS.'lib/app.js'); ?>"></script> -->
     <script src="<?php echo(JS.'lib/jquery.confirm.min.js'); ?>"></script>
     <script src="<?php echo(JS.'datepicker/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
     <script src="<?php echo(JS.'datepicker/datepicker.js'); ?>"></script>  
@@ -51,6 +51,13 @@
     <!-- Multiselect -->
     <script src="<?php echo(JS.'lib/chosen.jquery.min.js'); ?>"></script>
 
+    <!-- Charts -->
+    <script src="<?php echo(JS.'statistics/highcharts.js'); ?>"></script>
+    <script src="<?php echo(JS.'statistics/data.js'); ?>"></script>  
+
+     <!--<script src="<?php //echo(JS.'chart/jquery.flot.min.js'); ?>"></script>
+    <script src="<?php //echo(JS.'chart/jquery.flot.time.min.js'); ?>"></script>
+    -->
 	</head>
 	
 
