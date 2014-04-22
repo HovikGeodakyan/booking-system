@@ -21,6 +21,9 @@
     
     <!-- Datepicker Styles -->
 		<link rel="stylesheet" href="<?php echo(CSS.'datepicker/datepicker.css'); ?>" type="text/css" />
+    
+    <!-- IntroJS Styles  -->
+    <link rel="stylesheet" href="<?php echo(CSS.'intro/introjs.css'); ?>" type="text/css" />
 
     <script src="<?php echo(JS.'scheduler/daypilot-all.min.js'); ?>"></script>
    
@@ -36,6 +39,8 @@
     <script src="<?php echo(JS.'lib/remove.js'); ?>"></script>
     <script src="<?php echo(JS.'lib/tableEdit.js'); ?>"></script>
     <script src="<?php echo(JS.'lib/tablesorter.min.js'); ?>"></script>
+    <script src="<?php echo(JS.'lib/intro.js'); ?>"></script>
+   
 
     <!-- Theme Validation -->
     <script src="<?php echo(JS.'lib/parsley.min.js'); ?>"></script>
@@ -51,8 +56,8 @@
 
   <body style="background: transparent;">
 	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">       
-      <div class="navbar-header aside-md dk nav-header-custom">       
-        <a href="#"  class="navbar-brand" id="timesheet_calendar">
+      <div class="navbar-header aside-md dk nav-header-custom" >       
+        <a href="#"  class="navbar-brand" id="timesheet_calendar" data-intro='Here you can select date for showing reservations scheduler' data-step='5' data-position='bottom'>
           <input type="hidden" id="main_calendar" />         
           <!-- <img src="<?php //echo(JS.'theme/images/logo.png'); ?>" class="m-r-sm" alt="scale"> -->
           <i class="fa fa-calendar"></i>
@@ -61,8 +66,8 @@
         
       </div>
 
-      <div class="navbar-header aside-md dk nav-header-custom">
-      	<a href="welcome" class="navbar-brand">
+      <div class="navbar-header aside-md dk nav-header-custom" >
+      	<a href="welcome" class="navbar-brand" data-intro='This onen switch reservations calendar to today date...' data-step='6' data-position='bottom'>
  			     <i class="i i-clock2"></i>
          	 <span class="hidden-nav-xs">Today</span>
       	</a>
@@ -73,8 +78,8 @@
       <a class="btn btn-link visible-xs custom-header-btns" data-toggle="dropdown" data-target=".user">
           <i class="fa fa-cog"></i>
       </a>
-      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs search_form" role="search">
-        <div class="form-group">
+      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs search_form" role="search" data-intro='Here you can search guests in system' data-step='7' data-position='bottom'>
+        <div class="form-group" >
           <div class="input-group">
             <span class="input-group-btn">
               <button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button>
@@ -150,6 +155,32 @@
         </li>
       </ul>      
     </header>
+
+  <!-- laoder-->
+  <div class="modal-backdrop fade in loader">
+      <div class="spinner_box">
+          <div class="spinner">
+              <div class="spinner-container container1">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+              </div>
+              <div class="spinner-container container2">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+              </div>
+              <div class="spinner-container container3">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+              </div>
+          </div>
+     </div>
+  </div>
     <!-- Search Modal -->
           <div class="modal fade" id="search_modal" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -176,8 +207,7 @@
                     </table>               
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                  
                 </div>
               </div>
             </div>

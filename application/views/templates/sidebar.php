@@ -9,14 +9,14 @@
                 <nav class="nav-primary hidden-xs">
                   <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Menu</div>
                   <ul class="nav nav-main" data-ride="collapse">
-                    <li  class="">
+                    <li  data-intro='Here you can see reservations scheduler...' data-step='1' data-position='right'>
                       <a href="<?php echo URL; ?>" class="auto">
                         <i class="i i-statistics icon">
                         </i>
                         <span class="font-bold">Daily View</span>
                       </a>
                     </li>
-                    <li  class="">
+                    <li   data-intro='Here you can see table of all reservations in the system' data-step='2' data-position='right'>
                       <a href="<?php echo URL; ?>reservations" class="auto">
                         <i class="i i-grid2 icon">
                         </i>
@@ -30,7 +30,7 @@
                         <span class="font-bold">Statistics</span>
                       </a>
                     </li>
-                      <li  class="">
+                      <li  data-intro='Here you can change setings of outlets, users, emails and holidays...' data-step='4' data-position='right'>
                       <a href="<?php echo URL; ?>outlet" class="auto">
                         <i class="i i-lab icon">
                         </i>

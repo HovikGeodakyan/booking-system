@@ -3,6 +3,7 @@ $(document).ready(function(){
 	    text: "Are you sure you want to delete?",
 	    title: "Confirmation required",
 	    confirm: function(button) {
+	    	$('.loader').show();
 	    	var url = button.attr('href');
 	        $.ajax({
 				type: "POST",
@@ -10,12 +11,16 @@ $(document).ready(function(){
 				success: function(data) {
 					var self = button.parent().parent();
 					var ifTables = self.hasClass('table_box');
-					self.hide('slow', function(){
-						self.remove(); 
-						if(ifTables){
-							$("#outlet_tables").val($('.table_box').length);
-						}
-					});
+					setTimeout(function(){ 
+							self.hide('slow', function(){
+								self.remove(); 
+								if(ifTables){
+									$("#outlet_tables").val($('.table_box').length);
+								}
+							});
+							$('.loader').hide();
+					}, 1700);
+
 				}
 			});
 	    },

@@ -12,11 +12,13 @@ $( document ).ready(function() {
         success: function(data) {
 
             //change the start date on when calendar has changed
-            $("#main_calendar").on("change", function(){
+            $("#main_calendar").on("change", function() {
+              $('.loader').show();
               dp.startDate = new DayPilot.Date($(this).val());
               get_working_time(new Date($(this).val()).getDay());
               loadEvents();
               dp.update();
+              setTimeout(function(){ $('.loader').hide()}, 1700);
             });
 
 
