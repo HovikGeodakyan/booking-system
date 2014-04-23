@@ -51,13 +51,13 @@
     <!-- Multiselect -->
     <script src="<?php echo(JS.'lib/chosen.jquery.min.js'); ?>"></script>
 
-    <!-- Charts -->
-    <script src="<?php echo(JS.'statistics/highcharts.js'); ?>"></script>
-    <script src="<?php echo(JS.'statistics/data.js'); ?>"></script>  
+    <!-- Charts 
+    <script src="<?php //echo(JS.'statistics/highcharts.js'); ?>"></script>
+    <script src="<?php //echo(JS.'statistics/data.js'); ?>"></script>  -->
 
-     <!--<script src="<?php //echo(JS.'chart/jquery.flot.min.js'); ?>"></script>
-    <script src="<?php //echo(JS.'chart/jquery.flot.time.min.js'); ?>"></script>
-    -->
+     <script src="<?php echo(JS.'chart/jquery.flot.min.js'); ?>"></script>
+    <script src="<?php echo(JS.'chart/jquery.flot.time.min.js'); ?>"></script>
+    
 	</head>
 	
 

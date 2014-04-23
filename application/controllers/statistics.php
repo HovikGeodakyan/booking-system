@@ -26,11 +26,50 @@ class statistics extends CI_Controller {
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function load(){
-		$this->load->model('statistics_model');
+	public function seat_utilization(){
+		$this->load->model('statistics/seat_utilization_model');
 		$this->load->model('outlet_model');
 		$outlet_id = $this->outlet_model->get_active_outlet();
-		$res['reservations'] = $this->statistics_model->load_reservations($outlet_id, $this->input->post('start'), $this->input->post('end'));
+		$res['reservations'] = $this->seat_utilization_model
+									->set($outlet_id, $this->input->post('start'), $this->input->post('end'))
+									->seat_utilization($this->input->post('timestamp'));
+		//$res['reservations'] = $this->full_the_array($res['reservations'], $this->input->post('start'), $this->input->post('end'));
+		$res['outlet'] = $this->outlet_model->load_one_outlet($outlet_id);
+		echo json_encode($res);
+	}
+
+	public function table_utilization(){
+		$this->load->model('statistics/table_utilization_model');
+		$this->load->model('outlet_model');
+		$outlet_id = $this->outlet_model->get_active_outlet();
+		$res['reservations'] = $this->table_utilization_model
+									->set($outlet_id, $this->input->post('start'), $this->input->post('end'))
+									->table_utilization($this->input->post('timestamp'));
+		//$res['reservations'] = $this->full_the_array($res['reservations'], $this->input->post('start'), $this->input->post('end'));
+		$res['outlet'] = $this->outlet_model->load_one_outlet($outlet_id);
+		echo json_encode($res);
+	}
+
+	public function no_show_statistics(){
+		$this->load->model('statistics/no_show_statistics_model');
+		$this->load->model('outlet_model');
+		$outlet_id = $this->outlet_model->get_active_outlet();
+		$res['reservations'] = $this->no_show_statistics_model
+									->set($outlet_id, $this->input->post('start'), $this->input->post('end'))
+									->no_show_statistics($this->input->post('timestamp'));
+		//$res['reservations'] = $this->full_the_array($res['reservations'], $this->input->post('start'), $this->input->post('end'));
+		$res['outlet'] = $this->outlet_model->load_one_outlet($outlet_id);
+		echo json_encode($res);
+	}
+
+	public function cancellation_statistics(){
+		$this->load->model('statistics/cancellation_statistics_model');
+		$this->load->model('outlet_model');
+		$outlet_id = $this->outlet_model->get_active_outlet();
+		$res['reservations'] = $this->cancellation_statistics_model
+									->set($outlet_id, $this->input->post('start'), $this->input->post('end'))
+									->cancellation_statistics($this->input->post('timestamp'));
+		//$res['reservations'] = $this->full_the_array($res['reservations'], $this->input->post('start'), $this->input->post('end'));
 		$res['outlet'] = $this->outlet_model->load_one_outlet($outlet_id);
 		echo json_encode($res);
 	}
