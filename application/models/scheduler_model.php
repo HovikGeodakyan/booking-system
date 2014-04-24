@@ -46,7 +46,7 @@
 				$e['language']     = $row['language'];
 				$e['author']       = $row['author'];
 				$e['status']       = $row['status'];
-		   $e['confirm_via_email'] = $row['confirm_via_email'];
+		   		$e['confirm_via_email'] = $row['confirm_via_email'];
 				$e['start']        = $row['start'];
 				$e['end']          = $row['end'];
 				$e['resource']     = $row['resource'];
@@ -58,7 +58,8 @@
 
 
 		public function load_not_assigned_reservations($start, $end, $outlet_id){
-			$query = $this->db->query('SELECT DISTINCT resource FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND SUBSTRING(resource, 1, 2)=0 AND outlet_id = "'.$outlet_id.'" AND status != "cancelled"');
+			// $query = $this->db->query('SELECT DISTINCT resource FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND SUBSTRING(resource, 1, 2)=0 AND outlet_id = "'.$outlet_id.'" AND status != "cancelled"');
+			$query = $this->db->query('SELECT * FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'" AND status != "cancelled" AND resource = 0');
 			$query = $query->num_rows();
 
 			return $query;

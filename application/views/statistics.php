@@ -33,7 +33,7 @@
 </div>
 <div class="col-lg-12">
   <h4>Over reserved statistics</h4>
-  <div id="over_reserved_statistics" style="width:100%;height:300px"></div>
+  <div id="over_reserved_statistics" style="width:100%;height:300px; background:#fff;"></div>
 
 </div>
 
