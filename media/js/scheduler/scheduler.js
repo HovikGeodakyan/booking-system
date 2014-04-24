@@ -1,4 +1,28 @@
+function updateClock () {
+    var currentTime = new Date ( );
+    var currentHours   = currentTime.getHours ( );
+    var currentMinutes = currentTime.getMinutes ( );
+    var currentMonth = currentTime.getMonth() +1;
+    var currentday = currentTime.getDate();
+    var year = currentTime.getFullYear();
+    
+    currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
+    currentday = ( currentday < 10 ? "0" : "" ) + currentday;
+    currentMonth = ( currentMonth < 10 ? "0" : "" ) + currentMonth;
+    
+    var currentTimeString = currentHours + ":" + currentMinutes + ' ' + currentday + "." + currentMonth + "." + year ;
+        
+    $("#current_time").html(currentTimeString);        
+ }
+ 
 $( document ).ready(function() {
+   updateClock ();
+   setInterval('updateClock()', 60000);
+  
+  $('.concert_icon').on('click', function(){
+      $('#concert_modal').modal('show');
+  });
+
   $('td[resource="D"] div').css('background', '#fff');
   $('input[name=new_reservation_date]').datepicker({ dateFormat: 'yy-mm-dd' });
   $('.table_select').chosen();
@@ -10,7 +34,6 @@ $( document ).ready(function() {
       url: url,
       dataType: 'json',
         success: function(data) {
-
             //change the start date on when calendar has changed
             $("#main_calendar").on("change", function() {
               $('.loader').show();
@@ -21,33 +44,32 @@ $( document ).ready(function() {
               setTimeout(function(){ $('.loader').hide()}, 1700);
             });
 
-
             get_working_time(new Date().getDay());
 
             console.log(data);
 
             //setting matrix options
             var dp = new DayPilot.Scheduler("dp");
-            	dp.cssClassPrefix = "scheduler_8";
-            	dp.cellWidth = 30;
-            	dp.eventHeight = 25;
-            	dp.headerHeight = 33;
-            	dp.rowHeaderWidthAutoFit = false;
-            	dp.cellGroupBy = "Hour";
-            	dp.days = dp.startDate.daysInMonth();
-            	dp.cellDuration = 15;
-            	dp.startDate = new DayPilot.Date();
-            	dp.days = 1;
-            	dp.moveBy = 'Full';
-            	dp.showToolTip = true;              
-            	dp.timeHeaders = [ {groupBy: 'Week'}, {groupBy: 'Hour'}, ];
-            	dp.events.list = [];
-            	dp.treeEnabled = false;
-            	dp.rowHeaderWidthAutoFit = true; 
-            	dp.rowHeaderWidth = 25;
-            	dp.eventClickHandling="ContextMenu";
-            	dp.eventRightClickHandling="Enabled";
-            	dp.eventDoubleClickHandling="Bubble";
+              	dp.cssClassPrefix = "scheduler_8";
+              	dp.cellWidth = 30;
+              	dp.eventHeight = 25;
+              	dp.headerHeight = 33;
+              	dp.rowHeaderWidthAutoFit = false;
+              	dp.cellGroupBy = "Hour";
+              	dp.days = dp.startDate.daysInMonth();
+              	dp.cellDuration = 15;
+              	dp.startDate = new DayPilot.Date();
+              	dp.days = 1;
+              	dp.moveBy = 'Full';
+              	dp.showToolTip = true;              
+              	dp.timeHeaders = [ {groupBy: 'Week'}, {groupBy: 'Hour'}, ];
+              	dp.events.list = [];
+              	dp.treeEnabled = false;
+              	dp.rowHeaderWidthAutoFit = true; 
+              	dp.rowHeaderWidth = 25;
+              	dp.eventClickHandling="ContextMenu";
+              	dp.eventRightClickHandling="Enabled";
+              	dp.eventDoubleClickHandling="Bubble";
 
               //daypilot reservation info bubble
               dp.bubble = new DayPilot.Bubble({
@@ -191,8 +213,7 @@ $( document ).ready(function() {
                     }
                 });
 
-              });
-              
+              });              
 
               //intialising matrix header (launc/dinner/concert boxes and availability bar)
               var i=0; //Time header, light dark counter
@@ -210,7 +231,6 @@ $( document ).ready(function() {
           	     args.header.html += '<div class="time_type_box" style="width:'+ concert_box_width +'"><label class="time_type_label">Concert</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
           	     args.header.html += '<div class="time_type_box" style="width:'+ after_concert_box_width +'"><label class="time_type_label">After Concert</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
                	}
-
                
                 if (args.header.level === 1) {
             	    var val = args.header.html;
