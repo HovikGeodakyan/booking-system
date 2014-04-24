@@ -11,24 +11,24 @@
 
 <div class="col-lg-12">
   <h4>Seat utilization rate</h4>
-	<div id="seat_utilization" style="width:100%;height:300px"></div>
+	<div id="seat_utilization" style="width:100%;height:300px; background:#fff;"></div>
 
 </div>
 
 <div class="col-lg-12">
   <h4>Table utilization rate</h4>
-  <div id="table_utilization" style="width:100%;height:300px"></div>
+  <div id="table_utilization" style="width:100%;height:300px; background:#fff;"></div>
 
 </div>
 
 <div class="col-lg-12">
   <h4>No shows statistics</h4>
-  <div id="no_show_statistics" style="width:100%;height:300px"></div>
+  <div id="no_show_statistics" style="width:100%;height:300px; background:#fff;"></div>
 
 </div>
 <div class="col-lg-12">
   <h4>Cancellation statistics</h4>
-  <div id="cancellation_statistics" style="width:100%;height:300px"></div>
+  <div id="cancellation_statistics" style="width:100%;height:300px; background:#fff;"></div>
 
 </div>
 

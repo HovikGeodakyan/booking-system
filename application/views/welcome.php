@@ -2,11 +2,13 @@
     <section class="row m-b-md">
         <div class="col-sm-6">
 
-          <h3 class="m-b-xs text-black"> <i style="background: #1ccacc; padding: 7px; border-radius: 23px; color: white; width: 39px;" class="fa fa-music"></i>  Concert Today 22:00</h3>
+          <h3 class="m-b-xs text-black"> <i class="fa fa-music concert_icon"></i>  Concert Today 22:00</h3>
           <small>Welcome back, John Smith, <i class="fa fa-map-marker fa-lg text-primary"></i> New York City</small>
         </div>
+
         <div class="col-sm-6 text-right text-left-xs m-t-md">
-          <div class="btn-group">
+          <div id="current_time"></div>
+          <!-- <div class="btn-group">
             <a class="btn btn-rounded btn-default b-2x dropdown-toggle" data-toggle="dropdown">Widgets <span class="caret"></span></a>
             <ul class="dropdown-menu text-left pull-right">
               <li><a href="#">Notification</a></li>
@@ -18,7 +20,7 @@
           </div>
           <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i class="i i-bars3 hover-rotate"></i></a>
           <a href="#nav, #sidebar" class="btn btn-icon b-2x btn-info btn-rounded" data-toggle="class:nav-xs, show"><i class="fa fa-bars"></i></a>
-        </div>
+        </div> -->
       </section>
  
  <div class="white_content">

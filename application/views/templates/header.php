@@ -32,7 +32,7 @@
     <script src="<?php echo(JS.'lib/jquery.min.js'); ?>"></script>
     <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script> 
     
-    <!--<script src="<?php //echo(JS.'lib/app.js'); ?>"></script> -->
+    <script src="<?php echo(JS.'lib/app.js'); ?>"></script> 
     <script src="<?php echo(JS.'lib/jquery.confirm.min.js'); ?>"></script>
     <script src="<?php echo(JS.'datepicker/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
     <script src="<?php echo(JS.'datepicker/datepicker.js'); ?>"></script>  
@@ -51,11 +51,8 @@
     <!-- Multiselect -->
     <script src="<?php echo(JS.'lib/chosen.jquery.min.js'); ?>"></script>
 
-    <!-- Charts 
-    <script src="<?php //echo(JS.'statistics/highcharts.js'); ?>"></script>
-    <script src="<?php //echo(JS.'statistics/data.js'); ?>"></script>  -->
-
-     <script src="<?php echo(JS.'chart/jquery.flot.min.js'); ?>"></script>
+    <!-- Charts  -->
+    <script src="<?php echo(JS.'chart/jquery.flot.min.js'); ?>"></script>
     <script src="<?php echo(JS.'chart/jquery.flot.time.min.js'); ?>"></script>
     
 	</head>
@@ -145,15 +142,6 @@
             <li>
               <a href="profile.html">Profile</a>
             </li>
-            <li>
-              <a href="#">
-                <span class="badge bg-danger pull-right">3</span>
-                Notifications
-              </a>
-            </li>
-            <li>
-              <a href="docs.html">Help</a>
-            </li>
             <li class="divider"></li>
             <li>
               <a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a>
@@ -212,6 +200,24 @@
                         <tbody>
                         </tbody>
                     </table>               
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                  
+                </div>
+              </div>
+            </div>
+          </div>
+    
+<!-- Concert Modal -->
+          <div class="modal fade" id="concert_modal" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">Concert Details</h4>
+                </div>
+                <div class="modal-body"> 
+                             
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                  

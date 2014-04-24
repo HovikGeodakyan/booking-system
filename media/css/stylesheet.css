@@ -139,6 +139,16 @@ Loader
   }
 }
 /* */
+
+.concert_icon {
+  background: #1ccacc; 
+  padding: 7px; 
+  border-radius: 23px; 
+  color: white; 
+  width: 39px;
+  cursor: pointer;
+}
+
 .custom-header-btns {
 	float:right;
 }
