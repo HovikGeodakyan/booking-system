@@ -115,10 +115,47 @@ var initializeScheduler = function(currentDate) {
              var concert_box_width       = (outlet_settings.after_concert_time -  outlet_settings.concert_time)*4*dp.cellWidth - padding + 'px;';
              var after_concert_box_width = (outlet_settings.close_time - outlet_settings.after_concert_time)*4*dp.cellWidth - padding + 'px;';
              
-             args.header.html =  '<div class="time_type_box" style="width:'+ launch_box_width +'"><label class="time_type_label">Lounch</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
-             args.header.html += '<div class="time_type_box" style="width:'+ pre_concert_box_width +'"><label class="time_type_label">Pre Concert</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
-             args.header.html += '<div class="time_type_box" style="width:'+ concert_box_width +'"><label class="time_type_label">Concert</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
-             args.header.html += '<div class="time_type_box" style="width:'+ after_concert_box_width +'"><label class="time_type_label">After Concert</label><select class="form-control m-b time_type_select"><option>4</option></select></div>';
+             var launch_options = '';
+             var pre_concert_options = '';
+             var concert_options = '';
+             var after_concert_options = '';
+             var dinner_options = '';
+             for(var t=0; t<data.tables.length; t++) { 
+                var launch_selected = '';
+                var pre_concert_selected = '';
+                var concert_selected = '';
+                var after_concert_selected = '';
+                var dinner_selected = '';
+               
+                if((t+1) === parseInt(data.outlet_default_not_bookable_table_lunch)){
+                  launch_selected = 'selected';
+                }           
+                launch_options += "<option "+launch_selected+" >"+(t+1) + "</option>";
+                
+                if((t+1) === parseInt(data.outlet_default_not_bookable_table_pre_concert)){
+                  pre_concert_selected = 'selected';
+                }           
+                pre_concert_options += "<option "+pre_concert_selected+" >"+(t+1) + "</option>";
+               
+                if((t+1) === parseInt(data.outlet_default_not_bookable_table_concert)){
+                  concert_selected = 'selected';
+                }           
+                concert_options += "<option "+concert_selected+" >"+(t+1) + "</option>";
+                
+                if((t+1) === parseInt(data.outlet_default_not_bookable_table_post_concert)){
+                  after_concert_selected = 'selected';
+                }           
+                after_concert_options += "<option "+after_concert_selected+" >"+(t+1) + "</option>";
+               
+                if((t+1) === parseInt(data.outlet_default_not_bookable_table_dinner)){
+                  dinner_selected = 'selected';
+                }           
+                dinner_options += "<option "+dinner_selected+" >"+(t+1) + "</option>";
+             }
+             args.header.html =  '<div class="time_type_box" style="width:'+ launch_box_width +'"><label class="time_type_label">Lounch</label><select class="form-control m-b time_type_select">'+launch_options+'</select></div>';
+             args.header.html += '<div class="time_type_box" style="width:'+ pre_concert_box_width +'"><label class="time_type_label">Pre Concert</label><select class="form-control m-b time_type_select">'+pre_concert_options+'</select></div>';
+             args.header.html += '<div class="time_type_box" style="width:'+ concert_box_width +'"><label class="time_type_label">Concert</label><select class="form-control m-b time_type_select">'+concert_options+'</select></div>';
+             args.header.html += '<div class="time_type_box" style="width:'+ after_concert_box_width +'"><label class="time_type_label">After Concert</label><select class="form-control m-b time_type_select">'+after_concert_options+'</select></div>';
           }
          
           if (args.header.level === 1) {
