@@ -72,6 +72,18 @@ class statistics extends CI_Controller {
 		//$res['reservations'] = $this->full_the_array($res['reservations'], $this->input->post('start'), $this->input->post('end'));
 		$res['outlet'] = $this->outlet_model->load_one_outlet($outlet_id);
 		echo json_encode($res);
+	}	
+
+	public function over_reserved_statistics(){
+		$this->load->model('statistics/over_reserved_statistics_model');
+		$this->load->model('outlet_model');
+		$outlet_id = $this->outlet_model->get_active_outlet();
+		$res['reservations'] = $this->over_reserved_statistics_model
+									->set($outlet_id, $this->input->post('start'), $this->input->post('end'))
+									->over_reserved_statistics($this->input->post('timestamp'));
+		//$res['reservations'] = $this->full_the_array($res['reservations'], $this->input->post('start'), $this->input->post('end'));
+		$res['outlet'] = $this->outlet_model->load_one_outlet($outlet_id);
+		echo json_encode($res);
 	}
 }
 

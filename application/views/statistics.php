@@ -31,6 +31,11 @@
   <div id="cancellation_statistics" style="width:100%;height:300px"></div>
 
 </div>
+<div class="col-lg-12">
+  <h4>Over reserved statistics</h4>
+  <div id="over_reserved_statistics" style="width:100%;height:300px"></div>
+
+</div>
 
 
 
@@ -39,3 +44,4 @@
 <script src="<?php echo(JS.'chart/table_utilization.js'); ?>"></script>
 <script src="<?php echo(JS.'chart/no_show_statistics.js'); ?>"></script>
 <script src="<?php echo(JS.'chart/cancellation_statistics.js'); ?>"></script>
+<script src="<?php echo(JS.'chart/over_reserved_statistics.js'); ?>"></script>
