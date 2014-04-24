@@ -13,12 +13,7 @@ $( document ).ready(function() {
 
   $("#main_calendar").on("change", function() {
         $('.loader').show();
-        initializeScheduler($(this).val());
-        // dp.startDate = new DayPilot.Date($(this).val());
-        // get_working_time(new Date($(this).val()).getDay());
-        // loadEvents();
-        // dp.update();
-       
+        initializeScheduler($(this).val()); 
   });
           
 });
@@ -236,6 +231,9 @@ var initializeScheduler = function(currentDate) {
                   args.e.data.start = args.e.part.start;
                   args.e.data.end   = args.e.part.end;
             }
+            if(args.newResource.indexOf('na') !== -1) {
+              args.newResource = 0;
+            }
             $.post("scheduler/move/" + data["outlet_id"], {
                 id: args.e.id(),
                 newStart: args.newStart.toString(),
@@ -313,10 +311,11 @@ var initializeScheduler = function(currentDate) {
                     start: start.toString(),
                     end: end.toString(), 
                 }, function(data) {
-                  console.log(data);
+                      var notAssCount = 1;
                       for(var i= 0; i< data.length; i++) {
                         if(data[i].resource === "0") {
-                          data[i].resource = 'na'+(i+1);
+                          data[i].resource = 'na'+ notAssCount;
+                          notAssCount++;
                         }
                       }
                       dp.events.list = data;
