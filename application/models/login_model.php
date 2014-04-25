@@ -21,6 +21,13 @@ class Login_model extends CI_Model {
 			return false;
 		}
 	}
+
+	public function checkFirstLogin() {
+		$query = $this->db->query('SELECT * FROM users');
+		$query_result = $query->result_array();
+		return $query_result;
+	}
+	
 }
 
 ?>

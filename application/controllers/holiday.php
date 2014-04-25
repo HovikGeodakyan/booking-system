@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Holiday extends CI_Controller {
+class Holiday extends My_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -11,12 +11,14 @@ class Holiday extends CI_Controller {
 	public function index($page = 'holidays') {
 
 		$data['title']    = ucfirst($page); 
-		$data['holidays'] = $this->read();  
+		$data['holidays'] = $this->read(); 
+		 
+		$this->render('holiday/list', $data);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('holiday/list');
-		$this->load->view('templates/footer');
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar');
+		// $this->load->view('holiday/list');
+		// $this->load->view('templates/footer');
 	}
 
 

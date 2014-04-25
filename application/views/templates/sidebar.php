@@ -10,7 +10,7 @@
                   <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Menu</div>
                   <ul class="nav nav-main" data-ride="collapse">
                     <li  data-intro='Here you can see reservations scheduler...' data-step='1' data-position='right'>
-                      <a href="<?php echo URL; ?>" class="auto">
+                      <a href="<?php echo URL; ?>welcome" class="auto">
                         <i class="i i-statistics icon">
                         </i>
                         <span class="font-bold">Daily View</span>

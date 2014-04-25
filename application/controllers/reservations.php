@@ -1,14 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Reservations extends CI_Controller {
+class Reservations extends My_Controller {
 	
 	public function index($page="reservations")
 	{
 		$data['title'] = ucfirst($page); // Capitalize the first letter
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('reservations/index');
-		$this->load->view('templates/footer');
+
+		$this->render('reservations/index', $data);
+		
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar');
+		// $this->load->view('reservations/index');
+		// $this->load->view('templates/footer');
 	}
 
 	public function load(){

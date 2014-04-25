@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class User extends My_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -13,10 +13,12 @@ class User extends CI_Controller {
 		$data['title'] = ucfirst($page); //pass the title to view
 		$data['users']=$this->read();  //pass list of users to view
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('user/list');
-		$this->load->view('templates/footer');
+		$this->render('user/list', $data);
+
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar');
+		// $this->load->view('user/list');
+		// $this->load->view('templates/footer');
 		
 	}
 
@@ -24,19 +26,23 @@ class User extends CI_Controller {
 		$data['title'] = ucfirst($page);
 		$data['user']=$this->read($id);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('user/edit');
-		$this->load->view('templates/footer');
+		$this->render('user/edit', $data);
+
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar');
+		// $this->load->view('user/edit');
+		// $this->load->view('templates/footer');
 	}
 
 	public function newusr($page="new user"){
 		$data['title'] = ucfirst($page);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('user/new');
-		$this->load->view('templates/footer');
+		$this->render('user/new', $data);
+		
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar');
+		// $this->load->view('user/new');
+		// $this->load->view('templates/footer');
 	}
 
 	//create a user

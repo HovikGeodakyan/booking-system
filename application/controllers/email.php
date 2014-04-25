@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Email extends CI_Controller {
+class Email extends My_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -13,11 +13,12 @@ class Email extends CI_Controller {
 		$data['title']    = ucfirst($page); 
 		$data['title']    = ucfirst($page); 
 		
-
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('email/index');
-		$this->load->view('templates/footer');
+		$this->render('email/index', $data);
+		
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar');
+		// $this->load->view('email/index');
+		// $this->load->view('templates/footer');
 	}
 
 

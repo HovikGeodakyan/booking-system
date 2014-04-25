@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class statistics extends CI_Controller {
+class statistics extends My_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -17,13 +17,20 @@ class statistics extends CI_Controller {
 	 * map to /index.php/statistics/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct() {
+		parent::__construct();
+	}
+
 	public function index($page="statistics")
-	{
+	{		
 		$data['title'] = ucfirst($page); // Capitalize the first letter
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar', $data);
-		$this->load->view('statistics', $data);
-		$this->load->view('templates/footer', $data);
+		
+		$this->render('statistics', $data);
+
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar', $data);
+		// $this->load->view('statistics', $data);
+		// $this->load->view('templates/footer', $data);
 	}
 
 	public function seat_utilization(){

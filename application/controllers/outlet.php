@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Outlet extends CI_Controller {
+class Outlet extends My_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -16,10 +16,12 @@ class Outlet extends CI_Controller {
 		$data['title']   = ucfirst($page); //page title
 		$data['outlets'] = $this->read();  //list of outlets
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('outlet/list');
-		$this->load->view('templates/footer');
+		$this->render('outlet/list', $data);
+
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar');
+		// $this->load->view('outlet/list');
+		// $this->load->view('templates/footer');
 	}
 
 
@@ -27,10 +29,12 @@ class Outlet extends CI_Controller {
 	public function add($page = 'new outlet'){
 		$data['title'] = ucfirst($page);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('outlet/new');
-		$this->load->view('templates/footer');
+		$this->render('outlet/new', $data);
+
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar');
+		// $this->load->view('outlet/new');
+		// $this->load->view('templates/footer');
 	}
 
 	// Render Edit View 
@@ -41,11 +45,13 @@ class Outlet extends CI_Controller {
 		$data['holiday'] = $this->read_holidays($id);
 		$data['general_holidays'] = $this->read_holidays();
 		$data['table']   = $this->read_tables($id);
+
+		$this->render('outlet/edit', $data);
 		
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('outlet/edit');
-		$this->load->view('templates/footer');
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('templates/sidebar');
+		// $this->load->view('outlet/edit');
+		// $this->load->view('templates/footer');
 	}
 
 
