@@ -3,9 +3,6 @@ $( document ).ready(function() {
    setInterval('updateClock()', 60000);
 
    initializeScheduler();
-   $('.concert_icon').on('click', function(){
-      $('#concert_modal').modal('show');
-   });
 
   $('td[resource="D"] div').css('background', '#fff');
   $('input[name=new_reservation_date]').datepicker({ dateFormat: 'yy-mm-dd' });
@@ -15,6 +12,26 @@ $( document ).ready(function() {
         $('.loader').show();
         initializeScheduler($(this).val()); 
   });
+
+  $('body').on('change', '.time_type_select', function(e) {
+    var element = $(this);
+    $.ajax({
+      type: "POST",
+      url: "outlet/hide_tables/",
+      dataType: 'json',
+      data:{
+        timebox: element.attr('name'),
+        value: element.val(),
+        date: window.selected_date
+      },
+      success: function(data) {
+        console.log(data);
+      }
+    });
+    
+  });
+ 
+
           
 });
 
@@ -29,12 +46,21 @@ var initializeScheduler = function(currentDate) {
   $('.edit_reservation input[name=time]').unbind();
   $('.edit_reservation input[name=guest_number]').unbind();
   $('#reservation_edit').unbind();
+  $('#concert_modal .modal-body').empty();
+  $('#concert_header').empty();
+
+
   var datePilotDate = '';
+  var day;
   if(typeof currentDate !== 'undefined') {
     datePilotDate = new DayPilot.Date(currentDate);
+    day = new Date(currentDate).getDay();
   } else {
     datePilotDate = new DayPilot.Date();
+    day = new Date().getDay();
   }
+
+  window.selected_date = datePilotDate.toString();
 
   $.ajax({
       type: "POST",
@@ -46,7 +72,7 @@ var initializeScheduler = function(currentDate) {
         setTimeout(function(){ $('.loader').hide()}, 1700);
         
         var outlet_settings = {};       
-        get_working_time(new Date().getDay());  
+        get_working_time(day);  
         var dp = new DayPilot.Scheduler("dp");
             dp.cssClassPrefix = "scheduler_8";
             dp.cellWidth = 30;
@@ -81,6 +107,8 @@ var initializeScheduler = function(currentDate) {
                 }
              });
 
+
+
         var clicked_reservation;
         dp.onEventClicked = function(args) {
             $('#reservation_edit').modal('show');
@@ -110,7 +138,9 @@ var initializeScheduler = function(currentDate) {
         dp.onBeforeTimeHeaderRender = function(args) {
           if (args.header.level === 0) {
              var padding = 0; 
+
              var launch_box_width        = (outlet_settings.pre_concert_time - outlet_settings.launch_time)*4*dp.cellWidth - (outlet_settings.break_end_time - outlet_settings.break_start_time)*4* dp.cellWidth - padding + 'px;';
+             var dinner_box_width        = (outlet_settings.close_time -  outlet_settings.dinner_time)*4*dp.cellWidth - padding + 'px;';
              var pre_concert_box_width   = (outlet_settings.concert_time -  outlet_settings.pre_concert_time)*4*dp.cellWidth - padding + 'px;';
              var concert_box_width       = (outlet_settings.after_concert_time -  outlet_settings.concert_time)*4*dp.cellWidth - padding + 'px;';
              var after_concert_box_width = (outlet_settings.close_time - outlet_settings.after_concert_time)*4*dp.cellWidth - padding + 'px;';
@@ -120,42 +150,57 @@ var initializeScheduler = function(currentDate) {
              var concert_options = '';
              var after_concert_options = '';
              var dinner_options = '';
-             for(var t=0; t<data.tables.length; t++) { 
+
+             if (data.header_info === null) {
+                var not_bookable_table_number_lunch        = parseInt(data.outlet_default_not_bookable_table_lunch);
+                var not_bookable_table_number_dinner       = parseInt(data.outlet_default_not_bookable_table_dinner);
+                var not_bookable_table_number_pre_concert  = parseInt(data.outlet_default_not_bookable_table_pre_concert);
+                var not_bookable_table_number_concert      = parseInt(data.outlet_default_not_bookable_table_concert);
+                var not_bookable_table_number_post_concert = parseInt(data.outlet_default_not_bookable_table_post_concert);
+             }
+
+              for(var t=0; t<data.tables.length; t++) { 
                 var launch_selected = '';
                 var pre_concert_selected = '';
                 var concert_selected = '';
                 var after_concert_selected = '';
                 var dinner_selected = '';
                
-                if((t+1) === parseInt(data.outlet_default_not_bookable_table_lunch)){
+                if((t+1) === not_bookable_table_number_lunch){
                   launch_selected = 'selected';
                 }           
                 launch_options += "<option "+launch_selected+" >"+(t+1) + "</option>";
                 
-                if((t+1) === parseInt(data.outlet_default_not_bookable_table_pre_concert)){
+                if((t+1) === not_bookable_table_number_pre_concert){
                   pre_concert_selected = 'selected';
                 }           
                 pre_concert_options += "<option "+pre_concert_selected+" >"+(t+1) + "</option>";
                
-                if((t+1) === parseInt(data.outlet_default_not_bookable_table_concert)){
+                if((t+1) === not_bookable_table_number_concert){
                   concert_selected = 'selected';
                 }           
                 concert_options += "<option "+concert_selected+" >"+(t+1) + "</option>";
                 
-                if((t+1) === parseInt(data.outlet_default_not_bookable_table_post_concert)){
+                if((t+1) === not_bookable_table_number_post_concert){
                   after_concert_selected = 'selected';
                 }           
                 after_concert_options += "<option "+after_concert_selected+" >"+(t+1) + "</option>";
                
-                if((t+1) === parseInt(data.outlet_default_not_bookable_table_dinner)){
+                if((t+1) === not_bookable_table_number_dinner){
                   dinner_selected = 'selected';
                 }           
                 dinner_options += "<option "+dinner_selected+" >"+(t+1) + "</option>";
              }
-             args.header.html =  '<div class="time_type_box" style="width:'+ launch_box_width +'"><label class="time_type_label">Lounch</label><select class="form-control m-b time_type_select">'+launch_options+'</select></div>';
-             args.header.html += '<div class="time_type_box" style="width:'+ pre_concert_box_width +'"><label class="time_type_label">Pre Concert</label><select class="form-control m-b time_type_select">'+pre_concert_options+'</select></div>';
-             args.header.html += '<div class="time_type_box" style="width:'+ concert_box_width +'"><label class="time_type_label">Concert</label><select class="form-control m-b time_type_select">'+concert_options+'</select></div>';
-             args.header.html += '<div class="time_type_box" style="width:'+ after_concert_box_width +'"><label class="time_type_label">After Concert</label><select class="form-control m-b time_type_select">'+after_concert_options+'</select></div>';
+
+             args.header.html =  '<div class="time_type_box" style="width:'+ launch_box_width +'"><label class="time_type_label">Lunch</label><select name="lunch" class="form-control m-b time_type_select">'+launch_options+'</select></div>';
+              
+              if (data.header_info === null){
+                args.header.html += '<div class="time_type_box" style="width:'+ dinner_box_width +'"><label class="time_type_label">Evening</label><select  name="dinner" class="form-control m-b time_type_select">'+dinner_options+'</select></div>';   
+              } else {
+                args.header.html += '<div class="time_type_box" style="width:'+ pre_concert_box_width +'"><label class="time_type_label">Pre Concert</label><select name="pre_concert" class="form-control m-b time_type_select">'+pre_concert_options+'</select></div>';
+                args.header.html += '<div class="time_type_box" style="width:'+ concert_box_width +'"><label class="time_type_label">Concert</label><select  name="concert" class="form-control m-b time_type_select">'+concert_options+'</select></div>';
+                args.header.html += '<div class="time_type_box" style="width:'+ after_concert_box_width +'"><label class="time_type_label">After Concert</label><select  name="post_concert" class="form-control m-b time_type_select">'+after_concert_options+'</select></div>';
+              }
           }
          
           if (args.header.level === 1) {
@@ -207,10 +252,13 @@ var initializeScheduler = function(currentDate) {
         }
 
         $('#reservation_table').chosen({width: "100%"});
-     
-        dp.resources.push({name: "", id: "D"}); //add the divider
-        //add fields for not assigned tables
+        
         var not_assigned_number = data.not_assigned;
+        if(not_assigned_number > 0){
+          dp.resources.push({name: "", id: "D"}); //add the divider
+        }
+        //add fields for not assigned tables
+        
         for(var i=1; i<= not_assigned_number; i++){
           dp.resources.push({name: "U"+i, id: "na"+i});
         }
@@ -436,7 +484,7 @@ var initializeScheduler = function(currentDate) {
             var current_hour = new DayPilot.Date().toString().substr(11, 2);
             var current_minutes = new DayPilot.Date().toString().substr(14, 2);
             if (time[0] < current_hour || (time[0] === current_hour && time[1] <= current_minutes)) {
-              console.log(current_minutes);
+
               current_minutes = Math.round(current_minutes/15) * 15;
               if(current_minutes === 60){
                 current_minutes = 0;
@@ -491,6 +539,9 @@ var initializeScheduler = function(currentDate) {
               break_end_time = (data[str]==="00:00:00") ? data['outlet_break_end_time'] : data[str];
               break_end_time = break_end_time.substr(0, 2);
 
+              concert_time = (data.header_info !== null) ? data.header_info.concert_start.substr(0, 2) : "00"; 
+              after_concert_time = (data.header_info !== null) ? data.header_info.concert_end.substr(0, 2) : "00"; 
+
               outlet_settings = {
                     open_time : open_time,
                     close_time : close_time,
@@ -499,9 +550,9 @@ var initializeScheduler = function(currentDate) {
                     
                     launch_time: open_time,
                     pre_concert_time: break_end_time,
-                    concert_time: "20",
-                    after_concert_time:"22",
-                    evening_time: break_end_time,
+                    concert_time: concert_time,
+                    after_concert_time: after_concert_time,
+                    dinner_time: break_end_time,
               };
           }//get working time
 
@@ -510,15 +561,25 @@ var initializeScheduler = function(currentDate) {
               var reservation_time_start = start_time + ":00";
               var staying_time;
 
-              if(start_time < outlet_settings.pre_concert_time){
-                staying_time = data.outlet_staying_time_lunch;
-              } else if(start_time < outlet_settings.concert_time) {
-                staying_time = data.outlet_staying_time_pre_concert;
-              } else if(start_time < outlet_settings.after_concert_time){
-                staying_time = data.outlet_staying_time_concert;
+              if(data.header_info === null){
+                  if(start_time < outlet_settings.dinner_time){
+                    staying_time = data.outlet_staying_time_lunch;
+                  } else {
+                    staying_time = data.outlet_staying_time_dinner;
+                  }               
+
               } else {
-                staying_time = data.outlet_staying_time_post_concert;
+                  if(start_time < outlet_settings.pre_concert_time){
+                    staying_time = data.outlet_staying_time_lunch;
+                  } else if(start_time < outlet_settings.concert_time) {
+                    staying_time = data.outlet_staying_time_pre_concert;
+                  } else if(start_time < outlet_settings.after_concert_time){
+                    staying_time = data.outlet_staying_time_concert;
+                  } else {
+                    staying_time = data.outlet_staying_time_post_concert;
+                  }                
               }
+
 
               var staying_time_array = staying_time.split(':');
               var reservation_time_array =  reservation_time_start.split(':'); 
@@ -580,6 +641,19 @@ var initializeScheduler = function(currentDate) {
               $('#' + select_box).trigger("chosen:updated");
           }
 
+
+          //Create concert header and modal
+
+          if(data.header_info !== null ) {
+            var concert_modal = '<h4>'+data.header_info.concert_name+'</h4>';
+            concert_modal += '<p>'+data.header_info.concert_description+'</p>';
+
+            $('#concert_modal .modal-body').append(concert_modal);
+
+            var concert_header = '<i class="fa fa-music concert_icon" onClick=concert_icon()></i> Today '+data.header_info.concert_name + " " + data.header_info.concert_start.substr(0, 5);
+            $('#concert_header').append(concert_header);
+          }      
+
       } // Ajax Success
   }); // Ajax 
     
@@ -601,3 +675,7 @@ function updateClock () {
         
     $("#current_time").html(currentTimeString);        
  }
+
+function concert_icon(){
+  $('#concert_modal').modal('show');
+}

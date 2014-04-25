@@ -2,7 +2,7 @@
     <section class="row m-b-md">
         <div class="col-sm-6">
 
-          <h3 class="m-b-xs text-black"> <i class="fa fa-music concert_icon"></i>  Concert Today 22:00</h3>
+          <h3 class="m-b-xs text-black" id="concert_header"></h3>
           <small>Welcome back, John Smith, <i class="fa fa-map-marker fa-lg text-primary"></i> New York City</small>
         </div>
 

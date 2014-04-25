@@ -144,7 +144,7 @@
             </li>
             <li class="divider"></li>
             <li>
-              <a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a>
+              <a href="<?php echo base_url(); ?>">Logout</a>
             </li>
           </ul>
         </li>
@@ -207,6 +207,7 @@
               </div>
             </div>
           </div>
+    
     
 <!-- Concert Modal -->
           <div class="modal fade" id="concert_modal" tabindex="-1" role="dialog"  aria-hidden="true">

@@ -1,10 +1,10 @@
 <html>
 	<head>
 		<title><?php echo $title; ?> | MyTable</title>
-		<link rel="stylesheet" href="<?php echo(CSS.'bootstrap.css'); ?>"/>
-		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/>
-		<script src="<?php echo(JS.'jquery.js'); ?>"></script>
-		<script src="<?php echo(JS.'bootstrap.min.js'); ?>"></script>
+		<link rel="stylesheet" href="<?php echo(CSS.'theme/bootstrap.css'); ?>" type="text/css" />
+		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/> 
+	    <script src="<?php echo(JS.'lib/jquery.min.js'); ?>"></script>
+	    <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script> 
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$("#loginButton").click(function() {
