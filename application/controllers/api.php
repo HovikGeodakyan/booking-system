@@ -6,7 +6,8 @@ class Api extends CI_Controller {
 			$this->load->model('api_model');
 		}
 
-	public function freeTables() {
+	public function freeTables () {
+		// booking-system/api/freeTables?outletID=65&date=2014-04-26
 		$data = $this->input->get();
 
 		$output = [];
@@ -16,27 +17,31 @@ class Api extends CI_Controller {
 		if(!isset($data['outletID'])) {
 			array_push( $output['errors'] ,'You must specify outletID'); 	
 		}
-		if(!isset($data['startTime'])) {
+		if(!isset($data['date'])) {
 			array_push( $output['errors'] ,'You must specify Start Time'); 				
 		}
-		if(!isset($data['endTime'])) {
-			array_push( $output['errors'] ,'You must specify  End Time'); 
-		}
-		
+
 		if(!empty($output['errors'])) {
 			$output['status'] = 'Wrong Request';
 			var_dump($output);
 			// return json_encode($output['errors']);
 		} else {
 			$output['status'] = 'Sucsess';
-			$output['results'] = $this->api_model->getFreeTables($data['outletID'], $data['startTime'], $data['endTime']);			
+			$output['results'] = $this->api_model->getFreeTables($data['outletID'], $data['date']);			
 		}		
-		var_dump($output);
+		print '<pre>';
+		var_dump($output['results']);
+		print '</pre>';
 	}
 
 	public function reserveTable() { 
 		$data = $this->input->get();
+		$output = [];
+		$output['errors'] = $this->api_model->reserveTable($data);
+	}
 
+	public function form(){
+		$this->load->view('api_form');
 	}
 	
 }
