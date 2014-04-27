@@ -5,8 +5,8 @@
 			parent::__construct();
 		}
 
+
 		public function load_general_holidays(){
-			// $query = $this->db->query('SELECT * FROM holidays WHERE outlet_id = 0');
 			$query = $this->db->query('SELECT * FROM holidays ');
 			$holidays = $query->result_array();			
 			return $holidays;			
@@ -31,6 +31,7 @@
 			
 			return $holidays;			
 		}
+
 
  		public function update_holidays ($outled_id, $holidays) {
  			foreach ($holidays as $i => $s){
@@ -69,10 +70,10 @@
 			$this->db->update('holidays', $holiday); 
  		}
 
+
 		public function delete_holiday($id){
 			$this->db->where_in('id', $id);
  			$this->db->delete('holidays');
 		}
-
 	}
 ?>

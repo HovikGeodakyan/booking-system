@@ -26,7 +26,7 @@
 						<br><br>
 						<label><?php echo _password; ?></label><br><input type="password" class="form-control login_input" name="password"/>
 					</form>
-					<iframe src="<?php echo(URL.'api/form'); ?>" style="width:100%"></iframe>
+					 <!-- <iframe src="<?php //echo(URL.'api/form'); ?>" style="overflow-y: hidden; border:none; height: 100%; width:700px;" scrolling="no"></iframe>  -->
 				</div>
 				<div class="modal-footer login-modal-footer">
 					

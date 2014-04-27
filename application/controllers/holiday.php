@@ -14,23 +14,16 @@ class Holiday extends My_Controller {
 		$data['holidays'] = $this->read(); 
 		 
 		$this->render('holiday/list', $data);
-
-		// $this->load->view('templates/header', $data);
-		// $this->load->view('templates/sidebar');
-		// $this->load->view('holiday/list');
-		// $this->load->view('templates/footer');
 	}
 
 
 	public function create() {
 		$res = $this->holiday_model->update_holidays(0, $this->input->post());
-		redirect(URL.'holiday');
-		//$this->holiday_model->delete_holiday($id);
+		redirect(URL.'holiday');		
 	}
 
 	
-	public function delete($id) {
-		// echo $this->input->post('name');
+	public function delete($id) {		
 		$this->holiday_model->delete_holiday($id);
 	}
 

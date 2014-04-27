@@ -1,9 +1,11 @@
 <?php
-	class Scheduler_model extends CI_Model{
+	class Scheduler_model extends CI_Model {
 
-		public function __construct(){
+
+		public function __construct() {
 			parent::__construct();
 		}
+
 
 		public function table_exists($table){
 			$query = $this->db->query("SHOW TABLES LIKE '$table'");
@@ -28,7 +30,8 @@
 			}
 		}
 
-		public function load_reservations($outlet_id){
+
+		public function load_reservations($outlet_id) {
 			$start = $_POST['start'];
 			$end = $_POST['end'];
 			$query = $this->db->query('SELECT * FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'" AND status != "cancelled"');
@@ -57,15 +60,14 @@
 		}
 
 
-		public function load_not_assigned_reservations($start, $end, $outlet_id){
-			// $query = $this->db->query('SELECT DISTINCT resource FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND SUBSTRING(resource, 1, 2)=0 AND outlet_id = "'.$outlet_id.'" AND status != "cancelled"');
+		public function load_not_assigned_reservations($start, $end, $outlet_id) {
 			$query = $this->db->query('SELECT * FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'" AND status != "cancelled" AND resource = 0');
 			$query = $query->num_rows();
 
 			return $query;
 		}
 
-		public function create_reservation($outlet_id, $data){
+		public function create_reservation($outlet_id, $data) {
 			$data['outlet_id'] = $outlet_id;
 			$this->db->insert('reservations', $data);
 			$last_id=$this->db->insert_id();
@@ -78,7 +80,8 @@
 			return $response;
 		}		
 
-		public function move_reservation($outlet_id){
+
+		public function move_reservation($outlet_id) {
 			$id = $_POST['id'];
 			$data = array(
 				'start' => $_POST['newStart'],
@@ -97,9 +100,7 @@
 										OR (start<"'.$data['start'].'" AND end>"'.$data['start'].'")
 										OR (start<"'.$data['end'].'" AND end>"'.$data['start'].'")
 									)');
-									//inserted contains any reservation
-									//any reservation contains the inserted
-									//inserted contains part of any reservation
+									
 			$query = $query->result();
 			$response=array();
 			$current_time=date('Y-m-d')."T".date("H:i:s");
@@ -119,7 +120,8 @@
 			return $response;
 		}	
 
-		public function resize_reservation($outlet_id){
+
+		public function resize_reservation($outlet_id) {
 			$id = $_POST['id'];
 			$data = array(
 				'start' => $_POST['newStart'],
@@ -144,7 +146,8 @@
 			return $response;
 		}
 
-		public function change_status($outlet_id, $data){
+
+		public function change_status($outlet_id, $data) {
 
 			$id = $data['id'];
 			$status = $data['status'];
@@ -156,7 +159,8 @@
 			$response['message'] = 'Status changed';
 		}
 
-		public function update_reservation($id, $data){
+
+		public function update_reservation($id, $data) {
 			unset($data['date']);
 			unset($data['time']);
 			$this->db->where('id', $id);

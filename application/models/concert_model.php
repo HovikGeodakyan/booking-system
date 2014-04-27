@@ -1,9 +1,11 @@
 <?php
-	class Concert_model extends CI_Model{
+	class Concert_model extends CI_Model {
+
 
 		public function __construct(){
 			parent::__construct();
 		}
+
 
 		public function load_header_info($outlet_id, $date) {
 			$row = $this->db->query('SELECT * FROM info WHERE concert_date = "'.$date.'" AND outlet_id = "'.$outlet_id.'"');
@@ -15,6 +17,7 @@
 			}
 			return $row;
 		}
+
 
 		public function hide_tables($data) {
 			$this->db->set('not_bookable_table_'.$data['timebox'], $data['value']);

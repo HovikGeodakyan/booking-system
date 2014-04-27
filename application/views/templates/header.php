@@ -95,13 +95,15 @@
       <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
         <li class="hidden-xs">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="i i-chat3"></i>
-            <span class="badge badge-sm up bg-danger count">2</span>
+            <span class="thumb-sm avatar pull-left">
+              <img src="<?php echo(IMG.'a0.png'); ?>" alt="...">
+            </span>
+            John.Smith <b class="caret"></b>
           </a>
           <section class="dropdown-menu aside-xl animated flipInY">
             <section class="panel bg-white">
               <div class="panel-heading b-light bg-light">
-                <strong>You have <span class="count">2</span> notifications</strong>
+                <strong>Profile</strong>
               </div>
               <div class="list-group list-group-alt">
                 <a href="#" class="media list-group-item">
@@ -109,45 +111,25 @@
                     <img src="<?php echo(IMG.'a0.png'); ?>" alt="..." class="img-circle">
                   </span>
                   <span class="media-body block m-b-none">
-                    Use awesome animate.css<br>
-                    <small class="text-muted">10 minutes ago</small>
+                    Settings<br>
+                    <!-- <small class="text-muted">10 minutes ago</small> -->
                   </span>
                 </a>
-                <a href="#" class="media list-group-item">
+                <a href="<?php echo base_url(); ?>" class="media list-group-item">
                   <span class="media-body block m-b-none">
-                    1.0 initial released<br>
-                    <small class="text-muted">1 hour ago</small>
+                   Logout<br>
+                    <!-- <small class="text-muted">1 hour ago</small> -->
                   </span>
                 </a>
               </div>
-              <div class="panel-footer text-sm">
+             <!--  <div class="panel-footer text-sm">
                 <a href="#" class="pull-right"><i class="fa fa-cog"></i></a>
                 <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
-              </div>
+              </div> -->
             </section>
           </section>
         </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <span class="thumb-sm avatar pull-left">
-              <img src="<?php echo(IMG.'a0.png'); ?>" alt="...">
-            </span>
-            John.Smith <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu animated fadeInRight">            
-            <li>
-              <span class="arrow top"></span>
-              <a href="#">Settings</a>
-            </li>
-            <li>
-              <a href="profile.html">Profile</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-              <a href="<?php echo base_url(); ?>">Logout</a>
-            </li>
-          </ul>
-        </li>
+      
       </ul>      
     </header>
 

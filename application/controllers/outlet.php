@@ -12,50 +12,30 @@ class Outlet extends My_Controller {
 
 
 	public function index($page = 'outlets') {
+		$data['title']   = ucfirst($page); 
+		$data['outlets'] = $this->read(); 
 
-		$data['title']   = ucfirst($page); //page title
-		$data['outlets'] = $this->read();  //list of outlets
-
-		$this->render('outlet/list', $data);
-
-		// $this->load->view('templates/header', $data);
-		// $this->load->view('templates/sidebar');
-		// $this->load->view('outlet/list');
-		// $this->load->view('templates/footer');
+		$this->render('outlet/list', $data);	
 	}
 
-
-	// Render Add View 
+	
 	public function add($page = 'new outlet'){
 		$data['title'] = ucfirst($page);
-
 		$this->render('outlet/new', $data);
-
-		// $this->load->view('templates/header', $data);
-		// $this->load->view('templates/sidebar');
-		// $this->load->view('outlet/new');
-		// $this->load->view('templates/footer');
 	}
 
-	// Render Edit View 
+	
 	public function edit($id, $page = 'edit') {
-
 		$data['title']   = ucfirst($page);
 		$data['outlet']  = $this->read($id);
 		$data['holiday'] = $this->read_holidays($id);
 		$data['general_holidays'] = $this->read_holidays();
 		$data['table']   = $this->read_tables($id);
 
-		$this->render('outlet/edit', $data);
-		
-		// $this->load->view('templates/header', $data);
-		// $this->load->view('templates/sidebar');
-		// $this->load->view('outlet/edit');
-		// $this->load->view('templates/footer');
+		$this->render('outlet/edit', $data);		
 	}
 
-
-	// Create an outlet
+	
 	public function create() {
 		$form = $this->input->post();		
 		$outlet   = $this->remove_prefix($form, 'outlet');
@@ -73,14 +53,12 @@ class Outlet extends My_Controller {
 		}
 
 		redirect(URL.'outlet');
-
 	}
 
 
-	//Update an Outlet
+	
 	public function update($id) {
 		$form = $this->input->post();		
-		
 		$outlet   = $this->remove_prefix($form, 'outlet');
 		$tables   = $this->remove_prefix($form, 'table');
 		$holidays = $this->remove_prefix($form, 'holiday');
@@ -90,35 +68,30 @@ class Outlet extends My_Controller {
 		if(!empty($tables)) {
 			$this->outlet_model->update_tables($id, $tables);
 		}
-
 		if(!empty($holidays)) {
 			$this->holiday_model->update_holidays($id, $holidays);
 		}
 		
 		redirect(URL.'outlet');
-
 	}
 
-
-	// Remove an Outlet
+	
 	public function delete($id) {
 		$this->outlet_model->delete_outlet($id);
 	}
 
 
-	public function read_tables($outlet_id){
-		$res = $this->outlet_model->load_tables($outlet_id);
-		return $res;
+	public function read_tables($outlet_id) {		
+		return $this->outlet_model->load_tables($outlet_id);
 	}
 
 
-	public function remove_table($id) {
-		$res = $this->outlet_model->remove_table($id);
-		return $res;
+	public function remove_table($id) {		
+		return  $this->outlet_model->remove_table($id);
 	}
 
 
-	public function read_holidays($outlet_id = 0){
+	public function read_holidays($outlet_id = 0) {
 		if($outlet_id === 0) {
 			$res = $this->holiday_model->load_general_holidays();
 		} else {
@@ -128,9 +101,7 @@ class Outlet extends My_Controller {
 	}
 
 
-	// Get outlets
 	public function read($id = NULL) {
-
 		if($id == NULL) {
 			$res = $this->outlet_model->load_outlets();
 		} else {
@@ -140,9 +111,10 @@ class Outlet extends My_Controller {
 		return $res;
 	}
 
+
 	public function get() {
 		$currentStart = $this->input->post('start');
-		$currentEnd = $this->input->post('end');
+		$currentEnd   = $this->input->post('end');
 
 		$id = $this->outlet_model->get_active_outlet();
 		$res = $this->outlet_model->load_one_outlet($id);
@@ -165,23 +137,22 @@ class Outlet extends My_Controller {
 		echo json_encode($res);
 	}
 
+
 	public function remove_prefix($data, $prefix) {		
-		$result = array();
-		
+		$result = array();		
 		foreach ($data as $key => $value) {			
 			$temp = explode('_', $key, 2);
 			if($temp[0] == $prefix) {
 				$result[$temp[1]] = $value;
 			}
 		}
-
 		return $result;
 	}
+
 
 	public function hide_tables() {		
 		$this->concert_model->hide_tables($this->input->post());
 	}
 	
-
 }
 

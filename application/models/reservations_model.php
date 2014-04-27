@@ -1,9 +1,10 @@
 <?php
 	class Reservations_model extends CI_Model{
 
-		public function __construct(){
+		public function __construct() {
 			parent::__construct();
 		}
+
 
 		public function load_reservations($outlet_id, $start, $end, $keyword){			
 			$query = $this->db->query('SELECT * FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'" AND (guest_name LIKE "%'.$keyword.'%" OR 	phone LIKE "%'.$keyword.'%" OR title LIKE "%'.$keyword.'%" OR email LIKE "%'.$keyword.'%" OR author LIKE "%'.$keyword.'%")');

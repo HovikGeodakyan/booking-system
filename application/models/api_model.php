@@ -1,14 +1,13 @@
 <?php
-	class api_model extends CI_Model{
+	class api_model extends CI_Model {
 
 		public function __construct(){
 			parent::__construct();
 		}
 
+
 		public function getFreeTables($outlet_id, $date) {
-
 			$weekday = date('N', strtotime($date));
-
 			$outlet_info = $this->db->query('SELECT * FROM outlets WHERE id = "'.$outlet_id.'"');
 			if ($outlet_info->num_rows() === 0) {
 				return "Wrong outlet id!";
@@ -29,11 +28,9 @@
 			$concert_info = $this->db->query('SELECT * FROM info WHERE outlet_id = "'.$outlet_id.'" AND concert_date = "'.$date.'"');
 			$concert_info = $concert_info->row_array();
 
-
 			foreach ($query as $value) {
 				$reservations[$value['start']] = $value;
 			}
-
 
 			$time_range = array();
 			$i=0;
@@ -69,22 +66,18 @@
 				if( !array_key_exists($value, $reservations) ) {
 					$reservations[$value]['start'] = $value;
 					$reservations[$value]['tables'] = 0;
-				}
-			 
+				}			 
 				
 				$reservations[$value]['tables'] = $outlet_info['tables_number'] - $hidden_tables - $reservations[$value]['tables'];
 			}	
-			ksort($reservations);		
-
+			ksort($reservations);
 			return $reservations;
 		}
-
 
 
 		public function reserveTable($data) {
 
 			$weekday = date('N', strtotime($data['date']));
-
 			$outlet_info = $this->db->query('SELECT * FROM outlets WHERE id = "'.$data['outletID'].'"');
 			if ($outlet_info->num_rows() === 0) {
 				return "Wrong outlet id!";
@@ -148,11 +141,6 @@
 				'guest_name'=>'API'
 			);
 			$this->db->insert('reservations', $reservationData);
-
-
-			// var_dump('<pre>', $freeTables[$randKey],'</pre>'); 
-
 		}
-
 	}
 ?>

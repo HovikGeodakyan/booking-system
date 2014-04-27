@@ -1,9 +1,11 @@
 <?php
 	class Outlet_model extends CI_Model{
 
+
 		public function __construct(){
 			parent::__construct();
 		}
+
 
 		public function load_outlets() {
 			$query	 = $this->db->query('SELECT * FROM outlets WHERE deleted = 0');
@@ -22,7 +24,7 @@
 		}
 
 
-		public function load_one_outlet($id){
+		public function load_one_outlet($id) {
 			$query = $this->db->query('SELECT * FROM outlets WHERE deleted=0 AND id="'.$id.'"');
 			$row = $query->row_array();
 			$outlet = array();
@@ -36,7 +38,7 @@
 
 
 
-		public function load_tables($outlet_id){
+		public function load_tables($outlet_id) {
 			$query	 = $this->db->query('SELECT * FROM tables WHERE `outlet_id` = '.$outlet_id.'');
 			$query	 = $query->result_array();
 			$tables = array();
@@ -54,10 +56,12 @@
 			return $tables;			
 		}
 
-		public function create_outlet($outlet){
+
+		public function create_outlet($outlet) {
 			$this->db->insert('outlets', $outlet);
 			return $this->db->insert_id();
 		}
+
 
  		public function insert_tables ($outled_id, $tables) {
 
@@ -77,6 +81,7 @@
  			$this->db->insert_batch('tables', $t_tables);
  		}
 
+
  		public function remove_table($id) {
 			$this->db->where_in('id', $id);
  			$result = $this->db->delete('tables');
@@ -87,7 +92,6 @@
 		 				);
  			}
  		}
-
 
 
  		public function update_tables ($outled_id, $tables) {

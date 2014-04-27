@@ -2,6 +2,7 @@
 
 class search extends My_Controller {
 
+
 	public function __construct(){
 		parent::__construct();
 	 	$this->load->model('search_model');

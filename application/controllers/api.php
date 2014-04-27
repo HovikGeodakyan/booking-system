@@ -1,10 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Api extends CI_Controller {
-	public function __construct(){
-			parent::__construct();
+
+	public function __construct() {			
+			parent::__construct();			
 			$this->load->model('api_model');
-		}
+	}
 
 	public function freeTables () {
 		// booking-system/api/freeTables?outletID=65&date=2014-04-26

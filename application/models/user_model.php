@@ -1,11 +1,13 @@
 <?php
-	class User_model extends CI_Model{
+	class User_model extends CI_Model {
 
-		public function __construct(){
+
+		public function __construct() {
 			parent::__construct();
 		}
 
-		public function load_users(){
+
+		public function load_users() {
 			$query = $this->db->query('SELECT * FROM users WHERE deleted=0');
 			$query = $query->result_array();
 			$users=array();
@@ -24,7 +26,8 @@
 			return $users;
 		}
 
-		public function load_one_user($id){
+
+		public function load_one_user($id) {
 			$query = $this->db->query('SELECT * FROM users WHERE deleted=0 AND id="'.$id.'"');
 			$row = $query->row_array();
 
@@ -41,7 +44,8 @@
 			return $u;
 		}
 
-		public function create_user(){
+
+		public function create_user() {
 			if($_POST['user_password']==$_POST['user_re_password']){
 
 				$data = array(
@@ -59,10 +63,10 @@
 			}
 		}
 
-		public function update_user($id){
 
-			if($_POST['user_password']==$_POST['user_re_password']){
+		public function update_user($id) {
 
+			if($_POST['user_password']==$_POST['user_re_password']) {
 				$this->db->set('username',         $_POST['user_name']);
 				$this->db->set('realname',         ucfirst($_POST['user_real_name']));
 				$this->db->set('email',            $_POST['user_email']);
@@ -76,7 +80,8 @@
 			}
 		}
 
-		public function delete_user($id){
+
+		public function delete_user($id) {
 			$this->db->set('deleted', 1);
 			$this->db->where('id', $id);
 			$this->db->update('users');
