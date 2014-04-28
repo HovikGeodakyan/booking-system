@@ -1,43 +1,43 @@
 $( document ).ready(function() {
-   updateClock ();
-   setInterval('updateClock()', 60000);
+     updateClock ();
+     setInterval('updateClock()', 60000);
 
-   initializeScheduler($("#main_calendar").val(), $('input:radio[name=tables_type]:checked').val());
+     initializeScheduler($("#main_calendar").val(), $('input:radio[name=tables_type]:checked').val());
 
-  $('td[resource="D"] div').css('background', '#fff');
-  $('input[name=new_reservation_date]').datepicker({ dateFormat: 'yy-mm-dd' });
-  $('.table_select').chosen();
+    $('td[resource="D"] div').css('background', '#fff');
+    $('input[name=new_reservation_date]').datepicker({ dateFormat: 'yy-mm-dd' });
+    $('.table_select').chosen();
 
-  $("#main_calendar").on("change", function() {
-        $('.loader').show();
-        initializeScheduler($(this).val(), $('input:radio[name=tables_type]:checked').val()); 
-  });
-
-  $('body').on('change', '.time_type_select', function(e) {
-    var element = $(this);
-    $.ajax({
-      type: "POST",
-      url: "outlet/hide_tables/",
-      dataType: 'json',
-      data:{
-        timebox: element.attr('name'),
-        value: element.val(),
-        date: window.selected_date
-      },
-      success: function(data) {
-        console.log(data);
-      }
+    $("#main_calendar").on("change", function() {
+          $('.loader').show();
+          initializeScheduler($(this).val(), $('input:radio[name=tables_type]:checked').val()); 
     });
-    
-  });
- 
- $('input:radio[name=tables_type]').click(function(e) {
-    $('.loader').show();
-    $(this).parent().parent().removeClass('active');
-    $(this).parent().addClass('active');  
-    initializeScheduler($("#main_calendar").val(), $(this).val());
 
- });
+    $('body').on('change', '.time_type_select', function(e) {
+      var element = $(this);
+      $.ajax({
+        type: "POST",
+        url: "outlet/hide_tables/",
+        dataType: 'json',
+        data:{
+          timebox: element.attr('name'),
+          value: element.val(),
+          date: window.selected_date
+        },
+        success: function(data) {
+          console.log(data);
+        }
+      });
+      
+    });
+   
+   $('input:radio[name=tables_type]').click(function(e) {
+      $('.loader').show();
+      $(this).parent().parent().find('.active').removeClass('active');
+      $(this).parent().addClass('active');  
+      initializeScheduler($("#main_calendar").val(), $(this).val());
+
+   });
           
 });
 
