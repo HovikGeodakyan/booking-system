@@ -85,6 +85,10 @@ class Outlet extends My_Controller {
 		return $this->outlet_model->load_tables($outlet_id);
 	}
 
+	public function read_free_tables($outlet_id, $start, $end) {		
+		return $this->outlet_model->load_free_tables($outlet_id, $start, $end);
+	}
+
 
 	public function remove_table($id) {		
 		return  $this->outlet_model->remove_table($id);
@@ -115,10 +119,18 @@ class Outlet extends My_Controller {
 	public function get() {
 		$currentStart = $this->input->post('start');
 		$currentEnd   = $this->input->post('end');
+		$tables_type  = $this->input->post('type');
+		$current_time  = $this->input->post('current_time');
 
 		$id = $this->outlet_model->get_active_outlet();
 		$res = $this->outlet_model->load_one_outlet($id);
-		$tables = $this->read_tables($id);
+
+		if($tables_type === 'free') {
+			$tables = $this->read_free_tables($id, $current_time, $currentEnd);
+		} else {
+			$tables = $this->read_tables($id);
+		}
+		
 		$not_assigned = $this->scheduler_model->load_not_assigned_reservations($currentStart, $currentEnd, $res['outlet_id']);
 		$res['header_info'] = $this->concert_model->load_header_info($id, substr($currentStart, 0, 10));
 
@@ -137,6 +149,10 @@ class Outlet extends My_Controller {
 		echo json_encode($res);
 	}
 
+	public function get_tables($outlet_id) {
+		$res = $this->outlet_model->get_tables($outlet_id);
+		echo json_encode($res);
+	}
 
 	public function remove_prefix($data, $prefix) {		
 		$result = array();		

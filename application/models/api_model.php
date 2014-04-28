@@ -78,7 +78,7 @@
 		public function reserveTable($data) {
 
 			$weekday = date('N', strtotime($data['date']));
-			$outlet_info = $this->db->query('SELECT * FROM outlets WHERE id = "'.$data['outletID'].'"');
+			$outlet_info = $this->db->query('SELECT * FROM outlets WHERE id = "'.$data['outlet_id'].'"');
 			if ($outlet_info->num_rows() === 0) {
 				return "Wrong outlet id!";
 			}
@@ -92,10 +92,10 @@
 			$start = $data['date']."T".$open_time;
 			$end = $data['date']."T".$close_time;
 
-			$concert_info = $this->db->query('SELECT * FROM info WHERE outlet_id = "'.$data['outletID'].'" AND concert_date = "'.$data['date'].'"');
+			$concert_info = $this->db->query('SELECT * FROM info WHERE outlet_id = "'.$data['outlet_id'].'" AND concert_date = "'.$data['date'].'"');
 			$concert_info = $concert_info->row_array();
 			
-			$tables = $this->db->query('SELECT * FROM tables WHERE outlet_id = "'.$data['outletID'].'"');
+			$tables = $this->db->query('SELECT * FROM tables WHERE outlet_id = "'.$data['outlet_id'].'"');
 			$tables = $tables->row_array();
 
 			if ($data['time'] <= $break_start_time) {
@@ -110,14 +110,14 @@
 				$staying_time = $outlet_info['staying_time_dinner'];
 			}
 			
-			$tables = $this->db->query('SELECT id FROM tables WHERE outlet_id = "'.$data['outletID'].'"');
+			$tables = $this->db->query('SELECT id FROM tables WHERE outlet_id = "'.$data['outlet_id'].'"');
 			$tables = $tables->result_array();
 			
 			$staying_time = date("H:i:s", strtotime($staying_time." + ".substr($data['time'], 3, 2)." minute + ".substr($data['time'], 0, 2)." hour"));
 			
 			$reservation_start = $data['date']."T".$data['time'].":00";
 			$reservation_end = $data['date']."T".$staying_time;
-			$reservations = $this->db->query('SELECT resource FROM reservations WHERE NOT ((end <= "'.$reservation_start.'") OR (start >= "'.$reservation_end.'")) AND outlet_id = "'.$data['outletID'].'" AND status != "cancelled" AND status !="not_show"');
+			$reservations = $this->db->query('SELECT resource FROM reservations WHERE NOT ((end <= "'.$reservation_start.'") OR (start >= "'.$reservation_end.'")) AND outlet_id = "'.$data['outlet_id'].'" AND status != "cancelled" AND status !="not_show"');
 			
 			$reservations = $reservations->result_array();
 
@@ -129,16 +129,30 @@
 			foreach($reservations as $key => $val) {
 				array_push($tablesKeys, $val['resource']);
 			}
-			$freeTables =  array_diff($reservKeys,$tablesKeys);
-			$randKey = array_rand($freeTables);
-			
-			$insertedTable = $freeTables[$randKey];
+
+			$freeTables = array_diff($reservKeys, $tablesKeys);
+
+			if ($data['resource'] && in_array($data['resource'], $freeTables)) {
+				$selectedTable = $data['resource'];
+			} else {
+				$selectedTable = 0;
+			}
+
+
 			$reservationData = array(
-				'outlet_id'=> $data['outletID'],
+				'outlet_id'=> $data['outlet_id'],
 				'start'=>$reservation_start ,
 				'end'=>$reservation_end,
-				'resource'=> 0,
-				'guest_name'=>'API'
+				'resource'=> $selectedTable,
+				'guest_name'=> $data['guest_name'],
+				'title'=> $data['title'],
+				'guest_type'=> $data['guest_type'],
+				'email'=> $data['email'],
+				'phone'=> $data['phone'],
+				'guest_number'=> $data['guest_number'],
+				'language'=> $data['language'],
+				'author'=> $data['author'],
+				'confirm_via_email' => (isset($data['confirm_via_email'])) ? 1 : 0
 			);
 			$this->db->insert('reservations', $reservationData);
 		}

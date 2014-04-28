@@ -1,9 +1,16 @@
    
     <section class="row m-b-md">
         <div class="col-sm-6">
-
           <h3 class="m-b-xs text-black" id="concert_header"></h3>
-          <small>Welcome back, John Smith, <i class="fa fa-map-marker fa-lg text-primary"></i> New York City</small>
+
+          <div class="btn-group">
+            <label class="btn btn-primary" for="allTables">
+              <input type="radio" name="tables_type" id="allTables" value="all"  checked> All tables
+            </label>
+            <label class="btn btn-primary" for="freeTables">
+              <input type="radio" name="tables_type" id="freeTables" value="free"> Free tables
+            </label>
+          </div> 
         </div>
 
         <div class="col-sm-6 text-right text-left-xs m-t-md">
@@ -21,8 +28,9 @@
           <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i class="i i-bars3 hover-rotate"></i></a>
           <a href="#nav, #sidebar" class="btn btn-icon b-2x btn-info btn-rounded" data-toggle="class:nav-xs, show"><i class="fa fa-bars"></i></a>
         </div> -->
+
       </section>
- 
+
  <div class="white_content">
 <section class="">
 
@@ -129,7 +137,7 @@
             </select>
           </div>
 
-          <div class="form-group col-lg-6">
+          <div class="form-group col-lg-3">
             <label>Title</label>
             <select class="form-control" name="title">
               <option value="Mr.">Mr.</option>
@@ -139,9 +147,19 @@
             </select>
           </div>
 
-          <div class="form-group col-lg-6">
+          <div class="form-group col-lg-5">
             <label>Guest name</label>  
             <input type="text" class="form-control" placeholder="Name" name="guest_name">
+          </div>
+
+          <div class="form-group col-lg-4">
+            <label>Type</label>
+            <select class="form-control" name="guest_type">
+              <option value="internet">Internet</option>
+              <option value="telephone">Telephone</option>
+              <option value="magento">Magento</option>
+              <option value="walkin">Walk-In</option>
+            </select>
           </div>
 
           <div class="form-group col-lg-6">  

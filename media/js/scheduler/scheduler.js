@@ -2,7 +2,7 @@ $( document ).ready(function() {
    updateClock ();
    setInterval('updateClock()', 60000);
 
-   initializeScheduler();
+   initializeScheduler($("#main_calendar").val(), $('input:radio[name=tables_type]:checked').val());
 
   $('td[resource="D"] div').css('background', '#fff');
   $('input[name=new_reservation_date]').datepicker({ dateFormat: 'yy-mm-dd' });
@@ -10,7 +10,7 @@ $( document ).ready(function() {
 
   $("#main_calendar").on("change", function() {
         $('.loader').show();
-        initializeScheduler($(this).val()); 
+        initializeScheduler($(this).val(), $('input:radio[name=tables_type]:checked').val()); 
   });
 
   $('body').on('change', '.time_type_select', function(e) {
@@ -31,12 +31,18 @@ $( document ).ready(function() {
     
   });
  
+ $('input:radio[name=tables_type]').click(function(e) {
+    $('.loader').show();
+    $(this).parent().parent().removeClass('active');
+    $(this).parent().addClass('active');  
+    initializeScheduler($("#main_calendar").val(), $(this).val());
 
+ });
           
 });
 
 
-var initializeScheduler = function(currentDate) {
+var initializeScheduler = function(currentDate, viewType) {
   $('#dp').remove();
   $('.white_content').append('<div id ="dp"></div>');
   $('#reservation_table').empty();
@@ -55,18 +61,18 @@ var initializeScheduler = function(currentDate) {
   if(typeof currentDate !== 'undefined') {
     datePilotDate = new DayPilot.Date(currentDate);
     day = new Date(currentDate).getDay();
-  } else {
+  } else {   
     datePilotDate = new DayPilot.Date();
     day = new Date().getDay();
   }
-
+  var current_time = new DayPilot.Date().toString();
   window.selected_date = datePilotDate.toString();
 
   $.ajax({
       type: "POST",
       url: 'outlet/get',
       dataType: 'json',
-      data:{start:datePilotDate.toString(), end: datePilotDate.addDays(1).toString()},
+      data:{start:datePilotDate.toString(), end: datePilotDate.addDays(1).toString(), type:viewType, current_time: current_time},
       success: function(data) {
         console.log(data);
         setTimeout(function(){ $('.loader').hide()}, 1700);
@@ -107,7 +113,7 @@ var initializeScheduler = function(currentDate) {
                 }
              });
 
-
+        console.log(dp);
 
         var clicked_reservation;
         dp.onEventClicked = function(args) {
@@ -119,6 +125,7 @@ var initializeScheduler = function(currentDate) {
             $('#reservation_edit input[name=time]').val(reservation_info.start.substr(11, 5));
             $('#reservation_edit input[name=guest_number]').val(reservation_info.guest_number);
             $('#reservation_edit select[name=title]').val(reservation_info.title);
+            $('#reservation_edit select[name=guest_type]').val(reservation_info.guest_type);
             $('#reservation_edit input[name=guest_name]').val(reservation_info.guest_name);
             $('#reservation_edit input[name=phone]').val(reservation_info.phone);
             $('#reservation_edit input[name=email]').val(reservation_info.email);
@@ -396,12 +403,13 @@ var initializeScheduler = function(currentDate) {
                     start: start.toString(),
                     end: end.toString(), 
                 }, function(data) {
+                  console.log(data);
                       var notAssCount = 1;
-                      for(var i= 0; i< data.length; i++) {
+                      for(var i= 0; i < data.length; i++) {
                         if(data[i].resource === "0") {
                           data[i].resource = 'na'+ notAssCount;
                           notAssCount++;
-                        }
+                        } 
                       }
                       dp.events.list = data;
                       dp.update();

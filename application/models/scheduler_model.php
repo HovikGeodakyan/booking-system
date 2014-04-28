@@ -44,6 +44,7 @@
 				$e['guest_name']   = $row['guest_name'];
 				$e['title']        = $row['title'];
 				$e['guest_number'] = $row['guest_number'];
+				$e['guest_type']   = $row['guest_type'];
 				$e['phone']        = $row['phone'];
 				$e['email']        = $row['email'];
 				$e['language']     = $row['language'];

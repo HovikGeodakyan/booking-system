@@ -56,6 +56,33 @@
 			return $tables;			
 		}
 
+		public function load_free_tables($outlet_id, $start, $end) {
+
+		$tables	 = $this->db->query('SELECT * FROM tables WHERE `outlet_id` = '.$outlet_id.'');
+		$tables	 = $tables->result_array();
+
+		$reservations = $this->db->query('SELECT resource FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'" AND status != "cancelled" AND status != "not_show"');
+		$reservations = $reservations->result_array();
+
+
+		var_dump($tables, $reservations); exit;
+		// foreach ($tables as $key => $value) {
+		// 	if(in_array($value['id'], ))
+		// }
+
+		foreach ($query as $row) {
+			$t=array();
+			$t['table_id'] 	                  = $row['id'];
+			$t['table_seats_standart_number'] = $row['seats_standart_number'];
+			$t['table_seats_max_number']      = $row['seats_max_number'];
+			$t['table_combinable']            = $row['combinable'];
+			$t['table_location']   			  = $row['location'];
+			
+			$tables[] = $t;
+		}
+		return $tables;			
+		}
+
 
 		public function create_outlet($outlet) {
 			$this->db->insert('outlets', $outlet);
@@ -91,6 +118,12 @@
 		 					'code' => 200
 		 				);
  			}
+ 		}
+
+ 		public function get_tables($outlet_id){
+			$query = $this->db->query('SELECT * FROM tables WHERE outlet_id="'.$outlet_id.'"');
+			$query = $query->result_array();
+			return $query;
  		}
 
 
