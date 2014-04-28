@@ -4,6 +4,11 @@ class statistics extends My_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		var_dump($this->session->userdata('user_role'));
+		if($this->session->userdata('user_role') != '1') {
+			redirect('/welcome');
+		}
+		
 	}
 
 	public function index($page="statistics") {		

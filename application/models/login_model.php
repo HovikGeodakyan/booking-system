@@ -8,13 +8,13 @@ class Login_model extends CI_Model {
 
 
 	public function sign() {
-		$username=$_POST["username"];
-		$password=$_POST["password"];
-		$this->db->select('id, username, password');
+		$username = $_POST["username"];
+		$password = $_POST["password"];
+		$this->db->select('id, username, password, role');
 		$this->db->from('users');
 		$this->db->where('username', $username);
 		$this ->db->where('password', $password);
-		$query=$this->db->get();
+		$query = $this->db->get();
 
 		if($query->num_rows()==1) {
 			$query=$query->row_array();

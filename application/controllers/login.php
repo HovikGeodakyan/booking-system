@@ -20,12 +20,13 @@ class Login extends CI_Controller {
 	}
 
 	public function signin(){
-		$res=$this->login_model->sign();
+		$res = $this->login_model->sign();
 		if($res){
 			$newdata = array(
 				'user_id'  => $res["id"],
 				'user_name'=> $res["username"],
-				'logged_in'=> TRUE
+				'logged_in'=> TRUE,
+				'user_role'=> $res['role']
 			);
 			$this->session->set_userdata($newdata);
 			redirect('/welcome');

@@ -1,4 +1,4 @@
-   <section>
+    <section>
       <section class="hbox stretch">
         <aside class="bg-black aside-md hidden-print nav-xs" id="nav">          
           <section class="vbox">
@@ -23,6 +23,7 @@
                         <span class="font-bold">Reservations</span>
                       </a>
                     </li>
+                   <?php if($this->session->userdata('user_role') == "1") { ?>
                     <li  class="">
                       <a href="<?php echo URL; ?>statistics" class="auto">
                         <i class="i i-docs icon">
@@ -30,6 +31,7 @@
                         <span class="font-bold">Statistics</span>
                       </a>
                     </li>
+                    <?php } ?>
                       <li  data-intro='Here you can change setings of outlets, users, emails and holidays...' data-step='4' data-position='right'>
                       <a href="<?php echo URL; ?>outlet" class="auto">
                         <i class="i i-lab icon">
