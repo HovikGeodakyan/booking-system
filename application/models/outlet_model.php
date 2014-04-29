@@ -64,15 +64,21 @@
 			$reservations = $this->db->query('SELECT resource FROM reservations WHERE NOT ((end <= "'.$start.'") OR (start >= "'.$end.'")) AND outlet_id = "'.$outlet_id.'" AND status != "cancelled" AND status != "not_show"');
 			$reservations = $reservations->result_array();
 
-			$index =0;
-			foreach ($tables as $key => $value) {
+			$index = 0;
 
-				if(in_array($value['id'],$reservations  )){
-					unset($tables[$index]);
-				}
-				$index++;
+			
+			foreach ($reservations as $key => $value) {
+				$reservations[$key] = $value['resource'];
 			}
 
+			foreach ($tables as $key => $value) {
+				foreach ($reservations as $reskey => $resvalue) {
+					if( strpos($resvalue, $value['id']) !== false ){ 
+						unset($tables[$key]);
+					}
+				}
+			}
+			
 			foreach ($tables as $row) {
 				$t=array();
 				$t['table_id'] 	                  = $row['id'];

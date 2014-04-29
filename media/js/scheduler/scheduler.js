@@ -25,7 +25,7 @@ $( document ).ready(function() {
           date: window.selected_date
         },
         success: function(data) {
-          console.log(data);
+          //console.log(data);
         }
       });
       
@@ -41,6 +41,7 @@ $( document ).ready(function() {
           
 });
 
+var current_end = "";
 
 var initializeScheduler = function(currentDate, viewType) {
   $('#dp').remove();
@@ -66,15 +67,16 @@ var initializeScheduler = function(currentDate, viewType) {
     day = new Date().getDay();
   }
   var current_time = new DayPilot.Date().toString();
+  
   window.selected_date = datePilotDate.toString();
 
   $.ajax({
       type: "POST",
       url: 'outlet/get',
       dataType: 'json',
-      data:{start:datePilotDate.toString(), end: datePilotDate.addDays(1).toString(), type:viewType, current_time: current_time},
+      data:{start:datePilotDate.toString(), end: datePilotDate.addDays(1).toString(), type:viewType, current_time: current_time, current_end: current_end},
       success: function(data) {
-        console.log(data);
+        //console.log(data);
         setTimeout(function(){ $('.loader').hide()}, 1700);
         
         var outlet_settings = {};       
@@ -113,7 +115,10 @@ var initializeScheduler = function(currentDate, viewType) {
                 }
              });
 
-        console.log(dp);
+        
+
+        current_end = get_staying_time(current_time.substr(11,5)); //get staying time for current time to show free tables
+        current_end = current_time.substr(0,10) + "T" + current_end + ":00";
 
         var clicked_reservation;
         dp.onEventClicked = function(args) {
@@ -130,11 +135,13 @@ var initializeScheduler = function(currentDate, viewType) {
             $('#reservation_edit input[name=phone]').val(reservation_info.phone);
             $('#reservation_edit input[name=email]').val(reservation_info.email);
             $('#reservation_edit input[name=author]').val(reservation_info.author);
+            
             $('#reservation_table option').attr("selected", false);
-            $('#reservation_table option[value=' + reservation_info.resource + ']').attr('selected', 'selected');
+            // $('#reservation_table option[value=' + reservation_info.resource + ']').attr('selected', 'selected');
+        $('#reservation_table').val(reservation_info.resource).trigger("chosen:updated");
 
-            mark_busy_tables(reservation_info.start.substr(11, 5), "reservation_table");        
-            mark_incufficent_capacity_tables(reservation_info.guest_number, "reservation_table");
+            // mark_busy_tables(reservation_info.start.substr(11, 5), "reservation_table");        
+            // mark_incufficent_capacity_tables(reservation_info.guest_number, "reservation_table");
             
             $('#has_arrived').removeAttr('disabled');
             $('#cancel_reservation').removeAttr('disabled');
@@ -312,7 +319,7 @@ var initializeScheduler = function(currentDate, viewType) {
         //remember the original position of reservation to revert it
         var revert;
         dp.onEventMove = function (args){
-          revert=args.e.data.resource;
+          revert = args.e.data.resource;
         }
 
         //move a reservation
@@ -326,11 +333,20 @@ var initializeScheduler = function(currentDate, viewType) {
             if(args.newResource.indexOf('na') !== -1) {
               args.newResource = 0;
             }
+
+            var resources = [];
+            for (var i=0; i<dp.events.list.length; i++) {
+              if (dp.events.list[i].id === args.e.id()) {
+                resources.push(dp.events.list[i].resource);
+              }
+            }
+            resources = resources.join(",");
+
             $.post("scheduler/move/" + data["outlet_id"], {
                 id: args.e.id(),
                 newStart: args.newStart.toString(),
                 newEnd: args.newEnd.toString(),
-                newResource: args.newResource
+                newResource: resources
             },  function(data) {
                   if(data.result == "NOK"){
                     args.e.data.resource=revert;//revert to original row
@@ -351,11 +367,20 @@ var initializeScheduler = function(currentDate, viewType) {
 
        
         dp.onEventResized = function (args) {
+
+            var resources = [];
+            for (var i=0; i<dp.events.list.length; i++) {
+              if (dp.events.list[i].id === args.e.id()) {
+                resources.push(dp.events.list[i].resource);
+              }
+            }
+            resources = resources.join(",");
+
             $.post("scheduler/resize/" + data["outlet_id"],  {
                 id: args.e.id(),
                 newStart: args.newStart.toString(),
                 newEnd: args.newEnd.toString(),
-                resource: args.e.resource()
+                resource: resources
             },  function(data) {
                   if(data.result=="NOK"){
                     dp.message(data.message);
@@ -386,6 +411,7 @@ var initializeScheduler = function(currentDate, viewType) {
             $('#reservation_edit input').val("");
             $('#reservation_edit input[name=date]').val(args.start.toString().substr(0, 10));
             $('#reservation_edit input[name=time]').val(args.start.toString().substr(11, 5));
+            $('#reservation_edit input[name=end_time]').val(args.end.toString().substr(11, 5));
 
             $('#reservation_table option').attr("selected", false);
             $('#reservation_table option[value=' + args.resource + ']').attr('selected', 'selected');
@@ -403,14 +429,29 @@ var initializeScheduler = function(currentDate, viewType) {
                     start: start.toString(),
                     end: end.toString(), 
                 }, function(data) {
-                  console.log(data);
+                    
                       var notAssCount = 1;
-                      for(var i= 0; i < data.length; i++) {
+                      var length = data.length;
+                      var ext = data.length;
+                      for(var i= 0; i < ext; i++) {
+                        var tables_array = data[i].resource.split(",");
                         if(data[i].resource === "0") {
                           data[i].resource = 'na'+ notAssCount;
                           notAssCount++;
-                        } 
+                        }
+                        if (tables_array.length > 1) {
+                          data[i].resource = tables_array[0];
+                          for (var j=1; j < tables_array.length; j++) {
+                            data[length] = {};
+                            data[length] = $.extend(true, {}, data[i]);
+                            
+                            data[length].resource = tables_array[j];
+                            length++;
+                          }
+                          
+                        }
                       }
+                      
                       dp.events.list = data;
                       dp.update();
                   }
@@ -467,9 +508,9 @@ var initializeScheduler = function(currentDate, viewType) {
             var reservation_date = $('#reservation_edit input[name=date]').val();
             var reservation_time = $('#reservation_edit input[name=time]').val();
             var reservation_start = reservation_date + "T" + reservation_time + ":00";
-            var reservation_end = get_staying_time(reservation_time) + ":00";
+            var reservation_end = $('#reservation_edit input[name=end_time]').val();
             reservation_end = reservation_date + "T" + reservation_end;
-            
+            console.log(form);
             var reservation_id = (typeof clicked_reservation === 'undefined') ? '' : clicked_reservation.value()
             
             $.ajax({

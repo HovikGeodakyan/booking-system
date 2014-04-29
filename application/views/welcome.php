@@ -4,11 +4,11 @@
           <h3 class="m-b-xs text-black" id="concert_header"></h3>
 
           <div class="btn-group">
-            <label class="btn btn-primary" for="allTables">
-              <input type="radio" name="tables_type" id="allTables" value="all"  checked> All tables
+            <label class="btn btn-default active" for="allTables">
+              <input type="radio" name="tables_type" id="allTables" value="all" style="display:none" checked> All tables
             </label>
-            <label class="btn btn-primary" for="freeTables">
-              <input type="radio" name="tables_type" id="freeTables" value="free"> Free tables
+            <label class="btn btn-default" for="freeTables">
+              <input type="radio" name="tables_type" id="freeTables" value="free" style="display:none"> Free tables
             </label>
           </div> 
         </div>
@@ -116,24 +116,29 @@
       <div class="modal-body col-lg-12">
         <form class="edit_reservation col-lg-12" role="form" >
 
-          <div class="form-group col-lg-6"> 
+          <div class="form-group col-lg-4"> 
             <label>Date</label> 
             <input type="text" class="form-control" name='date'>
           </div>
 
           <div class="form-group col-lg-3"> 
-            <label>Time</label>   
+            <label>Start</label>   
             <input type="text" step="900" class="form-control" name="time">
+          </div>          
+
+          <div class="form-group col-lg-3"> 
+            <label>End</label>   
+            <input type="text" step="900" class="form-control" name="end_time">
           </div>
 
-          <div class="form-group col-lg-3">  
+          <div class="form-group col-lg-2">  
             <label>Guests</label>
             <input type="number" class="form-control" placeholder="Guests number" name="guest_number">
           </div>
 
           <div class="form-group col-lg-12">
             <label>Table(s)</label>
-            <select class="form-control" id="reservation_table" name="resource" multiple>
+            <select class="form-control" id="reservation_table" name="resource[]" multiple>
             </select>
           </div>
 

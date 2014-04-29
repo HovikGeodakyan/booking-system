@@ -89,10 +89,9 @@
 				'end' => $_POST['newEnd'],
 				'resource' => $_POST['newResource']
 			);
-			$query=$this->db->query('SELECT * 
+			$query=$this->db->query('SELECT resource 
 									FROM reservations 
-									WHERE resource="'.$data['resource'].'" 
-									AND outlet_id = "'.$outlet_id.'"
+									WHERE outlet_id = "'.$outlet_id.'"
 									AND id!="'.$id.'"
 									AND status != "cancelled"
 									AND (
@@ -102,10 +101,24 @@
 										OR (start<"'.$data['end'].'" AND end>"'.$data['start'].'")
 									)');
 									
-			$query = $query->result();
+			$query = $query->result_array();
+
+			$new_resources_id = explode(",", $data['resource']);
+			$resources_id = array();
+
+			foreach	($query as $key => $value) {
+				$resources_id[] = explode(",", $value['resource']);
+			}			
+
+			$matches = array();
+			foreach ($resources_id as $key => $value) {
+				$matches[] = array_intersect($new_resources_id, $value);
+			}
+
 			$response=array();
 			$current_time=date('Y-m-d')."T".date("H:i:s");
-			if ($query!=NULL || $data['resource']=="D" || $data['start']<$current_time){
+
+			if (!empty($matches) || $data['resource']=="D" || $data['start']<$current_time){
 				$response['result'] = 'NOK';
 				$response['message'] = 'Overlap';
 			}else{
@@ -129,7 +142,7 @@
 				'end' => $_POST['newEnd'],
 				'resource' => $_POST['resource']
 			);
-			$query=$this->db->query('SELECT * FROM reservations WHERE resource="'.$data['resource'].'" AND start<"'.$data['end'].'" AND start>"'.$data['start'].'" AND outlet_id = "'.$outlet_id.'" AND status != "cancelled"');
+			$query=$this->db->query('SELECT * FROM reservations WHERE INSTR(resource, "'.$data['resource'].'") > 0  AND start<"'.$data['end'].'" AND start>"'.$data['start'].'" AND outlet_id = "'.$outlet_id.'" AND status != "cancelled"');
 			$query = $query->result();
 			$response=array();
 

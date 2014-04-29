@@ -60,7 +60,9 @@ class scheduler extends My_Controller {
 		$data = $this->input->post();
 		unset($data['date']);
 		unset($data['time']);
+		unset($data['end_time']);
 		$data['confirm_via_email'] = (isset($data['confirm_via_email'])) ? 1 : 0;
+		$data["resource"] = implode("," , $data["resource"]);
 
 		$response = ($id === NULL) ? $this->scheduler_model->create_reservation($outlet_id, $data) : $this->scheduler_model->update_reservation($id, $data);
 		

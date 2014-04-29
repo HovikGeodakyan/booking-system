@@ -121,12 +121,13 @@ class Outlet extends My_Controller {
 		$currentEnd   = $this->input->post('end');
 		$tables_type  = $this->input->post('type');
 		$current_time  = $this->input->post('current_time');
+		$current_stayng_time  = $this->input->post('current_end');
 
 		$id = $this->outlet_model->get_active_outlet();
 		$res = $this->outlet_model->load_one_outlet($id);
 
 		if($tables_type === 'free') {
-			$tables = $this->read_free_tables($id, $current_time, $currentEnd);
+			$tables = $this->read_free_tables($id, $current_time, $current_stayng_time);
 		} else {
 			$tables = $this->read_tables($id);
 		}
