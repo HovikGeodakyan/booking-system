@@ -1,8 +1,9 @@
 $( document ).ready(function() {
      updateClock ();
      setInterval('updateClock()', 60000);
+     setInterval("initializeScheduler($('#main_calendar').val(), $('input:radio[name=tables_type]:checked').val())", 900000);
 
-     initializeScheduler($("#main_calendar").val(), $('input:radio[name=tables_type]:checked').val());
+     initializeScheduler($('#main_calendar').val(), $('input:radio[name=tables_type]:checked').val());
 
     $('td[resource="D"] div').css('background', '#fff');
     $('input[name=new_reservation_date]').datepicker({ dateFormat: 'yy-mm-dd' });
@@ -128,6 +129,7 @@ var initializeScheduler = function(currentDate, viewType) {
             $('#reservation_edit input').val();
             $('#reservation_edit input[name=date]').val(reservation_info.start.substr(0, 10));
             $('#reservation_edit input[name=time]').val(reservation_info.start.substr(11, 5));
+            $('#reservation_edit input[name=end_time]').val(reservation_info.end.substr(11, 5));
             $('#reservation_edit input[name=guest_number]').val(reservation_info.guest_number);
             $('#reservation_edit select[name=title]').val(reservation_info.title);
             $('#reservation_edit select[name=guest_type]').val(reservation_info.guest_type);
@@ -136,15 +138,22 @@ var initializeScheduler = function(currentDate, viewType) {
             $('#reservation_edit input[name=email]').val(reservation_info.email);
             $('#reservation_edit input[name=author]').val(reservation_info.author);
             
-            $('#reservation_table option').attr("selected", false);
-            // $('#reservation_table option[value=' + reservation_info.resource + ']').attr('selected', 'selected');
-        $('#reservation_table').val(reservation_info.resource).trigger("chosen:updated");
+            var array_of_tables = [];
+            for (var i=0; i<dp.events.list.length; i++) {
+              if(dp.events.list[i].id === reservation_info.id) {
+                array_of_tables.push(dp.events.list[i].resource);
+              }
+            }
 
-            // mark_busy_tables(reservation_info.start.substr(11, 5), "reservation_table");        
-            // mark_incufficent_capacity_tables(reservation_info.guest_number, "reservation_table");
+            // $('#reservation_table option[value=' + reservation_info.resource + ']').attr('selected', 'selected');
+            $('#reservation_table').val(array_of_tables).trigger("chosen:updated");
+
+            mark_busy_tables(reservation_info.start.substr(11, 5), reservation_info.end.substr(11, 5), "reservation_table");        
+            mark_incufficent_capacity_tables(reservation_info.guest_number, "reservation_table");
             
             $('#has_arrived').removeAttr('disabled');
             $('#cancel_reservation').removeAttr('disabled');
+
             clicked_reservation = args.e;
         };
 
@@ -233,7 +242,8 @@ var initializeScheduler = function(currentDate, viewType) {
           if (args.header.level === 2) {
             var progress = 0;
               for (var j = 0; j < dp.events.list.length; j++) {
-                if(typeof dp.events.list[j] != 'undefined') {
+                
+                if(typeof dp.events.list[j] != 'undefined' && dp.events.list[j].resource.substr(0,2) !== "na") {
                  if(dp.events.list[j].start.substr(11,5) <= args.header.start.toString().substr(11,5) && dp.events.list[j].end.substr(11,5) >= args.header.end.toString().substr(11,5)){
                   progress++;
                  }
@@ -278,13 +288,13 @@ var initializeScheduler = function(currentDate, viewType) {
         }
 
         
-        dp.onBeforeEventRender = function(args) {  
+
+        dp.onBeforeEventRender = function(args) {
            switch (args.e.status) {
               case 'arrived' : args.e.cssClass = "arrived"; break;
               case 'not_show': args.e.cssClass = "not_show"; break;
               case 'late'    : args.e.cssClass = "late"; break;
             }
-
         };
 
         //change the color of divider and past hours
@@ -310,7 +320,7 @@ var initializeScheduler = function(currentDate, viewType) {
         };
          
         //disable divider borders
-        dp.onBeforeResHeaderRender = function(args) {   
+        dp.onBeforeResHeaderRender = function(args) {  
             if (args.resource.id === 'D') {
                args.resource.cssClass = 'no_border_res_header';      
             }
@@ -318,18 +328,22 @@ var initializeScheduler = function(currentDate, viewType) {
 
         //remember the original position of reservation to revert it
         var revert;
-        dp.onEventMove = function (args){
-          revert = args.e.data.resource;
+        dp.onEventMove = function (args,e){          
+          revert = (args.e.data.resource.substr(0,2) === "na") ? 0 : args.e.data.resource;
+          return false;
         }
 
         //move a reservation
         dp.onEventMoved = function (args) {
-            if(args.newResource === "D" || args.newStart.ticks < new DayPilot.Date().ticks){
-                  args.e.data.resource = revert;//revert to original row
-                  //reverting event start and end
-                  args.e.data.start = args.e.part.start;
-                  args.e.data.end   = args.e.part.end;
-            }
+            console.log(args.e.part.start.ticks <= new DayPilot.Date().ticks);
+            // if(args.e.part.start.ticks <= new DayPilot.Date().ticks || args.newResource === "D" || args.newStart.ticks < new DayPilot.Date().ticks || args.newResource.substr(0,2) === "na"){
+            //       args.e.data.resource = revert;//revert to original row
+            //       //reverting event start and end
+                  
+            //       args.e.data.start = args.e.part.start;
+            //       args.e.data.end   = args.e.part.end;
+            //       // return false;
+            // }
             if(args.newResource.indexOf('na') !== -1) {
               args.newResource = 0;
             }
@@ -344,6 +358,8 @@ var initializeScheduler = function(currentDate, viewType) {
 
             $.post("scheduler/move/" + data["outlet_id"], {
                 id: args.e.id(),
+                currentTime: new DayPilot.Date().toString(),
+                oldStart:args.e.part.start.toString(),
                 newStart: args.newStart.toString(),
                 newEnd: args.newEnd.toString(),
                 newResource: resources
@@ -413,10 +429,11 @@ var initializeScheduler = function(currentDate, viewType) {
             $('#reservation_edit input[name=time]').val(args.start.toString().substr(11, 5));
             $('#reservation_edit input[name=end_time]').val(args.end.toString().substr(11, 5));
 
-            $('#reservation_table option').attr("selected", false);
-            $('#reservation_table option[value=' + args.resource + ']').attr('selected', 'selected');
+            $('#reservation_table option').removeAttr("selected");
+            $('#reservation_table option').removeAttr("disabled");
+            $('#reservation_table').val(args.resource).trigger("chosen:updated");
             
-            mark_busy_tables(args.start.toString().substr(11, 5), "reservation_table");
+            mark_busy_tables(args.start.toString().substr(11, 5), args.end.toString().substr(11, 5), "reservation_table");
             
             reservation_end = args.end.toString();
         };
@@ -429,7 +446,6 @@ var initializeScheduler = function(currentDate, viewType) {
                     start: start.toString(),
                     end: end.toString(), 
                 }, function(data) {
-                    
                       var notAssCount = 1;
                       var length = data.length;
                       var ext = data.length;
@@ -453,6 +469,7 @@ var initializeScheduler = function(currentDate, viewType) {
                       }
                       
                       dp.events.list = data;
+                      set_late_not_show_status();
                       dp.update();
                   }
             );
@@ -659,8 +676,7 @@ var initializeScheduler = function(currentDate, viewType) {
           }
 
 
-          function mark_busy_tables(start_time, select_box){
-              end_time = get_staying_time(start_time);
+          function mark_busy_tables(start_time, end_time, select_box){
               
               $('#' + select_box + ' option').removeAttr('disabled');
 
@@ -676,6 +692,7 @@ var initializeScheduler = function(currentDate, viewType) {
                   $('#' + select_box + ' option[value=' + dp.events.list[i]['resource'] + ']').attr('disabled', 'true');
                 }
               }
+              $('#' + select_box + ' option:selected').removeAttr('disabled');
               $('#' + select_box).chosen().change();
               $('#' + select_box).trigger("chosen:updated");
           }
@@ -688,6 +705,31 @@ var initializeScheduler = function(currentDate, viewType) {
               }
               $('#' + select_box).chosen().change();
               $('#' + select_box).trigger("chosen:updated");
+          }
+
+
+          function set_late_not_show_status() {
+            var arrayof_late_not_shows = [];
+            var no_show_limit = data.outlet_no_show_limit * 60 * 1000;
+
+            for (var i=0; i<dp.events.list.length; i++) {
+              if ((new DayPilot.Date().ticks - new DayPilot.Date(dp.events.list[i].start).ticks) >= no_show_limit && dp.events.list[i].status !== "arrived") {
+                dp.events.list[i].status = "not_show";
+                arrayof_late_not_shows.push({id: dp.events.list[i].id, status: 'not_show'});
+
+              } else if ((new DayPilot.Date(dp.events.list[i].start).ticks - 1800000) <= new DayPilot.Date().ticks && dp.events.list[i].status !== "arrived") {
+                 dp.events.list[i].status = "late";
+                 arrayof_late_not_shows.push({id: dp.events.list[i].id, status: 'late'});
+              }
+            }
+
+            console.log (arrayof_late_not_shows);
+            if(arrayof_late_not_shows.length > 0) {
+              $.post("scheduler/set_late_not_show/" + data["outlet_id"],  {
+                arr: arrayof_late_not_shows
+                },  function(data) {
+              });
+            }
           }
 
 

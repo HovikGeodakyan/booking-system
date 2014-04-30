@@ -4,6 +4,10 @@
 
 		public function __construct() {
 			parent::__construct();
+			// $config['upload_path'] = AVATAR;
+			// $config['allowed_types'] = 'gif|jpg|png';
+			// $config['max_size']	= '100';
+			// $this->load->library('upload', $config);
 		}
 
 
@@ -65,7 +69,6 @@
 
 
 		public function update_user($id) {
-
 			if($_POST['user_password']==$_POST['user_re_password']) {
 				$this->db->set('username',         $_POST['user_name']);
 				$this->db->set('realname',         ucfirst($_POST['user_real_name']));

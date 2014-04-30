@@ -39,6 +39,7 @@ define('URL','http://localhost/booking-system/');
 define('IMG',URL.'media/img/');
 define('CSS',URL.'media/css/');
 define('JS',URL.'media/js/');
+define('AVATAR',URL.'media/img/avatars');
 
 
 /* End of file constants.php */

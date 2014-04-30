@@ -54,6 +54,14 @@ class scheduler extends My_Controller {
 		
 		header('Content-Type: application/json');
 		echo json_encode($response);
+	}	
+
+	public function set_late_not_show($outlet_id){
+		$data = $this->input->post('arr');
+		$response = $this->scheduler_model->set_late_not_show($outlet_id, $data);
+		
+		header('Content-Type: application/json');
+		echo json_encode($response);
 	}
 
 	public function update($outlet_id, $id = NULL){

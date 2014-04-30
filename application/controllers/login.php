@@ -26,7 +26,11 @@ class Login extends CI_Controller {
 				'user_id'  => $res["id"],
 				'user_name'=> $res["username"],
 				'logged_in'=> TRUE,
-				'user_role'=> $res['role']
+				'user_role'=> $res['role'],
+				'user_email'=> $res['email'],
+				'user_phone'=> $res['phone'],
+				'user_language'=> $res['language'],
+				'user_real_name'=> $res['realname']
 			);
 			$this->session->set_userdata($newdata);
 			redirect('/welcome');

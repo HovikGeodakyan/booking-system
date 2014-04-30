@@ -98,7 +98,7 @@
             <span class="thumb-sm avatar pull-left">
               <img src="<?php echo(IMG.'a0.png'); ?>" alt="...">
             </span>
-            John.Smith <b class="caret"></b>
+            <?php echo $this->session->userdata('user_name'); ?> <b class="caret"></b>
           </a>
           <section class="dropdown-menu aside-xl animated flipInY">
             <section class="panel bg-white">
@@ -106,12 +106,12 @@
                 <strong>Profile</strong>
               </div>
               <div class="list-group list-group-alt">
-                <a href="#" class="media list-group-item">
+                <a href="user/settings" class="media list-group-item">
                   <span class="pull-left thumb-sm">
                     <img src="<?php echo(IMG.'a0.png'); ?>" alt="..." class="img-circle">
                   </span>
                   <span class="media-body block m-b-none">
-                    Settings<br>
+                    Personal settings<br>
                     <!-- <small class="text-muted">10 minutes ago</small> -->
                   </span>
                 </a>

@@ -72,6 +72,11 @@
 			$data['outlet_id'] = $outlet_id;
 			$this->db->insert('reservations', $data);
 			$last_id=$this->db->insert_id();
+
+			if ($data['confirm_via_email'] === 1) {
+				$this->send_confirmation($data['email'], $data['guest_name']);
+			}
+
 			$response=array();
 			$response['result'] = 'OK';
 			$response['message'] = 'Created with id:'.$last_id;
@@ -87,12 +92,15 @@
 			$data = array(
 				'start' => $_POST['newStart'],
 				'end' => $_POST['newEnd'],
-				'resource' => $_POST['newResource']
+				'resource' => $_POST['newResource'],
+				'oldStart' => $_POST['oldStart'],
+				'currentTime' => $_POST['currentTime']
 			);
 			$query=$this->db->query('SELECT resource 
 									FROM reservations 
 									WHERE outlet_id = "'.$outlet_id.'"
 									AND id!="'.$id.'"
+									AND resource != "0"
 									AND status != "cancelled"
 									AND (
 										(start>="'.$data['start'].'" AND end<="'.$data['end'].'") 
@@ -107,18 +115,20 @@
 			$resources_id = array();
 
 			foreach	($query as $key => $value) {
-				$resources_id[] = explode(",", $value['resource']);
+				$temp = explode(",", $value['resource']);
+				foreach ($temp as $tkey => $tvalue) {
+					$resources_id[] = $tvalue;
+				}
 			}			
 
-			$matches = array();
-			foreach ($resources_id as $key => $value) {
-				$matches[] = array_intersect($new_resources_id, $value);
-			}
+
+			$matches = array_intersect($new_resources_id, $resources_id);
 
 			$response=array();
-			$current_time=date('Y-m-d')."T".date("H:i:s");
-
-			if (!empty($matches) || $data['resource']=="D" || $data['start']<$current_time){
+			
+			// $current_time = date('Y-m-d')."T".date("H:i:s");
+			$current_time = $data['currentTime'];
+			if (!empty($matches) || $data['resource']=="D"  ||  $data['oldStart'] < $current_time || $data['start'] < $current_time ){
 				$response['result'] = 'NOK';
 				$response['message'] = 'Overlap';
 			}else{
@@ -162,12 +172,20 @@
 
 
 		public function change_status($outlet_id, $data) {
-
 			$id = $data['id'];
 			$status = $data['status'];
 			$this->db->set('status', $status);
 			$this->db->where('id', $id);
 			$this->db->update('reservations');
+			$response = array();
+			$response['result'] = 'OK';
+			$response['message'] = 'Status changed';
+		}		
+
+
+		public function set_late_not_show($outlet_id, $data) {
+
+			$this->db->update_batch('reservations', $data, 'id');
 			$response = array();
 			$response['result'] = 'OK';
 			$response['message'] = 'Status changed';
@@ -179,6 +197,10 @@
 			unset($data['time']);
 			$this->db->where('id', $id);
 			$this->db->update('reservations', $data);
+		}
+
+		private function send_confirmation($address, $guest_name) {
+			mail($address, "Reservation confirmation", "Text");
 		}
 
 	}
