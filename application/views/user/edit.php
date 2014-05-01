@@ -15,27 +15,27 @@
 		<div class="col-lg-6">
 			<div class="form-group">
 				<label for="exampleInputEmail1">Login</label>
-				<input name="user_name" id="user_name" class="form-control" id="exampleInputEmail1" placeholder="Login" value="<?php echo $user['user_name']; ?>" data-required="true" data-error-message="You must enter a username.">
+				<input name="username" id="user_name" class="form-control" id="exampleInputEmail1" placeholder="Login" value="<?php echo $user['user_name']; ?>" data-required="true" data-error-message="You must enter a username.">
 			</div>			
 
 			<div class="form-group">
 				<label for="exampleInputEmail1">Real name</label>
-				<input name="user_real_name" id="user_real_name" class="form-control" id="exampleInputEmail1" placeholder="User Name>" value="<?php echo $user['user_real_name']; ?>" data-required="true" data-error-message="You must enter the name of the user.">
+				<input name="realname" id="user_real_name" class="form-control" id="exampleInputEmail1" placeholder="User Name>" value="<?php echo $user['user_real_name']; ?>" data-required="true" data-error-message="You must enter the name of the user.">
 			</div>
 
 			<div class="form-group">
 				<label for="exampleInputEmail1">Email</label>
-				<input name="user_email" id="user_email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="<?php echo $user['user_email']; ?>" data-type="email" data-required="true" data-error-message="Enter a valid email, please.">
+				<input name="email" id="user_email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="<?php echo $user['user_email']; ?>" data-type="email" data-required="true" data-error-message="Enter a valid email, please.">
 			</div>
 
 			<div class="form-group">
 				<label>Password</label>
-				<input name="user_password" id="user_password" type="password" class="form-control" placeholder="Password" data-required="true" data-minlength="3" data-error-message="Enter a password (3 symbols at least), please.">
+				<input name="password" id="user_password" type="password" class="form-control" placeholder="Password" data-required="true" data-minlength="3" data-error-message="Enter a password (3 symbols at least), please.">
 			</div>
 
 			<div class="form-group">
 				<label>Retype the password</label>
-				<input name="user_re_password" id="user_re_password" type="password" class="form-control" placeholder="Retype the password" data-required="true" data-equalto="#user_password" data-error-message="Passwords must be exactly the same.">
+				<input name="re_password" id="user_re_password" type="password" class="form-control" placeholder="Retype the password" data-required="true" data-equalto="#user_password" data-error-message="Passwords must be exactly the same.">
 			</div>
 
 		</div>
@@ -44,7 +44,7 @@
 
 			<div class="form-group">
 				<label>User role</label>
-				<select name="user_role" class="form-control">
+				<select name="role" class="form-control">
 					<option value="1" <?php if($user['user_role']==1){echo "selected";} ?>>SuperAdmin</option>
 					<option value="2" <?php if($user['user_role']==2){echo "selected";} ?>>Admin</option>
 					<option value="3" <?php if($user['user_role']==3){echo "selected";} ?>>Manager</option>
@@ -56,7 +56,7 @@
 
 			<div class="form-group">
 				<label>User language</label>
-				<select name="user_language" class="form-control">
+				<select name="language" class="form-control">
 					<option value="English" <?php if($user['user_language']=="English"){echo "selected";} ?>>English</option>
 					<option value="German" <?php if($user['user_language']=="German"){echo "selected";} ?>>German</option>
 				</select>
@@ -64,14 +64,14 @@
 
 			<label>Choose a picture for the user</label>
 			<div class="form-group">
-				<input name="user_pic" type="file" class="filestyle" data-icon="false" data-classbutton="btn btn-default" data-classinput="form-control inline v-middle input-s" id="filestyle-0" style="position: fixed; left: -500px;"><div class="bootstrap-filestyle" style="display: inline;"><input type="text" class="form-control inline v-middle input-s" disabled=""> <label for="filestyle-0" class="btn btn-default"><span>Choose file</span></label></div>
+				<input name="pic" type="file" class="filestyle" data-icon="false" data-classbutton="btn btn-default" data-classinput="form-control inline v-middle input-s" id="filestyle-0" style="position: fixed; left: -500px;"><div class="bootstrap-filestyle" style="display: inline;"><input type="text" class="form-control inline v-middle input-s" disabled=""> <label for="filestyle-0" class="btn btn-default"><span>Choose file</span></label></div>
 			</div>
 
 			<div class="form-group">
 				<label>Is this user active?</label>
 				<div>
 					<label class="switch">
-						<input name="user_if_active" type="checkbox" <?php if($user['user_if_active']==1){echo "checked";} ?> value="1">
+						<input name="active" type="checkbox" <?php if($user['user_if_active']==1){echo "checked";} ?> value="1">
 						<span></span>
 					</label>
 				</div>

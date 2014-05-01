@@ -9,33 +9,22 @@ class User extends My_Controller {
 	}
 
 	
-	public function index($page="users") {
-		if($this->session->all_userdata('user_role') === 1) {
+	public function index($page="users") {		
 			$data['title'] = ucfirst($page); 
 			$data['users']=$this->read();
-			$this->render('user/list', $data);		
-		} else {
-			redirect(URL);
-		}
-
+			$this->render('user/list', $data);	
 	}
 
 
-	public function edit($id, $page = "edit") {
-		if($this->session->all_userdata('user_role') === 1) {
+	public function edit($id, $page = "edit") {		
 			$data['title'] = ucfirst($page);
 			$data['user']=$this->read($id);
 			$this->render('user/edit', $data);
-		} else {
-			redirect(URL);
-		}
-
 	}	
 
 	public function settings($page = "Personal settings") {
 		$data['title'] = ucfirst($page);
 		$data['user'] = $this->session->all_userdata();
-
 		if(!empty($data['user'])){
 			$this->render('user/settings', $data);
 		}
@@ -68,7 +57,7 @@ class User extends My_Controller {
 
 	public function update($id) {
 		$this->user_model->update_user($id);
-		redirect(URL);
+		redirect(URL.'welcome');
 	}
 
 	

@@ -50,8 +50,7 @@
 
 
 		public function create_user() {
-			if($_POST['user_password']==$_POST['user_re_password']){
-
+			if($_POST['user_password']==$_POST['user_re_password']) {
 				$data = array(
 					'username' => $_POST['user_name'],
 					'realname' => ucfirst($_POST['user_real_name']),
@@ -69,15 +68,13 @@
 
 
 		public function update_user($id) {
-			if($_POST['user_password']==$_POST['user_re_password']) {
-				$this->db->set('username',         $_POST['user_name']);
-				$this->db->set('realname',         ucfirst($_POST['user_real_name']));
-				$this->db->set('email',            $_POST['user_email']);
-				$this->db->set('active',           $_POST['user_if_active']);
-				$this->db->set('role',             $_POST['user_role']);
-				$this->db->set('modified',         date('Y-m-d H:i:s'));
-				$this->db->set('password',         md5($_POST['user_password']));
-				$this->db->set('language',         $_POST['user_language']);
+			if($_POST['password'] == $_POST['re_password']) {
+				unset($_POST['re_password']);
+				$_POST['password'] = md5($_POST['password'] );
+				foreach ($_POST as $key => $value) {
+					$this->db->set($key, $value);
+				}
+				
 				$this->db->where('id', $id);
 				$this->db->update('users');
 			}

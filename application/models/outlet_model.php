@@ -94,6 +94,7 @@
 
 
 		public function create_outlet($outlet) {
+			$outlet['active'] = 1;			
 			$this->db->insert('outlets', $outlet);
 			return $this->db->insert_id();
 		}

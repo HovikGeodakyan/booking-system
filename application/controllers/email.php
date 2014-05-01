@@ -13,12 +13,7 @@ class Email extends My_Controller {
 		$data['title']    = ucfirst($page); 
 		$data['title']    = ucfirst($page); 
 		
-		$this->render('email/index', $data);
-		
-		// $this->load->view('templates/header', $data);
-		// $this->load->view('templates/sidebar');
-		// $this->load->view('email/index');
-		// $this->load->view('templates/footer');
+		$this->render('email/index', $data);		
 	}
 
 

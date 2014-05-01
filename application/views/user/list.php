@@ -35,12 +35,20 @@
 						$i=1;
 						foreach($users as $usr){
 							switch($usr['user_role']){
-								case 1: $role="SuperAdmin";    break;
-								case 2: $role="Admin";   break;
-								case 3: $role="Manager"; break;
-								case 4: $role="Waiter";  break;
-								case 5: $role="User";    break;
-								case 6: $role="Guest";  break;
+								case 1: $role="SuperAdmin";    
+								break;
+								case 2: $role="Admin";   
+								break;
+								case 3: $role="Manager"; 
+								break;
+								case 4: $role="Waiter";  
+								break;
+								case 5: $role="User";    
+								break;
+								case 6: $role="Guest";  
+								break;
+								default:
+								 $role = "SuperAdmin";
 							}
 
 							echo "<tr>";
@@ -67,7 +75,7 @@
 		</div>
 	</div>
 	
-<script src="<?php echo(JS.'custom/user-outlet-remove.js'); ?>"></script>
+
 
 <!-- Modal -->
 <div class="modal fade custom-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

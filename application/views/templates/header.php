@@ -106,7 +106,7 @@
                 <strong>Profile</strong>
               </div>
               <div class="list-group list-group-alt">
-                <a href="user/settings" class="media list-group-item">
+                <a href="<?php echo URL; ?>user/settings" class="media list-group-item">
                   <span class="pull-left thumb-sm">
                     <img src="<?php echo(IMG.'a0.png'); ?>" alt="..." class="img-circle">
                   </span>

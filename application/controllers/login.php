@@ -7,9 +7,10 @@ class Login extends CI_Controller {
 		$this->lang->load('en', 'en');
 		$this->load->model('login_model');
 
-		// if(empty($this->login_model->checkFirstLogin())) {			
-		// 	redirect('/register');
-		// }
+		$checkFirstLog = $this->login_model->checkFirstLogin();
+		if(empty($checkFirstLog)) {			
+			redirect('/register');
+		}
 		
 	}
 
