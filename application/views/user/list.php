@@ -1,5 +1,16 @@
 <section class="row m-b-md">
 </section>
+
+	<?php if($this->session->flashdata('message')) { ?>
+		<div class="alert alert-success" id="outlet_message" >
+	        <button type="button" class="close" data-dismiss="alert">×</button>
+	        <i class="fa fa-ok-sign"></i>		
+	        
+			<strong><?php	echo $this->session->flashdata('message'); ?></strong>
+			
+	    </div>
+    <?php } ?>
+
 <!-- 	Users -->
 	<ul class="nav nav-tabs settings_tabs">
 		<li><a href="<?php echo(URL.'outlet'); ?>">Outlet</a></li>
@@ -91,3 +102,15 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+
+<script>
+	$(document).ready(function () {
+		setTimeout(function() { hide_message(); }, 500);
+	});
+
+	function hide_message(){
+		$('#outlet_message').fadeOut();
+	}
+</script>

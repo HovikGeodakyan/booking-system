@@ -93,9 +93,9 @@
         </div>
       </form>
       <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
-        <li class="hidden-xs">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <span class="thumb-sm avatar pull-left">
+        <li class="">
+          <a href="#" class="hidden-xs dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-xs thumb-sm avatar pull-left">
               <img src="<?php echo(IMG.'a0.png'); ?>" alt="...">
             </span>
             <?php echo $this->session->userdata('user_name'); ?> <b class="caret"></b>
@@ -103,7 +103,7 @@
           <section class="dropdown-menu aside-xl animated flipInY">
             <section class="panel bg-white">
               <div class="panel-heading b-light bg-light">
-                <strong>Profile</strong>
+                <strong><?php echo $this->session->userdata('user_name'); ?></strong>
               </div>
               <div class="list-group list-group-alt">
                 <a href="<?php echo URL; ?>user/settings" class="media list-group-item">

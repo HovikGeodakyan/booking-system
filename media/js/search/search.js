@@ -6,6 +6,7 @@ $(document).ready(function() {
             type: "post",
             dataType:'json',
             success: function(data) {
+            	$('#search_results_table tbody').empty();
             	var str = '';
             	for ( var i=0; i< data.length; i++) {
             		str += '<tr>';

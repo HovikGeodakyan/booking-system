@@ -4,7 +4,7 @@ class Login extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->lang->load('en', 'en');
+		$this->lang->load('fr', 'fr');
 		$this->load->model('login_model');
 
 		$checkFirstLog = $this->login_model->checkFirstLogin();

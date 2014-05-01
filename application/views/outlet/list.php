@@ -1,12 +1,25 @@
 <section class="row m-b-md"></section>
 
+	<?php if($this->session->flashdata('message')) { ?>
+		<div class="alert alert-success" id="outlet_message" >
+	        <button type="button" class="close" data-dismiss="alert">×</button>
+	        <i class="fa fa-ok-sign"></i>		
+	        
+			<strong><?php	echo $this->session->flashdata('message'); ?></strong>
+			
+	    </div>
+    <?php } ?>
+
 <!-- 	Outlets -->
+
+
 	<ul class="nav nav-tabs settings_tabs">
 		<li class="active"><a href="<?php echo(URL.'outlet'); ?>">Outlet</a></li>
 		<li><a href="<?php echo(URL.'user'); ?>">Users</a></li>
 		<li><a href="<?php echo(URL.'holiday'); ?>">Holidays</a></li>
 		<li><a href="<?php echo(URL.'email'); ?>">Email</a></li>
 	</ul>
+
 	<div id="_settings" class="settings">
 		<div class="settings_header">
 			<div class="crud">
@@ -76,3 +89,12 @@
 	</div>
 	
 
+<script>
+	$(document).ready(function () {
+		setTimeout(function() { hide_message(); }, 500);
+	});
+
+	function hide_message(){
+		$('#outlet_message').fadeOut();
+	}
+</script>

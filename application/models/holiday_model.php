@@ -7,7 +7,7 @@
 
 
 		public function load_general_holidays(){
-			$query = $this->db->query('SELECT * FROM holidays ');
+			$query = $this->db->query('SELECT * FROM holidays WHERE outlet_id = 0');
 			$holidays = $query->result_array();			
 			return $holidays;			
 		}
@@ -32,6 +32,14 @@
 			return $holidays;			
 		}
 
+		public function load_current_holidays($start, $end, $outlet_id) {
+			$start = substr($start, 0, 10);
+			$end = substr($end, 0, 10);
+			$query = $this->db->query('SELECT * FROM holidays WHERE (`outlet_id` = "'.$outlet_id.'" OR `outlet_id` = 0) AND (start <= "'.$start.'" AND end >= "'.$end.'")');
+			$query = $query->row_array();
+
+			return $query;
+		}
 
  		public function update_holidays ($outled_id, $holidays) {
  			foreach ($holidays as $i => $s){

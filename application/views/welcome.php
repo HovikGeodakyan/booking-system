@@ -31,7 +31,8 @@
 
       </section>
 
- <div class="white_content">
+<div class="white_content">
+  <div class="holiday_conatainer"></div>
 <section class="">
 
 <!-- <form class="form-inline add_reservation" role="form">
@@ -209,3 +210,6 @@
     </div>
   </div>
 </div>
+
+
+

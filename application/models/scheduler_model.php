@@ -79,7 +79,7 @@
 
 			$response=array();
 			$response['result'] = 'OK';
-			$response['message'] = 'Created with id:'.$last_id;
+			$response['message'] = 'Succesfully reserved';
 			$response['id'] = $last_id;
 			$response['reservation'] = $data;
 			
@@ -139,7 +139,7 @@
 				$this->db->update('reservations');
 				$response=array();
 				$response['result'] = 'OK';
-				$response['message'] = 'Update successful';
+				$response['message'] = 'Succesfully updated';
 			}
 			return $response;
 		}	
@@ -165,7 +165,7 @@
 				$this->db->where('id', $id);
 				$this->db->update('reservations');
 				$response['result'] = 'OK';
-				$response['message'] = 'Update successful';
+				$response['message'] = 'Duration changed';
 			}
 			return $response;
 		}
@@ -197,6 +197,9 @@
 			unset($data['time']);
 			$this->db->where('id', $id);
 			$this->db->update('reservations', $data);
+			$response = array();
+			$response['result'] = 'OK';
+			$response['message'] = 'Reservation updated';
 		}
 
 		private function send_confirmation($address, $guest_name) {

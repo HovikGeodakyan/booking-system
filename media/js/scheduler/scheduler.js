@@ -1,5 +1,6 @@
 $( document ).ready(function() {
      updateClock ();
+
      setInterval('updateClock()', 60000);
      setInterval("initializeScheduler($('#main_calendar').val(), $('input:radio[name=tables_type]:checked').val())", 900000);
 
@@ -62,7 +63,7 @@ var initializeScheduler = function(currentDate, viewType) {
   var day;
   if(typeof currentDate !== 'undefined') {
     datePilotDate = new DayPilot.Date(currentDate);
-    day = new Date(currentDate).getDay();
+    day = new Date(currentDate).getDay().toString();
   } else {   
     datePilotDate = new DayPilot.Date();
     day = new Date().getDay();
@@ -77,7 +78,22 @@ var initializeScheduler = function(currentDate, viewType) {
       dataType: 'json',
       data:{start:datePilotDate.toString(), end: datePilotDate.addDays(1).toString(), type:viewType, current_time: current_time, current_end: current_end},
       success: function(data) {
-        //console.log(data);
+
+        if (data.holidays !== null ) {
+          $('.holiday_conatainer').empty();
+          $('.holiday_conatainer').append("<h2>" + data.holidays.message + "</h2>");
+          $('.loader').hide();
+          return false;
+        } 
+
+        if (data.outlet_day_off === day) {
+          $('.holiday_conatainer').empty();
+          $('.holiday_conatainer').append("<h2>Sorry, we're not working today.</h2>");
+          $('.loader').hide();
+          return false;
+        }
+        $('.holiday_conatainer').empty();
+
         setTimeout(function(){ $('.loader').hide()}, 1700);
         
         var outlet_settings = {};       
@@ -124,8 +140,22 @@ var initializeScheduler = function(currentDate, viewType) {
         var clicked_reservation;
         dp.onEventClicked = function(args) {
             $('#reservation_edit').modal('show');
-            var reservation_info = args.e.data;              
-            
+            var reservation_info = args.e.data;     
+
+            if(new DayPilot.Date(reservation_info.start).ticks <= new DayPilot.Date().ticks) {
+              $('#reservation_edit input').attr("disabled", "disabled");
+              $('#reservation_edit select').attr("disabled", "disabled");
+              $('#has_arrived').attr("disabled", "disabled");
+              $('#save_reservation').attr("disabled", "disabled");
+              $('#cancel_reservation').attr("disabled", "disabled");
+            } else {
+              $('#reservation_edit input').removeAttr("disabled");
+              $('#reservation_edit select').removeAttr("disabled");
+              $('#has_arrived').removeAttr("disabled");
+              $('#save_reservation').removeAttr("disabled");
+              $('#cancel_reservation').removeAttr("disabled");
+            }
+
             $('#reservation_edit input').val();
             $('#reservation_edit input[name=date]').val(reservation_info.start.substr(0, 10));
             $('#reservation_edit input[name=time]').val(reservation_info.start.substr(11, 5));
@@ -150,9 +180,6 @@ var initializeScheduler = function(currentDate, viewType) {
 
             mark_busy_tables(reservation_info.start.substr(11, 5), reservation_info.end.substr(11, 5), "reservation_table");        
             mark_incufficent_capacity_tables(reservation_info.guest_number, "reservation_table");
-            
-            $('#has_arrived').removeAttr('disabled');
-            $('#cancel_reservation').removeAttr('disabled');
 
             clicked_reservation = args.e;
         };
@@ -271,6 +298,9 @@ var initializeScheduler = function(currentDate, viewType) {
         
         for(var i=0; i < data['tables'].length; i++){
           var table = '<option value="'+data['tables'][i]['table_id']+'" >'+"T"+(i+1)+'</option>'; ///add outlet tabes to the new reservation select menu
+          if(data['tables'][i]['table_combinable'] === "0") {
+            table = '<option value="'+data['tables'][i]['table_id']+'" >'+"T"+(i+1)+' (not combinable)</option>';
+          }
           $('#reservation_table').append(table); ///add outlet tabes to the new reservation select menu
           dp.resources.push({name: "T"+(i+1), id: data['tables'][i]['table_id']}); //add the outlet table to the matrix resources tab
         }
@@ -335,7 +365,7 @@ var initializeScheduler = function(currentDate, viewType) {
 
         //move a reservation
         dp.onEventMoved = function (args) {
-            console.log(args.e.part.start.ticks <= new DayPilot.Date().ticks);
+            //console.log(args.e.part.start.ticks <= new DayPilot.Date().ticks);
             // if(args.e.part.start.ticks <= new DayPilot.Date().ticks || args.newResource === "D" || args.newStart.ticks < new DayPilot.Date().ticks || args.newResource.substr(0,2) === "na"){
             //       args.e.data.resource = revert;//revert to original row
             //       //reverting event start and end
@@ -372,7 +402,7 @@ var initializeScheduler = function(currentDate, viewType) {
 
                     dp.events.update(args.e);
                   } else {
-                    dp.message("Moved");
+                    dp.message(data.message);
                     dp.events.update(args.e);
                     loadEvents();
                     dp.update();
@@ -421,6 +451,7 @@ var initializeScheduler = function(currentDate, viewType) {
               dp.clearSelection();
               return false;
             }
+            clicked_reservation = null;
 
             $('#reservation_edit').modal('show');
             
@@ -428,6 +459,10 @@ var initializeScheduler = function(currentDate, viewType) {
             $('#reservation_edit input[name=date]').val(args.start.toString().substr(0, 10));
             $('#reservation_edit input[name=time]').val(args.start.toString().substr(11, 5));
             $('#reservation_edit input[name=end_time]').val(args.end.toString().substr(11, 5));
+
+              $('#reservation_edit input').removeAttr("disabled");
+              $('#reservation_edit select').removeAttr("disabled");
+              $('#save_reservation').removeAttr("disabled");
 
             $('#reservation_table option').removeAttr("selected");
             $('#reservation_table option').removeAttr("disabled");
@@ -489,6 +524,7 @@ var initializeScheduler = function(currentDate, viewType) {
                 status: "arrived"
             }, 
             function(data){
+              dp.message("Reservation status changed to 'arrived'.");
               dp.events.update(clicked_reservation);
               loadEvents();
               dp.update();
@@ -506,6 +542,7 @@ var initializeScheduler = function(currentDate, viewType) {
               }, 
               function(data){
                 $('#reservation_edit').modal('hide');
+                dp.message("Reservation succesfully cancelled.");
                 dp.events.remove(clicked_reservation);
                 loadEvents();
                 dp.update();
@@ -527,15 +564,26 @@ var initializeScheduler = function(currentDate, viewType) {
             var reservation_start = reservation_date + "T" + reservation_time + ":00";
             var reservation_end = $('#reservation_edit input[name=end_time]').val();
             reservation_end = reservation_date + "T" + reservation_end;
-            console.log(form);
-            var reservation_id = (typeof clicked_reservation === 'undefined') ? '' : clicked_reservation.value()
-            
+
+            var tables = $('#reservation_table').val();
+            if(tables.length > 1) {
+              for (var i=0; i<data.tables.length; i++) {
+                if($.inArray(data.tables[i].table_id, tables) && data.tables[i].table_combinable === "0") {
+                  alert("You're trying to combine incombinable.");
+                  return false;
+                }
+              }
+            }
+
+            var reservation_id = (clicked_reservation === null) ? '' : clicked_reservation.value();
+
             $.ajax({
               url: "scheduler/update/" + data.outlet_id + "/" + reservation_id,
               type: "post",
               data: form + "&start=" + reservation_start + "&end=" + reservation_end,
               success: function(data) {
                 $('#reservation_edit').modal('hide');
+                dp.message("Succesfully updated");
                 dp.clearSelection();
                 loadEvents();
                 dp.update();
@@ -543,7 +591,6 @@ var initializeScheduler = function(currentDate, viewType) {
           });
         });              
 
-          
           
         $('.edit_reservation input[name=time]').on("change", function(){
             time = $(this).val().split(':');
@@ -720,10 +767,13 @@ var initializeScheduler = function(currentDate, viewType) {
               } else if ((new DayPilot.Date(dp.events.list[i].start).ticks - 1800000) <= new DayPilot.Date().ticks && dp.events.list[i].status !== "arrived") {
                  dp.events.list[i].status = "late";
                  arrayof_late_not_shows.push({id: dp.events.list[i].id, status: 'late'});
+              } else {
+                 dp.events.list[i].status = "";
+                 arrayof_late_not_shows.push({id: dp.events.list[i].id, status: ''});
               }
             }
 
-            console.log (arrayof_late_not_shows);
+            //console.log (arrayof_late_not_shows);
             if(arrayof_late_not_shows.length > 0) {
               $.post("scheduler/set_late_not_show/" + data["outlet_id"],  {
                 arr: arrayof_late_not_shows

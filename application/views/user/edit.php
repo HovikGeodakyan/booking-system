@@ -4,7 +4,7 @@
 
 <div class="_edit">
 
-	<form role="form" action="<?php echo(URL.'user/update/'.$user['user_id']); ?>" method="post">
+	<form role="form" action="<?php echo(URL.'user/update/'.$user['user_id']); ?>" method="post" data-validate="parsley">
 		
 		<div style="float:right">
 			<button type="submit" class="btn btn-primary" id="user_form_submit">Submit</button>

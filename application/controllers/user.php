@@ -39,6 +39,8 @@ class User extends My_Controller {
 
 	public function create(){
 		$this->user_model->create_user();
+		$this->session->set_flashdata('message', "Succesfully created.");
+
 		redirect(URL.'user');
 	}
 
@@ -57,6 +59,8 @@ class User extends My_Controller {
 
 	public function update($id) {
 		$this->user_model->update_user($id);
+		$this->session->set_flashdata('message', "User information succesfully updated.");
+
 		redirect(URL.'welcome');
 	}
 

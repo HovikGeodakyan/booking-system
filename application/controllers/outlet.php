@@ -13,7 +13,7 @@ class Outlet extends My_Controller {
 
 	public function index($page = 'outlets') {
 		$data['title']   = ucfirst($page); 
-		$data['outlets'] = $this->read(); 
+		$data['outlets'] = $this->read(); ; 
 
 		$this->render('outlet/list', $data);	
 	}
@@ -52,6 +52,7 @@ class Outlet extends My_Controller {
 			$this->holiday_model->update_holidays($outlet_id, $holidays);
 		}
 
+		$this->session->set_flashdata('message', "Succesfully created.");
 		redirect(URL.'outlet');
 	}
 
@@ -72,6 +73,8 @@ class Outlet extends My_Controller {
 			$this->holiday_model->update_holidays($id, $holidays);
 		}
 		
+		$this->session->set_flashdata('message', "Succesfully updated.");
+
 		redirect(URL.'outlet');
 	}
 
@@ -146,6 +149,10 @@ class Outlet extends My_Controller {
 		}
 
 		$res['tables'] = $tables;
+
+		$res['holidays'] = $this->holiday_model->load_current_holidays($currentStart, $currentEnd, $res['outlet_id']);
+		$res['holidays'] = (!empty($res['holidays'])) ? $res['holidays'] : NULL;
+
 		$res['not_assigned'] = $not_assigned;
 		echo json_encode($res);
 	}
