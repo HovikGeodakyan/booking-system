@@ -454,7 +454,7 @@ var initializeScheduler = function(currentDate, viewType) {
             clicked_reservation = null;
 
             $('#reservation_edit').modal('show');
-            
+
             $('#reservation_edit input').val("");
             $('#reservation_edit input[name=date]').val(args.start.toString().substr(0, 10));
             $('#reservation_edit input[name=time]').val(args.start.toString().substr(11, 5));
@@ -569,10 +569,20 @@ var initializeScheduler = function(currentDate, viewType) {
             if(tables.length > 1) {
               for (var i=0; i<data.tables.length; i++) {
                 if($.inArray(data.tables[i].table_id, tables) && data.tables[i].table_combinable === "0") {
-                  alert("You're trying to combine incombinable.");
+                  $.alert({
+                    text: "You are trying to combine incombinable",
+                  });
                   return false;
                 }
               }
+            }
+
+            
+            if ($('.edit_reservation').parsley('isValid') === false){
+              $.alert({
+                    text: "Fill in all required blanks, please (marked *)",
+              });
+              return false;
             }
 
             var reservation_id = (clicked_reservation === null) ? '' : clicked_reservation.value();
@@ -750,6 +760,7 @@ var initializeScheduler = function(currentDate, viewType) {
                   $('#' + select_box + ' option[value=' + data['tables'][i]['table_id'] + ']').addClass("warning");
                 }
               }
+
               $('#' + select_box).chosen().change();
               $('#' + select_box).trigger("chosen:updated");
           }

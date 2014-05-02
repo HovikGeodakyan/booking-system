@@ -203,7 +203,7 @@
 		}
 
 		private function send_confirmation($address, $guest_name) {
-			mail($address, "Reservation confirmation", "Text");
+			mail($address, "Reservation confirmation", "Text", "From: booking.system@gmail.com");
 		}
 
 	}

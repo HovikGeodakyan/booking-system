@@ -115,16 +115,16 @@
         <h4 class="modal-title" id="myModalLabel">Reservation details</h4>
       </div>
       <div class="modal-body col-lg-12">
-        <form class="edit_reservation col-lg-12" role="form" >
+        <form class="edit_reservation col-lg-12" role="form" data-validate="parsley">
 
           <div class="form-group col-lg-4"> 
-            <label>Date</label> 
-            <input type="text" class="form-control" name='date'>
+            <label>Date*</label> 
+            <input type="text" class="form-control" name='date' data-required="true">
           </div>
 
           <div class="form-group col-lg-3"> 
-            <label>Start</label>   
-            <input type="text" step="900" class="form-control" name="time">
+            <label>Start*</label>   
+            <input type="text" step="900" class="form-control" name="time" data-required="true">
           </div>          
 
           <div class="form-group col-lg-3"> 
@@ -133,8 +133,8 @@
           </div>
 
           <div class="form-group col-lg-2">  
-            <label>Guests</label>
-            <input type="number" class="form-control" placeholder="Guests number" name="guest_number">
+            <label>Guests*</label>
+            <input type="number" class="form-control" placeholder="Guests number" name="guest_number" data-required="true" data-type="digits">
           </div>
 
           <div class="form-group col-lg-12">
@@ -154,8 +154,8 @@
           </div>
 
           <div class="form-group col-lg-5">
-            <label>Guest name</label>  
-            <input type="text" class="form-control" placeholder="Name" name="guest_name">
+            <label>Guest name*</label>  
+            <input type="text" class="form-control" placeholder="Name" name="guest_name" data-required="true">
           </div>
 
           <div class="form-group col-lg-4">
@@ -197,7 +197,7 @@
               <label></label>
                 <input type="checkbox" value="1" name="confirm_via_email">  
             </div>
-          </div>
+          </div>          
           
         </form>
       </div>

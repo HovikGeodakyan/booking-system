@@ -9,6 +9,7 @@ class Welcome extends My_Controller {
 
 
 	public function index($page="home")	{
+
 		$data['title'] = ucfirst($page);
 		$this->render('welcome', $data);
 	}
