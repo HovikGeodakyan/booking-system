@@ -4,10 +4,7 @@
 
 		public function __construct() {
 			parent::__construct();
-			// $config['upload_path'] = AVATAR;
-			// $config['allowed_types'] = 'gif|jpg|png';
-			// $config['max_size']	= '100';
-			// $this->load->library('upload', $config);
+
 		}
 
 
@@ -25,6 +22,7 @@
 				$u['user_if_active'] = $row['active'];
 				$u['user_role'] = $row['role'];
 				$u['user_modified'] = $row['modified'];
+				$u['user_avatar'] = $row['avatar'];
 				$users[] = $u;
 			}
 			return $users;
@@ -44,6 +42,7 @@
 			$u['user_if_active'] = $row['active'];
 			$u['user_role'] = $row['role'];
 			$u['user_language'] = $row['language'];
+			$u['user_avatar'] = $row['avatar'];
 
 			return $u;
 		}
@@ -60,23 +59,41 @@
 					'created'  => date('Y-m-d H:i:s'),
 					'modified' => date('Y-m-d H:i:s'),
 					'password' => md5($_POST['user_password']),
-					'language' => $_POST['user_language']
+					'language' => $_POST['user_language'],
+					'avatar'   => "a0.png"
 				);
 				$this->db->insert('users', $data);
 			}
 		}
 
 
-		public function update_user($id) {
-			if($_POST['password'] == $_POST['re_password']) {
-				unset($_POST['re_password']);
-				$_POST['password'] = md5($_POST['password'] );
-				foreach ($_POST as $key => $value) {
-					$this->db->set($key, $value);
+		public function update_user($id, $data) {
+			if($data['password'] == $data['re_password']) {
+				unset($data['re_password']);
+				$data['password'] = md5($data['password'] );
+
+				if (isset($_FILES['avatar']) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+					$upload = $this->upload_avatar("avatar");
+				} else {
+					$upload['upload_data']['file_name'] = $this->session->userdata('avatar');
 				}
-				
-				$this->db->where('id', $id);
-				$this->db->update('users');
+
+				if(isset($upload['error'])) {
+					return $upload['error'];
+				} else {
+					var_dump($upload);
+					$data['avatar'] = $upload['upload_data']['file_name'];
+					$this->db->where('id', $id);
+					$this->db->update('users', $data);
+
+					if($id === $this->session->userdata("user_id")) {
+						$this->update_session($data);
+					}
+
+					return "Succesfully updated.";
+				}
+
+
 			}
 		}
 
@@ -85,6 +102,37 @@
 			$this->db->set('deleted', 1);
 			$this->db->where('id', $id);
 			$this->db->update('users');
+		}
+
+		public function upload_avatar($file) {
+			$config['upload_path'] = AVATARPATH;
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['max_size']	= '1000';
+			$config['max_width']  = '1024';
+			$config['max_height']  = '768';
+
+			$this->load->library('upload', $config);
+			if ( ! $this->upload->do_upload($file))
+			{
+				$error = array('error' => $this->upload->display_errors());
+				return $error;
+			}
+			else
+			{
+				$file_data = array('upload_data' => $this->upload->data());
+
+				return $file_data;
+			}
+		}
+
+		public function update_session($newData) {
+			$newUserData = $this->session->all_userdata();
+			$newUserData['user_name'] = $newData["username"];
+			$newUserData['user_email'] = $newData["email"];
+			$newUserData['user_language'] = $newData["language"];
+			$newUserData['user_real_name'] = $newData["realname"];
+			$newUserData['user_avatar'] = $newData["avatar"];
+			$this->session->set_userdata($newUserData);
 		}
 	}
 ?>

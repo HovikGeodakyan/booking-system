@@ -167,6 +167,7 @@ var initializeScheduler = function(currentDate, viewType) {
             $('#reservation_edit input[name=phone]').val(reservation_info.phone);
             $('#reservation_edit input[name=email]').val(reservation_info.email);
             $('#reservation_edit input[name=author]').val(reservation_info.author);
+            $('#reservation_edit input[name=confirm_via_email]').parent().parent().hide();
             
             var array_of_tables = [];
             for (var i=0; i<dp.events.list.length; i++) {
@@ -463,6 +464,7 @@ var initializeScheduler = function(currentDate, viewType) {
               $('#reservation_edit input').removeAttr("disabled");
               $('#reservation_edit select').removeAttr("disabled");
               $('#save_reservation').removeAttr("disabled");
+              $('#reservation_edit input[name=confirm_via_email]').parent().parent().show();
 
             $('#reservation_table option').removeAttr("selected");
             $('#reservation_table option').removeAttr("disabled");

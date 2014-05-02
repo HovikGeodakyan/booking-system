@@ -4,7 +4,7 @@
 
 <div class="_edit">
 
-	<form role="form" action="<?php echo(URL.'user/update/'.$user['user_id']); ?>" method="post" data-validate="parsley">
+	<form role="form" action="<?php echo(URL.'user/update/'.$user['user_id']); ?>" method="post" data-validate="parsley" enctype="multipart/form-data">
 		
 		<div style="float:right">
 			<button type="submit" class="btn btn-primary" id="user_form_submit">Submit</button>
@@ -64,7 +64,7 @@
 
 			<label>Choose a picture for the user</label>
 			<div class="form-group">
-				<input name="userfile" type="file" class="filestyle" data-icon="false" data-classbutton="btn btn-default" data-classinput="form-control inline v-middle input-s" id="filestyle-0" style="position: fixed; left: -500px;"><div class="bootstrap-filestyle" style="display: inline;"><input type="text" class="form-control inline v-middle input-s" disabled=""> <label for="filestyle-0" class="btn btn-default"><span>Choose file</span></label></div>
+				<input type="file" name="avatar" value="<?php echo $user['user_avatar']; ?>">
 			</div>
 
 		</div>

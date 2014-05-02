@@ -97,7 +97,7 @@
         <li class="">
           <a href="#" class="hidden-xs dropdown-toggle" data-toggle="dropdown">
             <span class="hidden-xs thumb-sm avatar pull-left">
-              <img src="<?php echo(IMG.'a0.png'); ?>" alt="...">
+              <img src="<?php echo (AVATAR.$this->session->userdata('user_avatar')); ?>" alt="...">
             </span>
             <?php echo $this->session->userdata('user_name'); ?> <b class="caret"></b>
           </a>
@@ -107,9 +107,9 @@
                 <strong><?php echo $this->session->userdata('user_name'); ?></strong>
               </div>
               <div class="list-group list-group-alt">
-                <a href="<?php echo URL; ?>user/settings" class="media list-group-item">
+                <a href="<?php echo URL; ?>user/settings/<?php echo $this->session->userdata('user_id'); ?>" class="media list-group-item">
                   <span class="pull-left thumb-sm">
-                    <img src="<?php echo(IMG.'a0.png'); ?>" alt="..." class="img-circle">
+                    <img src="<?php echo (AVATAR.$this->session->userdata('user_avatar')); ?>" alt="..." class="img-circle">
                   </span>
                   <span class="media-body block m-b-none">
                     Personal settings<br>

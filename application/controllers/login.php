@@ -31,7 +31,8 @@ class Login extends CI_Controller {
 				'user_email'=> $res['email'],
 				'user_phone'=> $res['phone'],
 				'user_language'=> $res['language'],
-				'user_real_name'=> $res['realname']
+				'user_real_name'=> $res['realname'],
+				'user_avatar'=> $res['avatar']
 			);
 			$this->session->set_userdata($newdata);
 			redirect('/welcome');

@@ -4,6 +4,13 @@
 
 		public function __construct() {
 			parent::__construct();
+
+			$this->load->library('email');
+			$config['mailtype'] = 'html';
+			$config['charset'] = 'iso-8859-1';
+			$config['wordwrap'] = TRUE;
+
+			$this->email->initialize($config);
 		}
 
 
@@ -203,7 +210,16 @@
 		}
 
 		private function send_confirmation($address, $guest_name) {
-			mail($address, "Reservation confirmation", "Text", "From: booking.system@gmail.com");
+			$this->email->from('booking@system.com', 'Booking System');
+			$this->email->to($address); 
+			$this->email->subject('Reservation confirmation');
+
+			$data['guest_name'] = $guest_name;
+			$message = $this->load->view('email_template', $data, TRUE);
+			$this->email->message($message);	
+
+			$this->email->send();
+
 		}
 
 	}

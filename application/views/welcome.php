@@ -175,7 +175,7 @@
 
           <div class="form-group col-lg-6"> 
             <label>Email</label>
-            <input type="email" class="form-control" placeholder="Email" name="email">
+            <input type="email" class="form-control" placeholder="Email" name="email" data-type="email">
           </div>
 
           <div class="form-group col-lg-4">

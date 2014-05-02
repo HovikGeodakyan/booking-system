@@ -22,9 +22,9 @@ class User extends My_Controller {
 			$this->render('user/edit', $data);
 	}	
 
-	public function settings($page = "Personal settings") {
+	public function settings($id, $page = "Personal settings") {
 		$data['title'] = ucfirst($page);
-		$data['user'] = $this->session->all_userdata();
+		$data['user'] = $this->read($id);
 		if(!empty($data['user'])){
 			$this->render('user/settings', $data);
 		}
@@ -58,8 +58,9 @@ class User extends My_Controller {
 
 
 	public function update($id) {
-		$this->user_model->update_user($id);
-		$this->session->set_flashdata('message', "User information succesfully updated.");
+		$data = $this->input->post();
+		$message = $this->user_model->update_user($id, $data);
+		$this->session->set_flashdata('message', $message);
 
 		redirect(URL.'welcome');
 	}
