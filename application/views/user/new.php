@@ -63,11 +63,6 @@
 				</select>
 			</div>
 
-			<label>Choose a picture for the user</label>
-			<div class="form-group">
-				<input name="user_pic" type="file" class="filestyle" data-icon="false" data-classbutton="btn btn-default" data-classinput="form-control inline v-middle input-s" id="filestyle-0" style="position: fixed; left: -500px;"><div class="bootstrap-filestyle" style="display: inline;"><input type="text" class="form-control inline v-middle input-s" disabled=""> <label for="filestyle-0" class="btn btn-default"><span>Choose file</span></label></div>
-			</div>
-
 			<div class="form-group">
 				<label class="control-label">Is this user active?</label>
 				<div>

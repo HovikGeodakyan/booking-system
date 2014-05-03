@@ -181,6 +181,7 @@
 		public function change_status($outlet_id, $data) {
 			$id = $data['id'];
 			$status = $data['status'];
+
 			$this->db->set('status', $status);
 			$this->db->where('id', $id);
 			$this->db->update('reservations');

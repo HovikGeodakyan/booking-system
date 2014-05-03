@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
--- Хост: 127.0.0.1
--- Время создания: Май 01 2014 г., 02:30
--- Версия сервера: 5.5.32
--- Версия PHP: 5.4.16
+-- Host: 127.0.0.1
+-- Generation Time: May 03, 2014 at 01:30 PM
+-- Server version: 5.6.14
+-- PHP Version: 5.5.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,15 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `booking`
+-- Database: `booking`
 --
-CREATE DATABASE IF NOT EXISTS `booking` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `booking`;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `email`
+-- Table structure for table `email`
 --
 
 CREATE TABLE IF NOT EXISTS `email` (
@@ -40,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `email` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `holidays`
+-- Table structure for table `holidays`
 --
 
 CREATE TABLE IF NOT EXISTS `holidays` (
@@ -51,12 +49,12 @@ CREATE TABLE IF NOT EXISTS `holidays` (
   `message` text NOT NULL,
   `outlet_id` int(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `info`
+-- Table structure for table `info`
 --
 
 CREATE TABLE IF NOT EXISTS `info` (
@@ -75,22 +73,10 @@ CREATE TABLE IF NOT EXISTS `info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
---
--- Дамп данных таблицы `info`
---
-
-INSERT INTO `info` (`id`, `concert_name`, `concert_start`, `concert_end`, `not_bookable_table_lunch`, `not_bookable_table_dinner`, `not_bookable_table_pre_concert`, `not_bookable_table_concert`, `not_bookable_table_post_concert`, `outlet_id`, `concert_date`, `concert_description`) VALUES
-(1, 'Pink Floyd', '18:00:00', '22:00:00', 2, 4, 4, 4, 4, 65, '2014-04-24', 'bv jkhjkbuhhjkhikgbhj'),
-(2, 'Pink', '18:00:00', '22:00:00', 3, 3, 3, 3, 3, 65, '2014-04-23', 'bv jkhjkbuhhjkhikgbhj'),
-(3, '', NULL, NULL, 3, 0, 0, 0, 0, 0, NULL, ''),
-(4, '', NULL, NULL, 3, 0, 0, 0, 0, 0, NULL, ''),
-(5, '', NULL, NULL, 3, 0, 0, 0, 0, 0, NULL, ''),
-(6, '', NULL, NULL, 2, 0, 0, 0, 0, 0, '2014-04-25', '');
-
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `outlets`
+-- Table structure for table `outlets`
 --
 
 CREATE TABLE IF NOT EXISTS `outlets` (
@@ -148,12 +134,12 @@ CREATE TABLE IF NOT EXISTS `outlets` (
   `deleted` tinyint(2) NOT NULL DEFAULT '0',
   `active` tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `reservations`
+-- Table structure for table `reservations`
 --
 
 CREATE TABLE IF NOT EXISTS `reservations` (
@@ -173,12 +159,12 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `end` datetime NOT NULL,
   `outlet_id` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tables`
+-- Table structure for table `tables`
 --
 
 CREATE TABLE IF NOT EXISTS `tables` (
@@ -189,12 +175,12 @@ CREATE TABLE IF NOT EXISTS `tables` (
   `location` int(5) NOT NULL,
   `outlet_id` int(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -213,8 +199,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `confirmation_code` varchar(255) NOT NULL,
   `last_ip` varchar(40) NOT NULL,
   `language` varchar(50) NOT NULL,
+  `avatar` varchar(250) NOT NULL DEFAULT 'a0.png',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

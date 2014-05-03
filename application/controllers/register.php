@@ -17,7 +17,7 @@ class Register extends CI_Controller {
 
 	public function create() {
 		$this->register_model->register_user();
-		redirect(URL.'outlet/add');
+		redirect('outlet/add');
 	}
 	
 }

@@ -5,8 +5,10 @@
 		<link tpye="text/css" rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>"/> 
 	    <script src="<?php echo(JS.'lib/jquery.min.js'); ?>"></script>
 	    <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script> 
-		<script src="<?php echo(JS.'theme/js/parsley/parsley.min.js'); ?>"></script>
-		<script src="<?php echo(JS.'theme/js/parsley/parsley.extend.js'); ?>"></script>
+	    <!-- Theme Validation -->
+	    <script src="<?php echo(JS.'lib/parsley.min.js'); ?>"></script>
+	    <script src="<?php echo(JS.'lib/parsley.extend.js'); ?>"></script>
+	    
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$("#loginButton").click(function() {
@@ -40,7 +42,7 @@
 
 							<div class="form-group">
 								<label>Password</label>
-								<input name="password" type="password" class="form-control" placeholder="Password" data-required="true" data-minlength="3" data-error-message="Enter a password (3 symbols at least), please.">
+								<input name="password" type="password" id="user_password" class="form-control" placeholder="Password" data-required="true" data-minlength="3" data-error-message="Enter a password (3 symbols at least), please.">
 							</div>
 
 							<div class="form-group">

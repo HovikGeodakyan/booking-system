@@ -75,7 +75,7 @@
 				if (isset($_FILES['avatar']) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
 					$upload = $this->upload_avatar("avatar");
 				} else {
-					$upload['upload_data']['file_name'] = $this->session->userdata('avatar');
+					$upload['upload_data']['file_name'] = $this->session->userdata('user_avatar');
 				}
 
 				if(isset($upload['error'])) {

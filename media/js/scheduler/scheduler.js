@@ -526,7 +526,8 @@ var initializeScheduler = function(currentDate, viewType) {
                 status: "arrived"
             }, 
             function(data){
-              dp.message("Reservation status changed to 'arrived'.");
+              //$('#reservation_edit').modal('hide');
+              //dp.message("Reservation status changed to 'arrived'.");
               dp.events.update(clicked_reservation);
               loadEvents();
               dp.update();
@@ -568,9 +569,10 @@ var initializeScheduler = function(currentDate, viewType) {
             reservation_end = reservation_date + "T" + reservation_end;
 
             var tables = $('#reservation_table').val();
+
             if(tables.length > 1) {
               for (var i=0; i<data.tables.length; i++) {
-                if($.inArray(data.tables[i].table_id, tables) && data.tables[i].table_combinable === "0") {
+                if($.inArray(data.tables[i].table_id, tables) >= 0 && data.tables[i].table_combinable === "0") {
                   $.alert({
                     text: "You are trying to combine incombinable",
                   });
@@ -780,7 +782,7 @@ var initializeScheduler = function(currentDate, viewType) {
               } else if ((new DayPilot.Date(dp.events.list[i].start).ticks - 1800000) <= new DayPilot.Date().ticks && dp.events.list[i].status !== "arrived") {
                  dp.events.list[i].status = "late";
                  arrayof_late_not_shows.push({id: dp.events.list[i].id, status: 'late'});
-              } else {
+              } else if(dp.events.list[i].status !== "arrived") {
                  dp.events.list[i].status = "";
                  arrayof_late_not_shows.push({id: dp.events.list[i].id, status: ''});
               }
