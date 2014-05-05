@@ -62,7 +62,7 @@ class User extends My_Controller {
 		$message = $this->user_model->update_user($id, $data);
 		$this->session->set_flashdata('message', $message);
 
-		redirect(URL.'welcome');
+		redirect(URL.'user');
 	}
 
 	

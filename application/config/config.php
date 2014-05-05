@@ -14,6 +14,16 @@
 | path to your installation.
 |
 */
+function __autoload($class)
+{
+    if (strpos($class, 'CI_') !== 0)
+    {
+        if (file_exists($file = APPPATH . 'core/' . $class . EXT))
+        {
+            include $file;
+        }
+    }
+} 
 $config['base_url']	= '';
 
 /*
@@ -360,7 +370,7 @@ $config['proxy_ips'] = '';
 
 
 //java script
-$config['javascript_location'] = 'http://localhost/booking_system/media/js/';
+$config['javascript_location'] = 'http://localhost/booking-system/media/js/';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

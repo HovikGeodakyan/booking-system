@@ -11,7 +11,13 @@ class Register extends CI_Controller {
 
 	public function index() {
 		$data['title'] = "Register";
-		$this->load->view('register', $data);
+		$results = $this->register_model->checkUsers();
+		if(empty($results)){
+			$this->load->view('register', $data);
+		} else {
+			redirect(URL);
+		}
+		
 	}
 
 

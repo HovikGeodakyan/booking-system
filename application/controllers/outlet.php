@@ -127,34 +127,38 @@ class Outlet extends My_Controller {
 		$current_stayng_time  = $this->input->post('current_end');
 
 		$id = $this->outlet_model->get_active_outlet();
-		$res = $this->outlet_model->load_one_outlet($id);
+		if(!empty($id)){
+			$res = $this->outlet_model->load_one_outlet($id);
+			if($tables_type === 'free') {
+				$tables = $this->read_free_tables($id, $current_time, $current_stayng_time);
+			} else {
+				$tables = $this->read_tables($id);
+			}
+			
+			$not_assigned = $this->scheduler_model->load_not_assigned_reservations($currentStart, $currentEnd, $res['outlet_id']);
+			$res['header_info'] = $this->concert_model->load_header_info($id, substr($currentStart, 0, 10));
 
-		if($tables_type === 'free') {
-			$tables = $this->read_free_tables($id, $current_time, $current_stayng_time);
+			$res['outlet_default_not_bookable_table_lunch'] = (isset($res['header_info']['not_bookable_table_lunch'])) ? $res['header_info']['not_bookable_table_lunch'] : $res['outlet_default_not_bookable_table_lunch'];
+			$res['outlet_default_not_bookable_table_dinner'] = (isset($res['header_info']['not_bookable_table_dinner'])) ? $res['header_info']['not_bookable_table_dinner'] : $res['outlet_default_not_bookable_table_dinner'];
+			$res['outlet_default_not_bookable_table_pre_concert'] = (isset($res['header_info']['not_bookable_table_pre_concert'])) ? $res['header_info']['not_bookable_table_pre_concert'] : $res['outlet_default_not_bookable_table_pre_concert'];
+			$res['outlet_default_not_bookable_table_concert'] = (isset($res['header_info']['not_bookable_table_concert'])) ? $res['header_info']['not_bookable_table_concert'] : $res['outlet_default_not_bookable_table_concert'];
+			$res['outlet_default_not_bookable_table_post_concert'] = (isset($res['header_info']['not_bookable_table_post_concert'])) ? $res['header_info']['not_bookable_table_post_concert'] : $res['outlet_default_not_bookable_table_post_concert'];
+
+			if(! isset($res['header_info']['concert_name'])) {
+				$res['header_info'] = NULL;
+			}
+
+			$res['tables'] = $tables;
+
+			$res['holidays'] = $this->holiday_model->load_current_holidays($currentStart, $currentEnd, $res['outlet_id']);
+			$res['holidays'] = (!empty($res['holidays'])) ? $res['holidays'] : NULL;
+
+			$res['not_assigned'] = $not_assigned;
+			echo json_encode($res);
 		} else {
-			$tables = $this->read_tables($id);
+			echo json_encode('no_result');
 		}
 		
-		$not_assigned = $this->scheduler_model->load_not_assigned_reservations($currentStart, $currentEnd, $res['outlet_id']);
-		$res['header_info'] = $this->concert_model->load_header_info($id, substr($currentStart, 0, 10));
-
-		$res['outlet_default_not_bookable_table_lunch'] = (isset($res['header_info']['not_bookable_table_lunch'])) ? $res['header_info']['not_bookable_table_lunch'] : $res['outlet_default_not_bookable_table_lunch'];
-		$res['outlet_default_not_bookable_table_dinner'] = (isset($res['header_info']['not_bookable_table_dinner'])) ? $res['header_info']['not_bookable_table_dinner'] : $res['outlet_default_not_bookable_table_dinner'];
-		$res['outlet_default_not_bookable_table_pre_concert'] = (isset($res['header_info']['not_bookable_table_pre_concert'])) ? $res['header_info']['not_bookable_table_pre_concert'] : $res['outlet_default_not_bookable_table_pre_concert'];
-		$res['outlet_default_not_bookable_table_concert'] = (isset($res['header_info']['not_bookable_table_concert'])) ? $res['header_info']['not_bookable_table_concert'] : $res['outlet_default_not_bookable_table_concert'];
-		$res['outlet_default_not_bookable_table_post_concert'] = (isset($res['header_info']['not_bookable_table_post_concert'])) ? $res['header_info']['not_bookable_table_post_concert'] : $res['outlet_default_not_bookable_table_post_concert'];
-
-		if(! isset($res['header_info']['concert_name'])) {
-			$res['header_info'] = NULL;
-		}
-
-		$res['tables'] = $tables;
-
-		$res['holidays'] = $this->holiday_model->load_current_holidays($currentStart, $currentEnd, $res['outlet_id']);
-		$res['holidays'] = (!empty($res['holidays'])) ? $res['holidays'] : NULL;
-
-		$res['not_assigned'] = $not_assigned;
-		echo json_encode($res);
 	}
 
 	public function get_tables($outlet_id) {

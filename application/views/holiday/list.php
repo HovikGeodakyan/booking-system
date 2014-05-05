@@ -13,7 +13,7 @@
 				<div class="crud">
 					<input type="submit" class="save_holiday btn btn-primary btn-sm" value="Save" />
 					<a type="button" class="add_holiday btn btn-success btn-sm">Add</a>					
-					<a class="back_button btn btn-default btn-sm" href="<?php echo URL; ?>">Back</a>
+					<a class="back_button btn btn-default btn-sm" href="<?php echo URL.'welcome'; ?>">Back</a>
 				</div>
 			</form>
 			<h3 class="m-b-xs text-black">Existing holidays</h3>

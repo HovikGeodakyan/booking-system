@@ -38,6 +38,12 @@ class Register_model extends CI_Model {
 				$this->session->set_userdata($newdata);
 			}
 	}
+
+	public function checkUsers() {
+		$query = $this->db->query('SELECT * FROM users WHERE deleted !=1');
+		$query_result = $query->result_array();
+		return $query_result;
+	}
 	
 }
 

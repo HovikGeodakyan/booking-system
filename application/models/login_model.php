@@ -14,6 +14,7 @@ class Login_model extends CI_Model {
 		$this->db->from('users');
 		$this->db->where('username', $username);
 		$this ->db->where('password', md5($password));
+		$this ->db->where('deleted != 1');
 		$query = $this->db->get();
 
 
@@ -27,7 +28,7 @@ class Login_model extends CI_Model {
 
 
 	public function checkFirstLogin() {
-		$query = $this->db->query('SELECT * FROM users');
+		$query = $this->db->query('SELECT * FROM users WHERE deleted !=1');
 		$query_result = $query->result_array();
 		return $query_result;
 	}

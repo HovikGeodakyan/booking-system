@@ -2,12 +2,8 @@
 </section>
 
 	<?php if($this->session->flashdata('message')) { ?>
-		<div class="alert alert-success" id="outlet_message" >
-	        <button type="button" class="close" data-dismiss="alert">×</button>
-	        <i class="fa fa-ok-sign"></i>		
-	        
-			<strong><?php	echo $this->session->flashdata('message'); ?></strong>
-			
+		<div class="alert alert-success" id="users_message" >	        
+			<strong><?php	echo $this->session->flashdata('message'); ?></strong>			
 	    </div>
     <?php } ?>
 
@@ -22,7 +18,7 @@
 		<div class="settings_header">
 			<div class="crud">
 				<a href="<?php echo(URL.'user/newusr'); ?>" type="button" class="btn btn-primary btn-sm">Add</a>
-				<a href="<?php echo URL; ?>" type="button" class="btn btn-default btn-sm">Back</a>
+				<a href="<?php echo URL.'welcome'; ?>" type="button" class="btn btn-default btn-sm">Back</a>
 			</div>
 			<h3 class="m-b-xs text-black">Users</h3>
 		</div>
@@ -107,10 +103,6 @@
 
 <script>
 	$(document).ready(function () {
-		setTimeout(function() { hide_message(); }, 500);
+		$('#users_message').fadeOut();
 	});
-
-	function hide_message(){
-		$('#outlet_message').fadeOut();
-	}
 </script>

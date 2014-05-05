@@ -144,7 +144,7 @@
  				}
  			} 			
 			
-			$keys   = ["id", "seats_standart_number", "seats_max_number",  "location", "combinable", "outlet_id"];			
+			$keys   = array("id", "seats_standart_number", "seats_max_number",  "location", "combinable", "outlet_id");			
 			$duplicates = array();
 			for($i = 1; $i < count($keys); $i++) {
 				$str = $keys[$i].'=VALUES('. $keys[$i] . ')';
@@ -206,7 +206,10 @@
 		public function get_active_outlet(){
 			$query = $this->db->query('SELECT id FROM outlets WHERE deleted = 0 AND active = 1');
 			$row = $query->row_array();
-			return $row['id'];
+			if(!empty($row)){
+				return $row['id'];
+			}
+			
 		}
 
 	}

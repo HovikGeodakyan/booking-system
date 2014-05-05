@@ -12,7 +12,7 @@
 				<form action="<?php echo(URL.'email/update/'); ?>" method="post" role="form" data-validate="parsley">
 					<div style="float:right">
 						<button type="submit" class="btn btn-primary">Save</button>
-						<a href="<?php echo URL; ?>" type="button" class="btn btn-default">Back</a>
+						<a href="<?php echo URL.'welcome'; ?>" type="button" class="btn btn-default">Back</a>
 					</div>
 
 						<h3>Edit email</h3>

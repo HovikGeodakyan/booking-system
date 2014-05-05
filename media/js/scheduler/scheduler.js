@@ -78,7 +78,7 @@ var initializeScheduler = function(currentDate, viewType) {
       dataType: 'json',
       data:{start:datePilotDate.toString(), end: datePilotDate.addDays(1).toString(), type:viewType, current_time: current_time, current_end: current_end},
       success: function(data) {
-
+        if(data !== 'no_result'){
         if (data.holidays !== null ) {
           $('.holiday_conatainer').empty();
           $('.holiday_conatainer').append("<h2>" + data.holidays.message + "</h2>");
@@ -809,7 +809,9 @@ var initializeScheduler = function(currentDate, viewType) {
             var concert_header = '<i class="fa fa-music concert_icon" onClick=concert_icon()></i> Today '+data.header_info.concert_name + " " + data.header_info.concert_start.substr(0, 5);
             $('#concert_header').append(concert_header);
           }      
-
+        } else {
+           $('.loader').hide();
+        } //End if no-result
       } // Ajax Success
   }); // Ajax 
     

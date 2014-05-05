@@ -1,10 +1,7 @@
 <section class="row m-b-md"></section>
 
 	<?php if($this->session->flashdata('message')) { ?>
-		<div class="alert alert-success" id="outlet_message" >
-	        <button type="button" class="close" data-dismiss="alert">×</button>
-	        <i class="fa fa-ok-sign"></i>		
-	        
+		<div class="alert alert-success" id="outlet_message" >	        
 			<strong><?php	echo $this->session->flashdata('message'); ?></strong>
 			
 	    </div>
@@ -24,7 +21,7 @@
 		<div class="settings_header">
 			<div class="crud">
 				<a href="<?php echo(URL.'outlet/add'); ?>" type="button" class="btn btn-primary btn-sm">Add</a>
-				<a href="<?php echo URL; ?>" type="button" class="btn btn-default btn-sm">Back</a>
+				<a href="<?php echo URL.'welcome'; ?>" type="button" class="btn btn-default btn-sm">Back</a>
 			</div>
 			<h3 class="m-b-xs text-black">Exisiting Outlets</h3>
 		</div>
@@ -91,10 +88,6 @@
 
 <script>
 	$(document).ready(function () {
-		setTimeout(function() { hide_message(); }, 500);
+		$('#outlet_message').fadeOut(3000);
 	});
-
-	function hide_message(){
-		$('#outlet_message').fadeOut();
-	}
 </script>
