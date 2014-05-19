@@ -145,8 +145,13 @@ Loader
   padding: 7px; 
   border-radius: 23px; 
   color: white; 
-  width: 39px;
+  width: 32px;
   cursor: pointer;
+}
+
+#concert_header {
+  display: inline-block;
+  margin-left: 25px;
 }
 
 .custom-header-btns {
@@ -227,36 +232,77 @@ Loader
 }
 
 
-
-.add_reservation input{
-	width:100% !important;
+#has_arrived, #cancel_reservation {
+  float:left;
 }
 
-.add_reservation .date{
-	width:12%;
+#selected_date{
+  margin-left:25px;
+  display: inline-block;
 }
-.add_reservation .time{
-	width:8%;
-}
-.add_reservation .guests{
-	width:7%;
-}
-.add_reservation .table{
-	width: 6%;
-}
-.add_reservation .title{
-	width: 7%;
-}
-.add_reservation .language{
-	width: 6%;
-}
-.add_reservation .confirmation{
-	width: 2%;
-}
-.add_reservation .name{
-	width: 10%;
-}
-.add_reservation .author{
-	width: 6%;
+#selected_date div{
+  display: inline-block;
 }
 
+#current_time{
+  margin-right: 25px;
+}
+
+#selected_date, #current_time{
+
+}
+
+#message{
+  width:100%;
+  text-align: left;
+  color: #fff;
+  opacity: 0.9; filter: alpha(opacity=90);
+  padding: 10px; 
+  background: #045776;
+  border: 1px solid #014761;
+}
+
+#message_container{
+  min-height: 45px;
+}
+
+
+.reservation_guests button{
+  width:10px;
+}
+
+
+/*LOGO*/
+.logo_container {
+  width: 81px;
+}
+
+
+.logo img{
+  width: 100%;
+  height: 60px;
+}
+
+.ui-autocomplete {
+  z-index: 10000 !important;
+  max-height: 200px;
+}
+
+.ui-autocomplete a{
+  font-size: 13px;
+}
+
+.ui-autocomplete a:hover{
+  color:#000;
+}
+
+
+#static_datepicker div.ui-datepicker {
+  font-size: 12pt;
+  margin-bottom:20px;
+  width: 100%;
+}
+
+#static_datepicker div.ui-datepicker td{
+  font-size: 12pt;
+}

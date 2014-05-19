@@ -13,14 +13,14 @@
                       <a href="<?php echo URL; ?>welcome" class="auto">
                         <i class="i i-statistics icon">
                         </i>
-                        <span class="font-bold">Daily View</span>
+                        <span class="font-bold"><?php echo _daily_view ?></span>
                       </a>
                     </li>
                     <li   data-intro='Here you can see table of all reservations in the system' data-step='2' data-position='right'>
                       <a href="<?php echo URL; ?>reservations" class="auto">
                         <i class="i i-grid2 icon">
                         </i>
-                        <span class="font-bold">Reservations</span>
+                        <span class="font-bold"><?php echo _reservations ?></span>
                       </a>
                     </li>
                    <?php if($this->session->userdata('user_role') == "1") { ?>
@@ -28,7 +28,7 @@
                       <a href="<?php echo URL; ?>statistics" class="auto">
                         <i class="i i-docs icon">
                         </i>
-                        <span class="font-bold">Statistics</span>
+                        <span class="font-bold"><?php echo _statistics ?></span>
                       </a>
                     </li>
                     <?php } ?>
@@ -36,7 +36,7 @@
                       <a href="<?php echo URL; ?>outlet" class="auto">
                         <i class="i i-lab icon">
                         </i>
-                        <span class="font-bold">Setup</span>
+                        <span class="font-bold"><?php echo _setup ?></span>
                       </a>
                     </li>
                   </ul>

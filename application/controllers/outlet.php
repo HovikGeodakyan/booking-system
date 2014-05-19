@@ -138,17 +138,26 @@ class Outlet extends My_Controller {
 			$not_assigned = $this->scheduler_model->load_not_assigned_reservations($currentStart, $currentEnd, $res['outlet_id']);
 			$res['header_info'] = $this->concert_model->load_header_info($id, substr($currentStart, 0, 10));
 
-			$res['outlet_default_not_bookable_table_lunch'] = (isset($res['header_info']['not_bookable_table_lunch'])) ? $res['header_info']['not_bookable_table_lunch'] : $res['outlet_default_not_bookable_table_lunch'];
-			$res['outlet_default_not_bookable_table_dinner'] = (isset($res['header_info']['not_bookable_table_dinner'])) ? $res['header_info']['not_bookable_table_dinner'] : $res['outlet_default_not_bookable_table_dinner'];
-			$res['outlet_default_not_bookable_table_pre_concert'] = (isset($res['header_info']['not_bookable_table_pre_concert'])) ? $res['header_info']['not_bookable_table_pre_concert'] : $res['outlet_default_not_bookable_table_pre_concert'];
-			$res['outlet_default_not_bookable_table_concert'] = (isset($res['header_info']['not_bookable_table_concert'])) ? $res['header_info']['not_bookable_table_concert'] : $res['outlet_default_not_bookable_table_concert'];
-			$res['outlet_default_not_bookable_table_post_concert'] = (isset($res['header_info']['not_bookable_table_post_concert'])) ? $res['header_info']['not_bookable_table_post_concert'] : $res['outlet_default_not_bookable_table_post_concert'];
+			$res['outlet_default_not_bookable_table_lunch'] = ($res['header_info']['not_bookable_table_lunch'] != "0" ) ? $res['header_info']['not_bookable_table_lunch'] : $res['outlet_default_not_bookable_table_lunch'];
+			$res['outlet_default_not_bookable_table_dinner'] = ($res['header_info']['not_bookable_table_dinner'] != "0" ) ? $res['header_info']['not_bookable_table_dinner'] : $res['outlet_default_not_bookable_table_dinner'];
+			$res['outlet_default_not_bookable_table_pre_concert'] = ($res['header_info']['not_bookable_table_pre_concert'] != "0" ) ? $res['header_info']['not_bookable_table_pre_concert'] : $res['outlet_default_not_bookable_table_pre_concert'];
+			$res['outlet_default_not_bookable_table_concert'] = ($res['header_info']['not_bookable_table_concert'] != "0" ) ? $res['header_info']['not_bookable_table_concert'] : $res['outlet_default_not_bookable_table_concert'];
+			$res['outlet_default_not_bookable_table_post_concert'] = ($res['header_info']['not_bookable_table_post_concert'] != "0" ) ? $res['header_info']['not_bookable_table_post_concert'] : $res['outlet_default_not_bookable_table_post_concert'];
 
 			if(! isset($res['header_info']['concert_name'])) {
 				$res['header_info'] = NULL;
 			}
 
 			$res['tables'] = $tables;
+
+			$langauge = $this->session->userdata('user_language');
+			$this->lang->load($langauge, $langauge);
+
+
+			$res['translation'] = get_defined_constants(true)['user'];
+			//var_dump(get_defined_constants(true)['user']); exit;
+
+			$res['autocomplete'] = $this->scheduler_model->autocomplete();
 
 			$res['holidays'] = $this->holiday_model->load_current_holidays($currentStart, $currentEnd, $res['outlet_id']);
 			$res['holidays'] = (!empty($res['holidays'])) ? $res['holidays'] : NULL;
@@ -182,5 +191,18 @@ class Outlet extends My_Controller {
 		$this->concert_model->hide_tables($this->input->post());
 	}
 	
+
+	public function add_concert() {
+		$data = $this->input->post();
+		$data['outlet_id'] = $this->outlet_model->get_active_outlet();
+		$this->concert_model->add_concert($data);
+		redirect('welcome');
+	}	
+
+	public function update_concert() {
+		$data = $this->input->post();
+		$response = $this->concert_model->update_concert($data);
+		echo json_encode($response);
+	}
 }
 

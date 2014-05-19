@@ -11,10 +11,13 @@
 
 
 	<ul class="nav nav-tabs settings_tabs">
-		<li class="active"><a href="<?php echo(URL.'outlet'); ?>">Outlet</a></li>
-		<li><a href="<?php echo(URL.'user'); ?>">Users</a></li>
-		<li><a href="<?php echo(URL.'holiday'); ?>">Holidays</a></li>
-		<li><a href="<?php echo(URL.'email'); ?>">Email</a></li>
+		<li class="active"><a href="<?php echo(URL.'outlet'); ?>"><?php echo _outlets ?></a></li>
+		<li><a href="<?php echo(URL.'user'); ?>"><?php echo _users ?></a></li>
+		<li><a href="<?php echo(URL.'holiday'); ?>"><?php echo _holidays ?></a></li>
+		<li><a href="<?php echo(URL.'email'); ?>"><?php echo _email ?></a></li>
+		<?php if($this->session->userdata('user_role') === "1") { ?>
+		<li><a href="<?php echo(URL.'general'); ?>"><?php echo _general ?></a></li>
+		<?php } ?>
 	</ul>
 
 	<div id="_settings" class="settings">

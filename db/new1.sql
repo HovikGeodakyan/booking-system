@@ -1,11 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 4.1.6
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Май 04 2014 г., 13:29
--- Версия сервера: 5.5.32
--- Версия PHP: 5.4.16
+<<<<<<< HEAD
+-- Время создания: Май 16 2014 г., 18:01
+=======
+-- Время создания: Май 15 2014 г., 19:04
+>>>>>>> 828e841a16fc160afa42d01a440e08ce505aac4f
+-- Версия сервера: 5.6.16
+-- Версия PHP: 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +23,6 @@ SET time_zone = "+00:00";
 --
 -- База данных: `booking`
 --
-CREATE DATABASE IF NOT EXISTS `booking` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `booking`;
 
 -- --------------------------------------------------------
 
@@ -29,13 +31,43 @@ USE `booking`;
 --
 
 CREATE TABLE IF NOT EXISTS `email` (
+  `language` varchar(50) NOT NULL,
+  `text` text NOT NULL,
+  `subject` varchar(250) NOT NULL,
+  `treatment` varchar(250) NOT NULL,
+<<<<<<< HEAD
+  `ps` varchar(250) NOT NULL,
+  UNIQUE KEY `language` (`language`)
+=======
+  `ps` varchar(250) NOT NULL
+>>>>>>> 828e841a16fc160afa42d01a440e08ce505aac4f
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `events`
+--
+
+CREATE TABLE IF NOT EXISTS `events` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title_english` varchar(50) NOT NULL,
-  `title_german` varchar(50) NOT NULL,
-  `text_english` varchar(255) NOT NULL,
-  `text_german` varchar(255) NOT NULL,
+  `name` text,
+  `start` datetime DEFAULT NULL,
+  `end` datetime DEFAULT NULL,
+  `resource` varchar(30) DEFAULT NULL,
+  `outlet_id` int(5) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `general_settings`
+--
+
+CREATE TABLE IF NOT EXISTS `general_settings` (
+  `logo` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -51,7 +83,11 @@ CREATE TABLE IF NOT EXISTS `holidays` (
   `message` text NOT NULL,
   `outlet_id` int(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+<<<<<<< HEAD
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+=======
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+>>>>>>> 828e841a16fc160afa42d01a440e08ce505aac4f
 
 -- --------------------------------------------------------
 
@@ -61,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `holidays` (
 
 CREATE TABLE IF NOT EXISTS `info` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `concert_name` varchar(50) NOT NULL,
+  `concert_name` varchar(50) DEFAULT NULL,
   `concert_start` time DEFAULT NULL,
   `concert_end` time DEFAULT NULL,
   `not_bookable_table_lunch` int(10) NOT NULL,
@@ -73,19 +109,7 @@ CREATE TABLE IF NOT EXISTS `info` (
   `concert_date` date DEFAULT NULL,
   `concert_description` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
---
--- Дамп данных таблицы `info`
---
-
-INSERT INTO `info` (`id`, `concert_name`, `concert_start`, `concert_end`, `not_bookable_table_lunch`, `not_bookable_table_dinner`, `not_bookable_table_pre_concert`, `not_bookable_table_concert`, `not_bookable_table_post_concert`, `outlet_id`, `concert_date`, `concert_description`) VALUES
-(1, 'Pink Floyd', '18:00:00', '22:00:00', 2, 4, 4, 4, 4, 3, '2014-04-24', 'bv jkhjkbuhhjkhikgbhj'),
-(2, 'Pink', '18:00:00', '22:00:00', 3, 3, 3, 3, 3, 3, '2014-04-23', 'bv jkhjkbuhhjkhikgbhj'),
-(3, '', NULL, NULL, 3, 0, 0, 0, 0, 0, NULL, ''),
-(4, '', NULL, NULL, 3, 0, 0, 0, 0, 0, NULL, ''),
-(5, '', NULL, NULL, 3, 0, 0, 0, 0, 0, NULL, ''),
-(6, '', NULL, NULL, 2, 0, 0, 0, 0, 0, '2014-04-25', '');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -148,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `outlets` (
   `deleted` tinyint(2) NOT NULL DEFAULT '0',
   `active` tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=114 ;
 
 -- --------------------------------------------------------
 
@@ -159,9 +183,9 @@ CREATE TABLE IF NOT EXISTS `outlets` (
 CREATE TABLE IF NOT EXISTS `reservations` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `guest_name` varchar(50) NOT NULL,
+  `guest_type` varchar(50) NOT NULL,
   `title` text NOT NULL,
   `guest_number` int(10) NOT NULL,
-  `guest_type` varchar(20) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `language` varchar(50) NOT NULL,
@@ -172,8 +196,20 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `start` datetime NOT NULL,
   `end` datetime NOT NULL,
   `outlet_id` int(5) NOT NULL,
+<<<<<<< HEAD
+  `comment` varchar(250) NOT NULL,
+=======
+  `commet` varchar(250) NOT NULL,
+>>>>>>> 828e841a16fc160afa42d01a440e08ce505aac4f
+  `provisional` tinyint(5) NOT NULL DEFAULT '0',
+  `expiery_date` date NOT NULL,
+  `WB` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+<<<<<<< HEAD
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=207 ;
+=======
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=206 ;
+>>>>>>> 828e841a16fc160afa42d01a440e08ce505aac4f
 
 -- --------------------------------------------------------
 
@@ -183,13 +219,14 @@ CREATE TABLE IF NOT EXISTS `reservations` (
 
 CREATE TABLE IF NOT EXISTS `tables` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` int(20) NOT NULL,
   `seats_standart_number` int(20) NOT NULL,
   `seats_max_number` int(20) NOT NULL,
   `combinable` tinyint(2) NOT NULL,
   `location` int(5) NOT NULL,
   `outlet_id` int(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=81 ;
 
 -- --------------------------------------------------------
 
@@ -213,9 +250,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `confirmation_code` varchar(255) NOT NULL,
   `last_ip` varchar(40) NOT NULL,
   `language` varchar(50) NOT NULL,
-  `avatar` varchar(200) NOT NULL,
+  `avatar` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

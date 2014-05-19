@@ -265,8 +265,8 @@
 .progress_green {
 	background: #66bda9;
 }
-.progress_blue {
-	background: #69abd0;
+.progress_yellow {
+	background: #ffa800;
 }
 .progress_red {
 	background: #e27682;
@@ -320,8 +320,7 @@
 }
 
 
-.late .scheduler_8_event_inner  
-{
+.late .scheduler_8_event_inner {
 	position:absolute;
 	left:0px;
 	right: 1px;
@@ -334,13 +333,22 @@
 	border: 1px solid #ffa800;
 }
 
-.late .scheduler_8_event_inner:hover
-{
+.late .scheduler_8_event_inner:hover {
 	background: #dcaf43;
 }
 
-
-
-.table_hide_minus {
-	width:50px !important;
+.provisional .scheduler_8_event_inner {
+	color: #ffffff;
+	background: #dddf1b;
+	border: 1px solid #dddf1b;
 }
+
+.provisional .scheduler_8_event_inner:hover {
+	background: #dfcf1b;
+}
+
+.highlighted .scheduler_8_event_inner {	
+	border: 2px solid #FF0202 !important;
+}
+
+

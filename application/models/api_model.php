@@ -77,6 +77,8 @@
 
 		public function reserveTable($data) {
 
+			var_dump($data); 
+
 			$weekday = date('N', strtotime($data['date']));
 			$outlet_info = $this->db->query('SELECT * FROM outlets WHERE id = "'.$data['outlet_id'].'"');
 			if ($outlet_info->num_rows() === 0) {
@@ -143,16 +145,17 @@
 				'outlet_id'=> $data['outlet_id'],
 				'start'=>$reservation_start ,
 				'end'=>$reservation_end,
-				'resource'=> $selectedTable,
+				'resource'=> "0",
 				'guest_name'=> $data['guest_name'],
+				'guest_last_name'=> $data['guest_last_name'],
 				'title'=> $data['title'],
-				'guest_type'=> $data['guest_type'],
+				'guest_type'=> "internet",
 				'email'=> $data['email'],
 				'phone'=> $data['phone'],
 				'guest_number'=> $data['guest_number'],
-				'language'=> $data['language'],
-				'author'=> $data['author'],
-				'confirm_via_email' => (isset($data['confirm_via_email'])) ? 1 : 0
+				'language'=> "en",
+				'author'=> "Api",
+				'confirm_via_email' => 0
 			);
 			$this->db->insert('reservations', $reservationData);
 		}

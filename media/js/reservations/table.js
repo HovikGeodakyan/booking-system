@@ -1,11 +1,11 @@
 var date = new Date();
 var start = new DayPilot.Date().getDatePart().toString();
-var end = new DayPilot.Date().addDays(1).getDatePart().toString();
+var end = new DayPilot.Date().addYears(10).getDatePart().toString();
 var keyword = "%";
 
 $(document).ready(function(){
     get_reservations(start, end , keyword);
-    console.log(start);
+    // console.log(start);
     $('input[name=start_date]').datepicker({ dateFormat: 'yy-mm-dd' })
     $('input[name=end_date]').datepicker({ dateFormat: 'yy-mm-dd' })
     $("#reservations_table").tablesorter();
@@ -18,7 +18,7 @@ $('#filter').on("submit", function(event){
     start = (form[0].value.length > 0) ? form[0].value + "T00:00:00" : start;
     end = (form[1].value.length > 0) ? form[1].value + "T00:00:00" : end ;
     keyword = (form[2].value.length > 0) ? form[2].value : "%";
-    console.log(start);
+    // console.log(start);
     get_reservations(start, end, keyword);
 });
 
@@ -51,10 +51,9 @@ function get_reservations(start, end, keyword){
                     data[i]['resource']="NA";
                 };               
                 
-                var row = '<tr><td>'+data[i]['start'].substr(0, 10)+'</td><td>'+data[i]['start'].substr(11, 5)+'</td><td>Lunch</td><td>'+data[i]['guest_number']+'</td><td>'+data[i]['title']+" "+data[i]['text']+'</td><td>'+data[i]['phone']+'</td><td>'+data[i]['email']+'</td><td>'+data[i]['language']+'</td><td>'+data[i]['confirm_via_email']+'</td><td>'+data[i]['author']+'</td><td>'+data[i]['status']+'</td><td>'+duration+' min</td><td>'+data[i]['resource']+'</td></tr>'
+                var row = '<tr><td>'+data[i]['start'].substr(0, 10)+'</td><td>'+data[i]['start'].substr(11, 5)+'</td><td>Lunch</td><td>'+data[i]['guest_number']+'</td><td>'+data[i]['title']+" "+data[i]['text']+'</td><td>'+data[i]['phone']+'</td><td>'+data[i]['email']+'</td><td>'+data[i]['language']+'</td><td>'+data[i]['author']+'</td><td>'+data[i]['status']+'</td><td>'+duration+' min</td><td>'+data[i]['resource']+'</td><td><a class="btEdit btn btn-success" href='+"http://"+ window.location.hostname +"/welcome?date="+data[i]['start'].substr(0, 10)+"&activeReservation="+data[i]['id']+'>View</a></td></tr>'
                 $('#reservations_table tbody').append(row); 
-            }
-            console.log(j);
+            }            
             $('#unassigned').html("("+j+")"); 
         }  
 

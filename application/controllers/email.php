@@ -4,18 +4,17 @@ class Email extends My_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		//$this->load->model('email_model');
+		$this->load->model('email_model');
 	}
 
 
 	public function index($page = 'email') {
 
-		$data['title']    = ucfirst($page); 
-		$data['title']    = ucfirst($page); 
-		
+		$data['title'] = ucfirst($page);
+		$data['emails'] = $this->email_model->read();
+
 		$this->render('email/index', $data);		
 	}
-
 
 	public function create() {
 
@@ -25,8 +24,10 @@ class Email extends My_Controller {
 
 	}
 
-	public function update($id) {
-
+	public function update() {
+		$data = $this->input->post();
+		$this->email_model->update($data);
+		redirect(URL.'email');
 	}
 }
 

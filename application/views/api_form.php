@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="<?php echo(CSS.'theme/bootstrap.css'); ?>" type="text/css" />
     <link rel="stylesheet" href="<?php echo(CSS.'theme/chosen.css'); ?>" type="text/css" />  
     <link rel="stylesheet" href="<?php echo(CSS.'datepicker/datepicker.css'); ?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo(CSS.'stylesheet.css'); ?>" type="text/css" />
 
     <script src="<?php echo(JS.'lib/jquery.min.js'); ?>"></script>
     <script src="<?php echo(JS.'lib/bootstrap.js'); ?>"></script>
@@ -13,86 +14,101 @@
   </head>
 
   <body>
+
     <form class="col-lg-12 col-xs-12 col-sm-12" role="form" method="get" action="<?php echo(URL.'api/reserveTable'); ?>">
 
+
         <input type="hidden" name="guest_type" value="internet">
+        <input type="hidden" name="guest_type" value="date">
 
-        <div class="form-group col-lg-4 col-xs-4 col-sm-4"> 
-          <label>Date</label> 
-          <input type="text" class="form-control input-sm" name='date'>
-        </div>
+        <div class="col-lg-4 col-sm-4 col-xs-6">
+          <h2>Reservation</h2>
+          <div id="static_datepicker"></div>
 
-        <div class="form-group col-lg-4 col-xs-4 col-sm-4"> 
-          <label>Time</label>   
-          <input type="text" step="900" class="form-control input-sm" name="time">
-        </div>
+          <div class="form-group">
+            <select class="form-control input-sm" name="time">
+              <?php 
+                $h=0; $m=0;
 
-        <div class="form-group col-lg-2 col-xs-2 col-sm-2">  
-          <label>Guests</label>
-          <input type="number" class="form-control input-sm" placeholder="Guests number" name="guest_number">
-        </div>        
+                for ($i=0; $i<96; $i++) {
+                  
 
-        <div class="form-group col-lg-2 col-xs-2 col-sm-2">  
-          <label>OutletID</label>
-          <input type="number" class="form-control input-sm" placeholder="OutletID" name="outlet_id">
-        </div>
+                  if($m >= 60) { $m = 0; $h++; }
 
-        <div class="form-group col-lg-12 col-xs-12 col-sm-12">
-          <label>Table(s)</label>
-          <select class="form-control input-sm" id="reservation_table" name="resource[]" multiple>
-          </select>
-        </div>
+                  $m = ($m < 10) ? "0".$m : $m;
+                  $h = (strlen($h) < 2) ? "0".$h : $h;
 
-        <div class="form-group col-lg-2 col-xs-2 col-sm-2">
-          <label>Title</label>
-          <select class="form-control input-sm" name="title">
-            <option value="Mr.">Mr.</option>
-            <option value="Mrs.">Mrs.</option>
-            <option value="Dr.">Dr.</option>
-            <option value="Prof.">Prof.</option>
-          </select>
-        </div>
+                  $time = $h.":".$m;
 
-        <div class="form-group col-lg-4 col-xs-4 col-sm-4">
-          <label>Guest name</label>  
-          <input type="text" class="form-control input-sm" placeholder="Name" name="guest_name">
-        </div>
+                  echo '<option value="'.$time.'">'.$time.'</option>';
 
-        <div class="form-group col-lg-2 col-xs-2 col-sm-2">
-          <label>Language</label>
-          <select class="form-control input-sm" name="language">
-            <option value="English">EN</option>
-            <option value="German">GE</option>
-          </select>
-        </div>
-
-        <div class="form-group col-lg-4 col-xs-4 col-sm-4">  
-          <label>Phone</label> 
-          <input type="tel" class="form-control input-sm" placeholder="Phone" name="phone">
-        </div>
-
-        <div class="form-group col-lg-4 col-xs-4 col-sm-4"> 
-          <label>Email</label>
-          <input type="email" class="form-control input-sm" placeholder="Email" name="email">
-        </div>
-
-        <div class="form-group col-lg-3 col-xs-3 col-sm-3">  
-          <label>Author</label>
-          <input type="text" class="form-control input-sm" placeholder="Author" name="author">
-        </div>
-
-        <div class="form-group col-lg-2 col-xs-2 col-sm-2"> 
-          <label>Confirm </label>   
-          <div class="">
-            <label></label>
-              <input type="checkbox" value="1" name="confirm_via_email">  
+                  $m = $m + 15;
+                }
+              ?>
+            </select>
           </div>
-        </div>        
 
-        <div class="form-group col-lg-3 col-xs-3 col-sm-3"> 
+          <div class="form-group">  
+            <input type="number" class="form-control input-sm" placeholder="Guests number" name="guest_number">
+          </div>  
+
+        </div>
+     
+
+        <div class="col-lg-8 col-sm-8 col-xs-6">
+          <h2>Your Contact Details</h2>
+          <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="form-group col-lg-4 col-sm-4 col-xs-12">
+              <select class="form-control input-sm" name="title">
+                <option value="Mr.">Mr.</option>
+                <option value="Mrs.">Mrs.</option>
+                <option value="Dr.">Dr.</option>
+                <option value="Prof.">Prof.</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>First name</label>  
+            <input type="text" class="form-control input-sm" placeholder="e.g. John, Ingrid etc." name="guest_name">
+          </div>
+
+          <div class="form-group">
+            <label>Last name</label>  
+            <input type="text" class="form-control input-sm" placeholder="e.g. Smith, Patel etc." name="guest_last_name">
+          </div>
+
+          <div class="form-group"> 
+            <label>Email</label>
+            <input type="email" class="form-control input-sm" placeholder="e.g. john@booktable.com" name="email">
+          </div>
+
+          <div class="form-group col-lg-8 col-sm-8">
+            <label for="table_standard_seats">Phone</label>
+            <div class="input-group">
+              <span class="input-group-addon">44</span>
+              <input type="tel" name="phone" class="form-control" placeholder="e.g. 0700000 00000">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4 col-sm-4" style="margin-top:20px">
+            <div class="col-lg-offset-2 col-lg-10">
+              <div class="checkbox i-checks">
+                <label>
+                  <input type="checkbox" checked="">Remember me
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+     
+
+        <div class="form-group" style="float:right"> 
           <label></label>   
           <div class="">
-              <button type="submit" id="save_reservation" class="btn btn-primary btn-sm" style="margin-top: 20px;">Save changes</button>  
+              <button type="submit" id="save_reservation" class="btn btn-default btn-sm" style="margin-top: 20px;">Book Table</button>  
           </div>
         </div>
 

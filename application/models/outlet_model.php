@@ -46,6 +46,7 @@
 			foreach ($query as $row) {
 				$t=array();
 				$t['table_id'] 	                  = $row['id'];
+				$t['table_name'] 	              = $row['name'];
 				$t['table_seats_standart_number'] = $row['seats_standart_number'];
 				$t['table_seats_max_number']      = $row['seats_max_number'];
 				$t['table_combinable']            = $row['combinable'];
@@ -82,6 +83,7 @@
 			foreach ($tables as $row) {
 				$t=array();
 				$t['table_id'] 	                  = $row['id'];
+				$t['table_name'] 	              = $row['name'];
 				$t['table_seats_standart_number'] = $row['seats_standart_number'];
 				$t['table_seats_max_number']      = $row['seats_max_number'];
 				$t['table_combinable']            = $row['combinable'];
@@ -144,7 +146,7 @@
  				}
  			} 			
 			
-			$keys   = array("id", "seats_standart_number", "seats_max_number",  "location", "combinable", "outlet_id");			
+			$keys   = array("id", "name", "seats_standart_number", "seats_max_number",  "location", "combinable", "outlet_id");			
 			$duplicates = array();
 			for($i = 1; $i < count($keys); $i++) {
 				$str = $keys[$i].'=VALUES('. $keys[$i] . ')';
@@ -173,6 +175,7 @@
 			}	
  			
  			$query = "INSERT INTO tables (".implode(',',$keys).") VALUES".implode(',', $results)."  ON DUPLICATE KEY UPDATE ".implode(',', $duplicates);
+
  			$this->db->query($query);
  		}
 

@@ -49,6 +49,7 @@
 				$e['id']           = $row['id'];
 				$e['text']         = $row['title']." ".$row['guest_name']." (".$row['guest_number'].")";
 				$e['guest_name']   = $row['guest_name'];
+				$e['guest_last_name'] = $row['guest_last_name'];
 				$e['title']        = $row['title'];
 				$e['guest_number'] = $row['guest_number'];
 				$e['guest_type']   = $row['guest_type'];
@@ -58,6 +59,10 @@
 				$e['author']       = $row['author'];
 				$e['status']       = $row['status'];
 		   		$e['confirm_via_email'] = $row['confirm_via_email'];
+		   		$e['provisional']  = $row['provisional'];
+		   		$e['comment']      = $row['comment'];
+		   		$e['expiery_date'] = $row['expiery_date'];
+		   		$e['WB']           = $row['WB'];
 				$e['start']        = $row['start'];
 				$e['end']          = $row['end'];
 				$e['resource']     = $row['resource'];
@@ -81,7 +86,7 @@
 			$last_id=$this->db->insert_id();
 
 			if ($data['confirm_via_email'] === 1) {
-				$this->send_confirmation($data['email'], $data['guest_name']);
+				$this->send_confirmation($data);
 			}
 
 			$response=array();
@@ -210,17 +215,80 @@
 			$response['message'] = 'Reservation updated';
 		}
 
-		private function send_confirmation($address, $guest_name) {
+		private function send_confirmation($data) {
 			$this->email->from('booking@system.com', 'Booking System');
-			$this->email->to($address); 
-			$this->email->subject('Reservation confirmation');
+			$this->email->to($data['email']); 
+			
+			$query = $this->db->query('SELECT * FROM email WHERE language="'.$data['language'].'"');
+			$query = $query->row_array();
 
-			$data['guest_name'] = $guest_name;
+			$search = array(
+				'<firstName>',
+				'<lastName>',
+				'<title>',
+				'<number>',
+				'<tables>',
+				'<status>',
+				'<email>',
+				'<phone>',
+				'<author>',
+				'<outletID>',
+				'<type>',
+				'<provisional>',
+				'<expieryDate>',
+				'<WB>',
+				'<start>',
+				'<end>',
+				'<language>'
+			);
+
+			$replace = array(
+				$data['guest_name'],
+				$data['guest_last_name'],
+				$data['title'],
+				$data['guest_number'],
+				$data['resource'],
+				$data['status'],
+				$data['email'],
+				$data['phone'],
+				$data['author'],
+				$data['outlet_id'],
+				$data['guest_type'],
+				$data['provisional'],
+				$data['expiery_date'],
+				$data['WB'],
+				$data['start'],
+				$data['end'],
+				$data['language']
+			);
+
+			foreach ($query as $key => $value) {
+				$data['email_template'][$key] = str_replace($search, $replace, $value);	
+			}
+
+			$this->email->subject($data['email_template']['subject']);
+			
 			$message = $this->load->view('email_template', $data, TRUE);
 			$this->email->message($message);	
 
 			$this->email->send();
 
+		}
+
+
+		public function autocomplete() {
+			$query = $this->db->query('select 
+				(SELECT group_concat(DISTINCT guest_name) FROM reservations) as guest_name,
+				(SELECT group_concat(DISTINCT email) FROM reservations) as email,
+				(SELECT group_concat(DISTINCT phone) FROM reservations) as phone');
+			$query = $query->row_array();
+
+			$arr = array();
+			$arr['emails'] = explode(",", $query['email']);
+			$arr['names'] = explode(",", $query['guest_name']);
+			$arr['phones'] = explode(",", $query['phone']);
+
+			return $arr;
 		}
 
 	}

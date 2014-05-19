@@ -1,10 +1,13 @@
 <section class="row m-b-md"></section>
 
 	<ul class="nav nav-tabs settings_tabs">
-		<li><a href="<?php echo(URL.'outlet'); ?>">Outlet</a></li>
-		<li><a href="<?php echo(URL.'user'); ?>">Users</a></li>
-		<li class="active"><a href="<?php echo(URL.'holiday'); ?>">Holidays</a></li>
-		<li><a href="<?php echo(URL.'email'); ?>">Email</a></li>
+		<li><a href="<?php echo(URL.'outlet'); ?>"><?php echo _outlets ?></a></li>
+		<li><a href="<?php echo(URL.'user'); ?>"><?php echo _users ?></a></li>
+		<li class="active"><a href="<?php echo(URL.'holiday'); ?>"><?php echo _holidays ?></a></li>
+		<li><a href="<?php echo(URL.'email'); ?>"><?php echo _email ?></a></li>
+		<?php if($this->session->userdata('user_role') === "1") { ?>
+		<li><a href="<?php echo(URL.'general'); ?>"><?php echo _general ?></a></li>
+		<?php } ?>
 	</ul>
 
 	<div id="_settings" class="settings">
@@ -12,23 +15,23 @@
 			<form id="new_holiday" class="col-lg-12" method="post" action="<?php echo(URL.'holiday/create/'); ?>">
 				<div class="crud">
 					<input type="submit" class="save_holiday btn btn-primary btn-sm" value="Save" />
-					<a type="button" class="add_holiday btn btn-success btn-sm">Add</a>					
-					<a class="back_button btn btn-default btn-sm" href="<?php echo URL.'welcome'; ?>">Back</a>
+					<a type="button" class="add_holiday btn btn-success btn-sm"><?php echo _add; ?></a>					
+					<a class="back_button btn btn-default btn-sm" href="<?php echo URL.'welcome'; ?>"><?php echo _back; ?></a>
 				</div>
 			</form>
-			<h3 class="m-b-xs text-black">Existing holidays</h3>
+			<h3 class="m-b-xs text-black"><?php echo _existing_holidays; ?></h3>
 		</div>
 		<div class="settings_content table-responsive">
 			<table class="table table-striped b-t b-light" id="tableEdit">
 				<thead>
 					<tr>
 						<th class="th-sortable" data-toggle="class" width="30">#</th>						
-						<th class="th-sortable" data-toggle="class">Name</th>
-						<th class="th-sortable" data-toggle="class">Start</th>					
-						<th class="th-sortable" data-toggle="class">End</th>						
-						<th class="th-sortable" data-toggle="class">Message</th>
-						<th width="30">Edit</th>									
-						<th width="30">Delete</th>
+						<th class="th-sortable" data-toggle="class"><?php echo _name; ?></th>
+						<th class="th-sortable" data-toggle="class"><?php echo _start; ?></th>					
+						<th class="th-sortable" data-toggle="class"><?php echo _end; ?></th>						
+						<th class="th-sortable" data-toggle="class"><?php echo _message; ?></th>
+						<th width="30"><?php echo _edit; ?></th>									
+						<th width="30"><?php echo _delete; ?></th>
 					</tr>
                     </thead>
                     <tbody>
@@ -53,5 +56,30 @@
 		</div>
 	</div>
 
-
+	<script>
+		var holiday = '';
+		holiday += '<div class="col-lg-12 col-xs-12 col-sm-12 form-group">';
+			holiday += '<input name="id[]" type="hidden" />';
+			holiday += '<div class="col-lg-2 col-xs-4 col-sm-4 form-group">';
+				holiday += '<label for="name"><?php echo _name; ?></label>';
+				holiday += '<input name="name[]" type="text" class="form-control">';
+			holiday += '</div>';
+			holiday += '<div class="col-lg-2 col-xs-4 col-sm-4 form-group">';
+				holiday += '<label for="start"><?php echo _start; ?></label>';
+				holiday += '<input name="start[]" class="form-control holiday_start">';
+			holiday += '</div>';
+			holiday += '<div class="col-lg-2 col-xs-4 col-sm-4 form-group">';
+				holiday += '<label ><?php echo _end; ?></label>';
+				holiday += '<input name="end[]" class="form-control holiday_end">';
+			holiday += '</div>';
+			holiday += '<div class="col-lg-4 col-xs-8 col-sm-8 form-group">';
+				holiday += '<label for="message"><?php echo _message; ?></label>';
+				holiday += '<input name="message[]" type="text" class="form-control">';
+			holiday += '</div>';
+			holiday += '<div class="col-lg-2 col-xs-4 col-sm-4 form-group">';
+				holiday += '<label class="control-label"><?php echo _delete; ?></label>';
+				holiday += '<br><button class="remove_holiday btn btn-danger" type="button"><i class="fa fa-minus"></i></button>';
+			holiday += '</div>';
+		holiday += '</div>';
+	</script>
 	<script src="<?php echo(JS.'holiday/holiday_edit_new.js'); ?>"></script>

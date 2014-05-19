@@ -24,5 +24,14 @@
 			$this->db->where('concert_date', substr($data['date'], 0, 10));
 			$this->db->update('info');
 		}
+
+		public function add_concert($data) {
+			$this->db->insert('info', $data);
+		}		
+
+		public function update_concert($data) {
+			$this->db->where('concert_date', $data['concert_date']);
+			$this->db->update('info', $data);
+		}
 	}
 ?>

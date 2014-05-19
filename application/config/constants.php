@@ -17,7 +17,8 @@ define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
-
+error_reporting(E_ALL);
+ ini_set('display_errors', 1);
 /*
 |--------------------------------------------------------------------------
 | File Stream Modes
@@ -35,12 +36,17 @@ define('FOPEN_WRITE_CREATE',					'ab');
 define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
-define('URL','http://localhost/booking-system/');
+
+//define('URL','http://www.redtable.dev/');
+
+define('URL','http://localhost/redtable/');
+
 define('IMG',URL.'media/img/');
 define('CSS',URL.'media/css/');
 define('JS',URL.'media/js/');
 define('AVATAR', URL.'media/img/avatars/');
 define('AVATARPATH', FCPATH.'media\img\avatars');
+define('LOGOPATH', FCPATH.'media\img\logo');
 
 
 /* End of file constants.php */

@@ -298,11 +298,15 @@ button.ui-button::-moz-focus-inner {
 	padding: 0;
 }
 .ui-datepicker {
-	width: 17em;
+	width: 22em;
 	padding: .2em .2em 0;
 	display: none;
-	top:50 !important;
-	left:80 !important;
+	z-index: 10000 !important;
+	top:50;
+	left:80;
+}
+.ui-datepicker td{
+	font-size: 18pt;
 }
 .ui-datepicker .ui-datepicker-header {
 	position: relative;

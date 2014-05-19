@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title><?php echo $title; ?> | MyTable</title>
+		<title><?php echo $title; ?> | REDTable</title>
 		 <!--  Theme Styles  -->
     <link rel="stylesheet" href="<?php echo(CSS.'theme/bootstrap.css'); ?>" type="text/css" />
 		<link rel="stylesheet" href="<?php echo(CSS.'theme/animate.css'); ?>" type="text/css" />
@@ -61,22 +61,31 @@
 
   <body style="background: transparent;">
 	   <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">       
-      <div class="navbar-header aside-md dk nav-header-custom" >       
+      
+      <div class="navbar-header aside-md dk hidden-xs nav-header-custom logo_container" >
+        <a href="<?php echo URL.'welcome'; ?>" class="logo">
+          <img src="<?php echo URL.'media/img/logo/'.$settings['logo']; ?>">
+        </a>
+      </div>
+
+      <div class="navbar-header aside-md dk nav-header-custom" >
+
         <a href="#"  class="navbar-brand" id="timesheet_calendar" data-intro='Here you can select date for showing reservations scheduler' data-step='5' data-position='bottom'>
           <input type="hidden" id="main_calendar" />         
           <!-- <img src="<?php //echo(JS.'theme/images/logo.png'); ?>" class="m-r-sm" alt="scale"> -->
           <i class="fa fa-calendar"></i>
-          <span class="hidden-nav-xs">Calendar</span>
+          <span class="hidden-nav-xs"><?php echo _calendar ?></span>
         </a>
         
       </div>
 
       <div class="navbar-header aside-md dk nav-header-custom" >
-      	<a href="welcome" class="navbar-brand" data-intro='This onen switch reservations calendar to today date...' data-step='6' data-position='bottom'>
+      	<a href="<?php echo URL.'welcome'; ?>" class="navbar-brand" data-intro='This onen switch reservations calendar to today date...' data-step='6' data-position='bottom'>
  			     <i class="i i-clock2"></i>
-         	 <span class="hidden-nav-xs">Today</span>
+         	 <span class="hidden-nav-xs"><?php echo _today ?></span>
       	</a>
       </div>
+
       <a class="btn btn-link visible-xs custom-header-btns" data-toggle="class:nav-off-screen" data-target="#nav">
           <i class="fa fa-bars"></i>
       </a>
@@ -89,7 +98,7 @@
             <span class="input-group-btn">
               <button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button>
             </span>
-            <input type="text" class="search_text form-control input-sm no-border" placeholder="Search apps, projects...">            
+            <input type="text" class="search_text form-control input-sm no-border" placeholder="<?php echo _search_reservations ?>">            
           </div>
         </div>
       </form>
@@ -112,13 +121,13 @@
                     <img src="<?php echo (AVATAR.$this->session->userdata('user_avatar')); ?>" alt="..." class="img-circle">
                   </span>
                   <span class="media-body block m-b-none">
-                    Personal settings<br>
+                    <?php echo _personal_settings ?><br>
                     <!-- <small class="text-muted">10 minutes ago</small> -->
                   </span>
                 </a>
                 <a href="<?php echo base_url(); ?>" class="media list-group-item">
                   <span class="media-body block m-b-none">
-                   Logout<br>
+                   <?php echo _logout ?><br>
                     <!-- <small class="text-muted">1 hour ago</small> -->
                   </span>
                 </a>
@@ -165,19 +174,20 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="myModalLabel">Search Results</h4>
+                  <h4 class="modal-title" id="myModalLabel"><?php echo _search_results ?></h4>
                 </div>
                 <div class="modal-body"> 
                     <table class="table table-striped b-t b-light" id="search_results_table">
                       <thead>
                         <tr>
                           <th class="th-sortable" data-toggle="class">#</th>
-                          <th class="th-sortable" data-toggle="class">Name</th>          
-                          <th class="th-sortable" data-toggle="class">Email</th>            
-                          <th class="th-sortable" data-toggle="class">Phone</th>           
-                          <th class="th-sortable" data-toggle="class">Guest Number</th>           
-                          <th class="th-sortable" data-toggle="class">Resarvation Start</th>
-                          <th class="th-sortable" data-toggle="class">Resarvation End</th>
+                          <th class="th-sortable" data-toggle="class"><?php echo _name ?></th>          
+                          <th class="th-sortable" data-toggle="class"><?php echo _email ?></th>            
+                          <th class="th-sortable" data-toggle="class"><?php echo _phone ?></th>           
+                          <th class="th-sortable" data-toggle="class"><?php echo _guests ?></th>           
+                          <th class="th-sortable" data-toggle="class"><?php echo _start ?></th>
+                          <th class="th-sortable" data-toggle="class"><?php echo _end ?></th>
+                          <th class="th-sortable" data-toggle="class"><?php echo _view ?></th>
                         </tr>
                        </thead>
                         <tbody>
@@ -185,26 +195,28 @@
                     </table>               
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                  
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo _close ?></button>                  
                 </div>
               </div>
             </div>
           </div>
     
     
-<!-- Concert Modal -->
+          <!-- Concert Modal -->
           <div class="modal fade" id="concert_modal" tabindex="-1" role="dialog"  aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="myModalLabel">Concert Details</h4>
+                  <h4 class="modal-title" id="myModalLabel"><?php echo _concert_details ?></h4>
                 </div>
-                <div class="modal-body"> 
+                <div class="modal-body" style="height: 250px;"> 
                              
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                  
+                  <button type="button" class="btn btn-success edit_concert"><?php echo _edit ?></button>                         
+                  <button type="button" class="btn btn-primary save_concert" style="display:none"><?php echo _save ?></button>                         
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo _close ?></button>                  
                 </div>
               </div>
             </div>

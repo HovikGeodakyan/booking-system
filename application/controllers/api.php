@@ -5,6 +5,7 @@ class Api extends CI_Controller {
 	public function __construct() {			
 			parent::__construct();			
 			$this->load->model('api_model');
+			$this->load->model('outlet_model');
 	}
 
 	public function freeTables () {
@@ -27,7 +28,7 @@ class Api extends CI_Controller {
 			var_dump($output);
 			// return json_encode($output['errors']);
 		} else {
-			$output['status'] = 'Sucsess';
+			$output['status'] = 'Success';
 			$output['results'] = $this->api_model->getFreeTables($data['outletID'], $data['date']);			
 		}		
 		print '<pre>';
@@ -38,9 +39,6 @@ class Api extends CI_Controller {
 	public function reserveTable() { 
 		$data = $this->input->get();
 
-		if(!isset($data['outlet_id'])) {
-			array_push( $output['errors'] ,'You must specify outletID.'); 	
-		}
 		if(!isset($data['date'])) {
 			array_push( $output['errors'] ,'You must enter a proper date.'); 	
 		}
@@ -53,6 +51,9 @@ class Api extends CI_Controller {
 		if(!isset($data['guest_name'])) {
 			array_push( $output['errors'] ,'You must enter a name for the guest.'); 	
 		}
+
+		$data['outlet_id'] = $this->outlet_model->get_active_outlet();
+
 		$output = [];
 		$output['errors'] = $this->api_model->reserveTable($data);
 

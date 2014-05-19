@@ -1,8 +1,8 @@
 
 $(document).ready(function(){
 
-	var holiday = '<div class="col-lg-12 col-xs-12 col-sm-12 form-group"><input name="holiday_id[]" type="hidden" /><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="holiday_name">Name</label><input name="holiday_name[]" type="text" class="form-control"></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="holiday_start">Start</label><input name="holiday_start[]" type="date" class="form-control"></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="holiday">End</label><input name="holiday_end[]" type="date" class="form-control"></div><div class="col-lg-4 col-xs-8 col-sm-8 form-group"><label for="holiday_message">Message</label><input name="holiday_message[]" type="text" class="form-control"></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label class="control-label">Remove the holiday</label><br><button class="remove_holiday btn btn-danger" type="button"><i class="fa fa-minus"></i></button></div></div>'
-	var table   = '<div class="form-group table_box col-lg-12 col-xs-12 col-sm-12"><input type="hidden" name="table_id[]" /><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="table_standard_seats">Standard number of seats</label><input name="table_seats_standart_number[]" id="table_standard_seats" type="number" class="form-control"></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label for="table_max_seats">Maximum number of seats</label><input name="table_seats_max_number[]" id="table_max_seats" type="number" class="form-control"></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label class="control-label">Combinable</label><div><label class="switch"><input name="table_combinable[]" type="checkbox" checked="checked" value="1"><span></span></label></div></div><div class="col-lg-4 col-xs-8 col-sm-8 form-group"><label>Location</label><select name="table_location[]" class="form-control"><option value="1">Window</option><option value="2">Middle</option><option value="3">Back</option></select></div><div class="col-lg-2 col-xs-4 col-sm-4 form-group"><label class="control-label">Remove the table</label><br><button class="btn btn-danger remove_table" type="button"><i class="fa fa-minus"></i></button></div></div>';
+	
+	
 	var old = 0;
 	
 	$("#add_table").click(function() {
@@ -23,6 +23,8 @@ $(document).ready(function(){
 	$("#add_holiday").click(function(){
 		$("#holiday-container").append(holiday);
 		$( this ).appendTo( "#holiday-container" );
+		$('.holiday_start').datepicker({ dateFormat: 'yy-mm-dd'});
+		$('.holiday_end').datepicker({ dateFormat: 'yy-mm-dd'});
 	});
 
 	$(document).on("click", ".remove_holiday", function(event){
@@ -30,4 +32,91 @@ $(document).ready(function(){
 		holiday.remove();
 	});
 
-})
+	    $('.time_dec_button').click(function(e) {
+      var time = $(this).parent().parent().find('input').val();
+      time = decrement(time, "time");
+      $(this).parent().parent().find('input').val(time);
+    });    
+
+    $('.time_inc_button').click(function(e) {
+      var time = $(this).parent().parent().find('input').val();
+      time = increment(time, "time");
+      $(this).parent().parent().find('input').val(time);
+    });    
+
+    $('.number_dec_button').click(function(e) {
+      var number = $(this).parent().parent().find('input').val();
+      number = decrement(number, "number");
+      $(this).parent().parent().find('input').val(number);
+    });    
+
+    $('.number_inc_button').click(function(e) {
+      var number = $(this).parent().parent().find('input').val();
+      number = increment(number, "number");
+      $(this).parent().parent().find('input').val(number);
+    });
+
+
+});
+
+
+
+function decrement(value, type) {
+  if(type === "time"){
+    var hour = parseInt(value.substr(0, 2));
+    var minute = parseInt(value.substr(3, 2));
+
+    if(minute < 15) {
+      hour--;
+      minute=45;
+    } else if (minute === 15) {
+      minute="00";
+    } else {
+      minute=minute-15;
+    }
+
+    if(hour < 0) {
+      hour = "23";
+      minute = "45";
+    } else if (hour < 10) {
+      hour = "0"+hour;
+    }
+
+    value = hour + ":" + minute;
+  } else if(type === "number") {
+    value = parseInt(value);
+    if(value !== 0){
+      value--;
+    }
+  }
+  return value;
+}
+
+
+
+function increment(value, type) {
+  if(type === "time"){
+    var hour = parseInt(value.substr(0, 2));
+    var minute = parseInt(value.substr(3, 2));
+
+    if(minute >= 45) {
+      hour++;
+      minute="00";
+    } else {
+      minute=minute+15;
+    }
+
+    if(hour === 24) {
+      hour = "00";
+      minute = "00";
+    } else if (hour < 10) {
+      hour = "0"+hour;
+    }
+
+    value = hour + ":" + minute;
+  } else if(type === "number") {
+    value = parseInt(value);
+    value++;
+  }
+  return value;
+}

@@ -370,7 +370,7 @@ $config['proxy_ips'] = '';
 
 
 //java script
-$config['javascript_location'] = 'http://localhost/booking-system/media/js/';
+$config['javascript_location'] = '/localhost/media/js/';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

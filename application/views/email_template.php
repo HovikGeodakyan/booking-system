@@ -1,4 +1,5 @@
-<h4>Dear <?php echo $guest_name ?>,</h4>
+<h3><?php echo $email_template['treatment'] ?></h3>
 <p>
-	We are informing you that you have suucesfully made a reservation at BOOKING SYSTEM.
+	<?php echo $email_template['text'] ?> 
 </p>
+<h4 style="float:right"><?php echo $email_template['ps'] ?></h4>
